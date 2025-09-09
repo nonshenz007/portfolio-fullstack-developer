@@ -1,0 +1,68 @@
+name: chaios
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.5
+  intl: ^0.20.2
+  qr_flutter: ^4.1.0
+  pdf: ^3.11.3
+  printing: ^5.14.2
+  http: ^1.5.0
+  share_plus: ^11.0.0
+  url_launcher: ^6.3.2
+  google_fonts: ^6.3.0
+  connectivity_plus: ^6.1.4
+  qr: ^3.0.2
+  fl_chart: ^0.66.2
+  file_picker: ^8.0.6
+  flutter_secure_storage: ^9.2.2
+  local_auth: ^2.3.0
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  sentry_flutter: ^8.5.0
+  cryptography: ^2.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
+  build_runner: ^2.4.13
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - chai os logo 1.png
+    - assets/illustrations/
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#121212"
+  image: "chai os logo 1.png"
+  android_12:
+    image: "chai os logo 1.png"
+    icon_background_color: "#FFFFFF"
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "chai os logo 1.png"
+  min_sdk_android: 26
+
+

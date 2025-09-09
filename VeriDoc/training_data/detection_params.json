@@ -1,0 +1,8 @@
+{
+  "scale_factor": 1.05,
+  "min_neighbors": 3,
+  "min_size": [
+    40,
+    40
+  ]
+}

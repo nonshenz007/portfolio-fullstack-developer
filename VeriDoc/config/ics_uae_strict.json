@@ -1,0 +1,87 @@
+{
+  "id": "ICS-UAE_FAIC_STRICT_v1",
+  "notes": [
+    "Derived from FAIC Personal Photo Specifications + ICAO 9303 conventions.",
+    "All numeric checks are intentionally strict with narrow tolerances.",
+    "If your deployment prints on 35x40mm instead of 35x45mm, keep both aspect options enabled."
+  ],
+  "dimensions": {
+    "acceptable_aspect_ratios": [
+      { "ratio": 0.7778, "tolerance": 0.020, "label": "35x45 mm" },
+      { "ratio": 0.875,  "tolerance": 0.020, "label": "35x40 mm" }
+    ],
+    "pixel_constraints": { "min_shorter_px": 500, "max_longer_px": 3000 },
+    "dpi_min": 300,
+    "color_space": "sRGB"
+  },
+  "geometry": {
+    "head_height_ratio": { "min": 0.68, "max": 0.82 },
+    "eye_level_from_bottom_ratio": { "min": 0.55, "max": 0.70 },
+    "center_tolerance": { "horizontal_pct": 6.0, "vertical_pct": 6.0 },
+    "pose": {
+      "roll_abs_max_deg": 3.0,
+      "yaw_abs_max_deg": 7.0,
+      "pitch_abs_max_deg": 6.0
+    },
+    "frontal_required": true,
+    "single_face_only": true
+  },
+  "background": {
+    "required": "plain_light_coloured",
+    "lab_L_mean_min": 82.0,
+    "lab_L_stddev_max": 9.0,
+    "edge_center_delta_L_max": 14.0,
+    "deltaE00_mean_max": 12.0,
+    "no_pattern_or_texture": true,
+    "no_shadows": true
+  },
+  "quality": {
+    "brightness_L_min": 33.0,
+    "brightness_L_max": 82.0,
+    "contrast_min": 0.16,
+    "saturation_max": 0.70,
+    "blur_laplacian_var_min": 110.0,
+    "noise_stddev_max": 16.0,
+    "pixelation_forbidden": true,
+    "compression_blocking_forbidden": true
+  },
+  "eyes_and_glasses": {
+    "eyes_must_be_visible": true,
+    "occlusion_pct_max": 12.0,
+    "glare_fraction_max": 0.06,
+    "tinted_lenses_forbidden": true,
+    "frame_thickness_pct_of_ipd_max": 7.0
+  },
+  "lighting": {
+    "left_right_L_delta_max": 12.0,
+    "hotspot_glare_area_pct_max": 1.0,
+    "no_redeye": true
+  },
+  "expression_and_content": {
+    "neutral_expression": true,
+    "mouth_closed": true,
+    "no_other_persons": true,
+    "no_objects_or_toys": true,
+    "no_hair_across_eyes": true
+  },
+  "head_covering": {
+    "allowed_for_religious_reasons": true,
+    "must_show_regions": ["chin", "forehead", "left_face_edge", "right_face_edge"]
+  },
+  "autofix_policy": {
+    "max_passes": 3,
+    "order": [
+      "crop_to_head_height",
+      "adjust_eye_level",
+      "center_face",
+      "normalize_background",
+      "exposure_and_contrast"
+    ],
+    "background_normalization": {
+      "mode": "conservative",
+      "target_L": 92.0,
+      "max_delta_per_pass": 6.0
+    },
+    "sharpening_allowed": false
+  }
+}

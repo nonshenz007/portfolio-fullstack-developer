@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Cache npm dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+
+    - name: Check Python syntax (LedgerFlow)
+      run: |
+        if [ -f "LedgerFlow ⚠️/requirements.txt" ]; then
+          cd "LedgerFlow ⚠️"
+          python -m py_compile app.py
+        fi
+
+    - name: Check Node.js syntax (TripChoice)
+      run: |
+        if [ -f "tripchoice/package.json" ]; then
+          cd tripchoice
+          npm install --frozen-lockfile
+          npm run build --if-present
+        fi
+
+    - name: Validate README
+      run: |
+        if [ -f "README.md" ]; then
+          echo "✅ README.md exists"
+        else
+          echo "❌ README.md missing"
+          exit 1
+        fi
+
+    - name: Check for large files
+      run: |
+        # Warn about files larger than 50MB
+        find . -type f -size +50M -not -path "./.git/*" | while read file; do
+          echo "⚠️  Large file detected: $file"
+        done
+
+    - name: Validate project structure
+      run: |
+        # Check for essential files in main projects
+        projects=("chaio" "tripchoice" "LedgerFlow ⚠️")
+        for project in "${projects[@]}"; do
+          if [ -d "$project" ]; then
+            echo "✅ Project $project exists"
+          fi
+        done

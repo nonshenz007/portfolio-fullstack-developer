@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "output": {
+    "width_px": 945,
+    "height_px": 1417,
+    "dpi": 300,
+    "jpeg_quality": 92,
+    "max_kb": 200
+  },
+  "face": {
+    "min_ratio": 0.62,
+    "max_ratio": 0.69,
+    "eye_line_pct_from_top": [0.33, 0.36]
+  },
+  "background": {
+    "rgb_target": [255, 255, 255],
+    "tolerance": 10,
+    "uniformity_sigma_max": 4.0
+  },
+  "sharpness": {"lap_var_min": 120.0},
+  "brightness": {"mean_min": 110, "mean_max": 200},
+  "contrast": {"min": 0.25, "max": 0.75},
+  "exif_strip": true
+}
+

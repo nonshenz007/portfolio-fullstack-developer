@@ -1,0 +1,34 @@
+# Essential Core Dependencies for VeriDoc
+
+# Core image processing and computer vision
+numpy>=1.24.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# GUI framework
+PySide6>=6.6.0
+
+# Configuration and data handling
+pyyaml>=6.0
+jsonschema>=4.17.0
+
+# Hot-reloading
+watchdog>=2.3.0
+
+# For building the application
+pyinstaller>=6.0.0
+
+# Testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0
+psutil>=5.9.0
+jsonpath-ng>=1.5.3
+hypothesis>=6.58.0
+mediapipe>=0.10.0
+numba>=0.57.0
+scikit-learn>=1.3.0
+
+
+# Development tools (optional)
+black>=23.0.0
+flake8>=6.0.0

@@ -1,0 +1,191 @@
+/*
+ * Modern Professional Theme for VeriDoc ICS
+ * Clean, minimalist design with beautiful gradients
+ */
+
+/* Global Styling */
+QWidget {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    selection-background-color: #007acc;
+    selection-color: #ffffff;
+}
+
+QMainWindow {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0f0f0f, stop:0.5 #1a1a1a, stop:1 #151515);
+}
+
+/* Modern Buttons */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #4a4a4a, stop:1 #3a3a3a);
+    border: 1px solid #555555;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-weight: 500;
+    min-height: 16px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #5a5a5a, stop:1 #4a4a4a);
+    border-color: #666666;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3a3a3a, stop:1 #2a2a2a);
+    border-color: #444444;
+}
+
+QPushButton:disabled {
+    background: #2a2a2a;
+    color: #666666;
+    border-color: #333333;
+}
+
+/* Beautiful List Widgets */
+QListWidget {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+    outline: none;
+}
+
+QListWidget::item {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 2px 0;
+    color: #ffffff;
+}
+
+QListWidget::item:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(0, 122, 204, 0.2), stop:1 rgba(0, 90, 158, 0.2));
+}
+
+QListWidget::item:selected {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #007acc, stop:1 #005a9e);
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Modern Graphics View */
+QGraphicsView {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0a0a0a, stop:1 #1a1a1a);
+    border: 2px solid rgba(0, 122, 204, 0.3);
+    border-radius: 12px;
+    outline: none;
+}
+
+/* Clean Progress Bars */
+QProgressBar {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #00ff88, stop:1 #00cc6a);
+    border-radius: 7px;
+    margin: 1px;
+}
+
+/* Beautiful Labels */
+QLabel {
+    color: #ffffff;
+    background: transparent;
+}
+
+/* Modern Input Fields */
+QLineEdit, QTextEdit {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #ffffff;
+    selection-background-color: #007acc;
+}
+
+QLineEdit:focus, QTextEdit:focus {
+    border-color: #007acc;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Group Boxes */
+QGroupBox {
+    font-weight: 600;
+    border: 2px solid rgba(0, 122, 204, 0.3);
+    border-radius: 12px;
+    margin: 12px 0;
+    padding-top: 20px;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 15px;
+    padding: 5px 15px;
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #007acc, stop:1 #005a9e);
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Status Bar */
+QStatusBar {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #0f0f0f, stop:1 #1a1a1a);
+    border-top: 1px solid rgba(0, 122, 204, 0.3);
+    color: #ffffff;
+    padding: 5px;
+    font-weight: 500;
+}
+
+/* Scrollbars */
+QScrollBar:vertical {
+    background: rgba(0, 0, 0, 0.2);
+    width: 12px;
+    border-radius: 6px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+/* Tooltips */
+QToolTip {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #2a2a2a, stop:1 #3a3a3a);
+    border: 1px solid #555555;
+    border-radius: 6px;
+    padding: 8px;
+    color: #ffffff;
+    font-weight: 500;
+}

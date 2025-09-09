@@ -1,0 +1,274 @@
+name: Comprehensive Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+        exclude:
+          # Reduce matrix size for faster CI
+          - os: windows-latest
+            python-version: '3.8'
+          - os: macos-latest
+            python-version: '3.8'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install system dependencies (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev libgomp1
+
+    - name: Install system dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install libomp
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-xdist pytest-timeout pytest-html pytest-json-report
+        pip install coverage[toml]
+
+    - name: Download AI models (if needed)
+      run: |
+        python -c "
+        import os
+        from pathlib import Path
+        models_dir = Path('models')
+        models_dir.mkdir(exist_ok=True)
+        # Create dummy model files for testing
+        (models_dir / 'yolov8n-face.pt').touch()
+        (models_dir / 'isnet-general-use.onnx').touch()
+        "
+
+    - name: Run quick tests
+      run: |
+        python run_tests.py --quick
+      timeout-minutes: 10
+
+    - name: Run unit tests
+      run: |
+        python run_tests.py --categories unit
+      timeout-minutes: 15
+
+    - name: Run integration tests
+      run: |
+        python run_tests.py --categories integration
+      timeout-minutes: 20
+
+    - name: Run compliance tests
+      run: |
+        python run_tests.py --categories compliance
+      timeout-minutes: 15
+
+    - name: Run performance tests
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+      run: |
+        python run_tests.py --performance
+      timeout-minutes: 30
+
+    - name: Run accuracy validation tests
+      run: |
+        python run_tests.py --categories accuracy
+      timeout-minutes: 20
+
+    - name: Run edge case tests
+      run: |
+        python run_tests.py --categories edge_cases
+      timeout-minutes: 25
+
+    - name: Generate test report
+      if: always()
+      run: |
+        python run_tests.py --report
+      timeout-minutes: 30
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}-${{ matrix.python-version }}
+        path: |
+          junit.xml
+          test_report.html
+          test_report.json
+          htmlcov/
+          coverage.xml
+          coverage.json
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always() && matrix.os == 'ubuntu-latest'
+      with:
+        files: junit.xml
+        check_name: "Test Results (${{ matrix.os }}, Python ${{ matrix.python-version }})"
+
+  stress-test:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'schedule' || contains(github.event.head_commit.message, '[stress-test]')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-xdist pytest-timeout
+
+    - name: Run stress tests
+      run: |
+        python run_tests.py --stress
+      timeout-minutes: 60
+
+    - name: Upload stress test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: stress-test-results
+        path: |
+          junit.xml
+          test_report.html
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install security tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety
+
+    - name: Run Bandit security scan
+      run: |
+        bandit -r . -f json -o bandit-report.json || true
+
+    - name: Run Safety check
+      run: |
+        safety check --json --output safety-report.json || true
+
+    - name: Upload security scan results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-scan-results
+        path: |
+          bandit-report.json
+          safety-report.json
+
+  performance-benchmark:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'schedule' || contains(github.event.head_commit.message, '[benchmark]')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-benchmark
+
+    - name: Run performance benchmarks
+      run: |
+        python -m pytest tests/test_performance_benchmarks.py --benchmark-json=benchmark.json
+      timeout-minutes: 45
+
+    - name: Store benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      if: github.event_name != 'pull_request'
+      with:
+        tool: 'pytest'
+        output-file-path: benchmark.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: benchmark-results
+        path: benchmark.json
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [test, stress-test, security-scan, performance-benchmark]
+    if: always() && (github.event_name == 'push' || github.event_name == 'schedule')
+    
+    steps:
+    - name: Notify on success
+      if: needs.test.result == 'success'
+      run: |
+        echo "✅ All tests passed successfully!"
+        # Add Slack/Discord notification here if needed
+
+    - name: Notify on failure
+      if: needs.test.result == 'failure'
+      run: |
+        echo "❌ Tests failed!"
+        # Add Slack/Discord notification here if needed
+        exit 1

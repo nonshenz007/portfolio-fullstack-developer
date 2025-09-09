@@ -1,0 +1,28 @@
+logging:
+  backup_count: 5
+  file: logs/veridoc.log
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  level: INFO
+  max_size_mb: 10
+models:
+  background_model: u2net
+  download_timeout: 300
+  face_detection_model: yolov8n-face
+  face_mesh_model: mediapipe-face-mesh
+  model_cache_dir: models
+processing:
+  batch_size: 1
+  confidence_threshold: 0.5
+  debug_mode: false
+  enable_auto_fix: true
+  max_image_size: 2048
+  quality_threshold: 0.7
+  use_gpu: true
+ui:
+  auto_save_results: true
+  export_format: jpg
+  export_quality: 95
+  show_debug_info: false
+  theme: light
+  window_height: 800
+  window_width: 1200

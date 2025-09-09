@@ -1,0 +1,34 @@
+# VeriDoc Core System Settings
+
+processing:
+  max_image_size: 2000  # Maximum image dimension for processing
+  cache_enabled: true   # Enable result caching
+  parallel_processing: false  # Disable parallel processing for reliability
+  timeout_seconds: 30   # Processing timeout
+
+logging:
+  level: INFO          # Logging level (DEBUG, INFO, WARNING, ERROR)
+  file_enabled: true   # Enable file logging
+  console_enabled: true # Enable console logging
+  log_file: "logs/veridoc_core.log"
+
+ui:
+  theme: default       # UI theme
+  show_debug_info: false # Show debug information in UI
+  auto_save_results: true # Automatically save processing results
+
+face_detection:
+  primary_method: opencv_haar  # Primary detection method
+  fallback_method: mediapipe   # Fallback if primary fails
+  confidence_threshold: 0.7    # Minimum confidence for detection
+  max_faces: 1                 # Maximum faces to detect
+
+validation:
+  strict_mode: false   # Enable strict validation mode
+  auto_fix_enabled: true # Enable auto-fix suggestions
+  quality_threshold: 0.8 # Minimum quality score for pass
+
+export:
+  default_format: jpg  # Default export format
+  quality: 95         # Export quality (1-100)
+  preserve_metadata: false # Preserve original metadata

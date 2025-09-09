@@ -1,0 +1,169 @@
+{
+  "version": "auto-py-to-exe-configuration_v1",
+  "pyinstallerOptions": [
+    {
+      "optionDest": "noconfirm",
+      "value": true
+    },
+    {
+      "optionDest": "filenames",
+      "value": "quicktags.py"
+    },
+    {
+      "optionDest": "onefile",
+      "value": true
+    },
+    {
+      "optionDest": "console",
+      "value": true
+    },
+    {
+      "optionDest": "name",
+      "value": "QuickTags"
+    },
+    {
+      "optionDest": "clean_build",
+      "value": true
+    },
+    {
+      "optionDest": "strip",
+      "value": false
+    },
+    {
+      "optionDest": "noupx",
+      "value": false
+    },
+    {
+      "optionDest": "datas",
+      "value": [
+        [
+          "assets/*.*",
+          "assets"
+        ],
+        [
+          "assets/*.ttf",
+          "assets"
+        ],
+        [
+          "assets/*.TTF",
+          "assets"
+        ],
+        [
+          "EmbeddedFont.py",
+          "."
+        ],
+        [
+          "quicktags_config.json",
+          "."
+        ],
+        [
+          "quicktag.db",
+          "."
+        ],
+        [
+          "Quicktags-AutoGeek.ico",
+          "."
+        ],
+        [
+          "Quicktags-AutoGeek.png",
+          "."
+        ],
+        [
+          "temp/fonts/*.*",
+          "temp/fonts"
+        ],
+        [
+          "temp/quicktag_previews/*.*",
+          "temp/quicktag_previews"
+        ],
+        [
+          "temp/quicktag_prints/*.*",
+          "temp/quicktag_prints"
+        ],
+        [
+          "temp/quicktag_reprints/*.*",
+          "temp/quicktag_reprints"
+        ],
+        [
+          "output/*.*",
+          "output"
+        ]
+      ]
+    },
+    {
+      "optionDest": "binaries",
+      "value": []
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": [
+        "PIL._tkinter_finder",
+        "PIL.Image",
+        "PIL.ImageDraw",
+        "PIL.ImageFont",
+        "PIL.ImageOps",
+        "barcode",
+        "barcode.writer",
+        "barcode.codex",
+        "barcode.code128",
+        "barcode.ean",
+        "barcode.ean13",
+        "barcode.base",
+        "barcode.errors",
+        "barcode.version",
+        "barcode.upc",
+        "barcode.writer.ImageWriter",
+        "barcode.writer.BaseWriter",
+        "barcode.writer.SVGWriter",
+        "barcode.writer.TextWriter",
+        "openpyxl",
+        "openpyxl.styles",
+        "openpyxl.utils",
+        "openpyxl.cell",
+        "openpyxl.workbook",
+        "openpyxl.worksheet",
+        "PyQt5",
+        "PyQt5.QtPrintSupport",
+        "PyQt5.QtCore",
+        "PyQt5.QtGui",
+        "PyQt5.QtWidgets",
+        "win32print",
+        "win32api",
+        "sys",
+        "os",
+        "traceback",
+        "base64",
+        "io",
+        "BytesIO"
+      ]
+    },
+    {
+      "optionDest": "collect_submodules",
+      "value": [
+        "barcode",
+        "PIL",
+        "PyQt5"
+      ]
+    },
+    {
+      "optionDest": "collect_data",
+      "value": [
+        "barcode",
+        "PIL",
+        "PyQt5",
+        "PIL.Image",
+        "PIL.ImageDraw",
+        "PIL.ImageFont"
+      ]
+    },
+    {
+      "optionDest": "runtime_hooks",
+      "value": []
+    }
+  ],
+  "nonPyinstallerOptions": {
+    "increaseRecursionLimit": true,
+    "outputDirectory": "dist"
+  },
+  "paper_size": "38x25mm"
+}

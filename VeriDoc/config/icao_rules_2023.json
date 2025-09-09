@@ -1,0 +1,246 @@
+{
+  "icao_rules": {
+    "version": "2023.1",
+    "document_reference": "ICAO Doc 9303 Machine Readable Travel Documents",
+    "last_updated": "2023-01-01",
+    "country_variations": {
+      "default": "standard_icao",
+      "supported_variations": ["standard_icao", "us_strict", "eu_enhanced", "uae_specific"]
+    },
+    "glasses_and_head_covers": {
+      "glasses": {
+        "tinted_lenses": {
+          "rule_id": "ICAO.3.2.1",
+          "allowed": false,
+          "detection_threshold": 0.3,
+          "severity": "critical",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.2.1",
+          "description": "Tinted lenses that obscure the eyes are not permitted"
+        },
+        "heavy_frames": {
+          "rule_id": "ICAO.3.2.2",
+          "max_frame_width_ratio": 0.15,
+          "detection_threshold": 0.4,
+          "severity": "major",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.2.2",
+          "description": "Heavy frames that obscure facial features are not permitted"
+        },
+        "glare_reflection": {
+          "rule_id": "ICAO.3.2.3",
+          "max_glare_intensity": 0.2,
+          "detection_method": "highlight_detection",
+          "severity": "major",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.2.3",
+          "description": "Glare or reflections on glasses that obscure the eyes are not permitted"
+        },
+        "prescription_glasses": {
+          "rule_id": "ICAO.3.2.4",
+          "allowed": true,
+          "eye_visibility_requirement": 0.9,
+          "severity": "minor",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.2.4",
+          "description": "Clear prescription glasses are permitted if eyes are clearly visible"
+        }
+      },
+      "head_coverings": {
+        "religious_exception": {
+          "rule_id": "ICAO.3.3.1",
+          "allowed": true,
+          "face_visibility_requirement": 0.85,
+          "severity": "minor",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.3.1",
+          "description": "Religious head coverings are permitted if face is clearly visible"
+        },
+        "non_religious": {
+          "rule_id": "ICAO.3.3.2",
+          "allowed": false,
+          "exceptions": ["medical"],
+          "severity": "critical",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.3.2",
+          "description": "Non-religious head coverings are not permitted except for medical reasons"
+        },
+        "face_coverage": {
+          "rule_id": "ICAO.3.3.3",
+          "min_face_visibility": 0.8,
+          "required_features": ["eyes", "nose", "mouth", "chin"],
+          "severity": "critical",
+          "regulation": "ICAO Doc 9303 Part 3 Section 3.3.3",
+          "description": "Face must be clearly visible from hairline to chin"
+        }
+      }
+    },
+    "expression_and_frame": {
+      "neutral_expression": {
+        "rule_id": "ICAO.4.1.1",
+        "mouth_openness_max": 0.1,
+        "smile_detection_max": 0.2,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 4 Section 1.1",
+        "description": "Subject must have a neutral expression with mouth closed"
+      },
+      "direct_gaze": {
+        "rule_id": "ICAO.4.1.2",
+        "max_gaze_deviation_degrees": 5.0,
+        "eye_contact_requirement": true,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 4 Section 1.2",
+        "description": "Subject must look directly at the camera"
+      },
+      "eyes_open": {
+        "rule_id": "ICAO.4.1.3",
+        "min_eye_openness": 0.7,
+        "both_eyes_required": true,
+        "severity": "critical",
+        "regulation": "ICAO Doc 9303 Part 4 Section 1.3",
+        "description": "Both eyes must be open and clearly visible"
+      },
+      "face_positioning": {
+        "rule_id": "ICAO.4.2.1",
+        "face_height_ratio": [0.70, 0.80],
+        "eye_height_ratio": [0.50, 0.60],
+        "centering_tolerance": 0.05,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 4 Section 2.1",
+        "description": "Face must be properly positioned and centered in the frame"
+      },
+      "head_rotation": {
+        "rule_id": "ICAO.4.2.2",
+        "max_rotation_degrees": 5.0,
+        "frontal_pose_required": true,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 4 Section 2.2",
+        "description": "Head must be straight and facing forward"
+      }
+    },
+    "photo_quality": {
+      "sharpness": {
+        "rule_id": "ICAO.5.1.1",
+        "min_laplacian_variance": 100,
+        "min_sobel_variance": 50,
+        "min_fft_sharpness": 0.3,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 5 Section 1.1",
+        "description": "Photo must be sharp and in focus"
+      },
+      "lighting": {
+        "rule_id": "ICAO.5.2.1",
+        "min_brightness": 80,
+        "max_brightness": 200,
+        "max_shadow_intensity": 0.3,
+        "even_lighting_requirement": 0.8,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 5 Section 2.1",
+        "description": "Photo must have even lighting without shadows"
+      },
+      "contrast": {
+        "rule_id": "ICAO.5.2.2",
+        "min_contrast_ratio": 0.6,
+        "max_contrast_ratio": 0.9,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 5 Section 2.2",
+        "description": "Photo must have appropriate contrast"
+      },
+      "color_accuracy": {
+        "rule_id": "ICAO.5.3.1",
+        "max_color_cast": 15,
+        "skin_tone_accuracy_threshold": 0.8,
+        "natural_color_requirement": true,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 5 Section 3.1",
+        "description": "Photo must have natural colors without color cast"
+      },
+      "noise_and_artifacts": {
+        "rule_id": "ICAO.5.4.1",
+        "max_noise_level": 0.1,
+        "max_compression_artifacts": 0.05,
+        "severity": "minor",
+        "regulation": "ICAO Doc 9303 Part 5 Section 4.1",
+        "description": "Photo must be free from excessive noise and compression artifacts"
+      }
+    },
+    "style_and_lighting": {
+      "background": {
+        "rule_id": "ICAO.6.1.1",
+        "required_color": "white",
+        "uniformity_threshold": 0.9,
+        "color_tolerance": 10,
+        "gradient_tolerance": 0.05,
+        "severity": "critical",
+        "regulation": "ICAO Doc 9303 Part 6 Section 1.1",
+        "description": "Background must be plain white and uniform"
+      },
+      "shadows": {
+        "rule_id": "ICAO.6.2.1",
+        "max_shadow_intensity": 0.2,
+        "shadow_detection_method": "gradient_analysis",
+        "face_shadow_tolerance": 0.1,
+        "background_shadow_tolerance": 0.05,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 6 Section 2.1",
+        "description": "Photo must be free from shadows on face and background"
+      },
+      "flash_reflection": {
+        "rule_id": "ICAO.6.3.1",
+        "max_reflection_intensity": 0.15,
+        "detection_method": "specular_highlight",
+        "skin_reflection_tolerance": 0.1,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 6 Section 3.1",
+        "description": "Photo must be free from flash reflections"
+      },
+      "red_eye": {
+        "rule_id": "ICAO.6.4.1",
+        "allowed": false,
+        "detection_threshold": 0.3,
+        "severity": "major",
+        "regulation": "ICAO Doc 9303 Part 6 Section 4.1",
+        "description": "Red-eye effect is not permitted"
+      }
+    },
+    "technical_specifications": {
+      "resolution": {
+        "rule_id": "ICAO.7.1.1",
+        "min_width_pixels": 600,
+        "min_height_pixels": 600,
+        "min_dpi": 300,
+        "max_file_size_mb": 10,
+        "severity": "critical",
+        "regulation": "ICAO Doc 9303 Part 7 Section 1.1",
+        "description": "Photo must meet minimum resolution requirements"
+      },
+      "format": {
+        "rule_id": "ICAO.7.2.1",
+        "allowed_formats": ["JPEG", "PNG"],
+        "color_mode": "RGB",
+        "bit_depth": 24,
+        "severity": "critical",
+        "regulation": "ICAO Doc 9303 Part 7 Section 2.1",
+        "description": "Photo must be in acceptable format"
+      }
+    }
+  },
+  "country_variations": {
+    "us_strict": {
+      "inherits_from": "standard_icao",
+      "overrides": {
+        "glasses_and_head_covers.glasses.prescription_glasses.allowed": false,
+        "expression_and_frame.neutral_expression.smile_detection_max": 0.1,
+        "photo_quality.sharpness.min_laplacian_variance": 150
+      }
+    },
+    "eu_enhanced": {
+      "inherits_from": "standard_icao",
+      "overrides": {
+        "technical_specifications.resolution.min_dpi": 350,
+        "photo_quality.color_accuracy.skin_tone_accuracy_threshold": 0.85
+      }
+    },
+    "uae_specific": {
+      "inherits_from": "standard_icao",
+      "overrides": {
+        "glasses_and_head_covers.head_coverings.religious_exception.face_visibility_requirement": 0.9,
+        "style_and_lighting.background.color_tolerance": 5
+      }
+    }
+  }
+}

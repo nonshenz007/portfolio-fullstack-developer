@@ -1,0 +1,37 @@
+meta:
+  purpose: "Academic study optimization"
+  tone: "calm, encouraging"
+  output_format: "JSON + concise prose"
+  integrity_rules:
+    - "No verbatim assignment writing"
+    - "Provide outlines/examples only"
+    - "Never fabricate citations"
+
+memory_policy:
+  store: ["courses", "syllabi", "exam_dates", "study_sessions", "performance"]
+  dont_store: ["PII", "passwords"]
+  retention:
+    materials: 365d
+    logs: 180d
+
+routing:
+  exam_prediction:
+    keywords: ["predict", "exam pattern", "likely topics", "weightage"]
+    model: "dolphin-2.9-mistral-7b.Q4_K_M.gguf"
+    system_prompt: >
+      Analyze local documents. Provide topic probabilities in JSON.
+      Cite sources by filename/page. Never fabricate data.
+  
+  study_schedule:
+    keywords: ["schedule", "timetable", "plan", "revision"]
+    model: "openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+    system_prompt: >
+      Create feasible study plans based on available time.
+      Output JSON schedule first, then brief summary.
+  
+  research_organize:
+    keywords: ["organize", "outline", "summary", "flashcards"]
+    model: "llama-3-8b-instruct.Q4_K_M.gguf"
+    system_prompt: >
+      Organize materials from Docs/ directory.
+      Propose flashcards with source citations (filename/page).

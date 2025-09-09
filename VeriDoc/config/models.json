@@ -1,0 +1,12 @@
+{
+  "use_ai": {
+    "detector": true,
+    "landmarks": false,
+    "background": true
+  },
+  "detector_onnx": "models/face_detection_yunet_2023mar.onnx",
+  "landmarks_onnx": "",
+  "background_onnx": "models/isnet-general-use.onnx"
+}
+
+

@@ -1,0 +1,6 @@
+auto-py-to-exe==2.42.0
+PyQt5==5.15.9
+Pillow==10.2.0
+python-barcode==0.15.1
+openpyxl==3.1.2
+reportlab==4.1.0 
