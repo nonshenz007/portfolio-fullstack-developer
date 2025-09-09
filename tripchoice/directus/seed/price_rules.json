@@ -1,0 +1,239 @@
+[
+  {
+    "id": "season-peak-winter",
+    "scope": "global",
+    "package": null,
+    "type": "season",
+    "start_date": "2024-12-01",
+    "end_date": "2025-02-28",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season: December to February"
+    }
+  },
+  {
+    "id": "season-peak-summer",
+    "scope": "global",
+    "package": null,
+    "type": "season",
+    "start_date": "2024-06-01",
+    "end_date": "2024-08-31",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season: June to August"
+    }
+  },
+  {
+    "id": "season-low-spring",
+    "scope": "global",
+    "package": null,
+    "type": "season",
+    "start_date": "2024-04-01",
+    "end_date": "2024-05-31",
+    "multiplier": 0.9,
+    "delta": 0,
+    "conditions": {
+      "description": "Low season: April to May"
+    }
+  },
+  {
+    "id": "season-low-autumn",
+    "scope": "global",
+    "package": null,
+    "type": "season",
+    "start_date": "2024-09-01",
+    "end_date": "2024-11-30",
+    "multiplier": 0.9,
+    "delta": 0,
+    "conditions": {
+      "description": "Low season: September to November"
+    }
+  },
+  {
+    "id": "weekend-surcharge",
+    "scope": "global",
+    "package": null,
+    "type": "weekend",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.05,
+    "delta": 0,
+    "conditions": {
+      "description": "Weekend surcharge (Saturday-Sunday)"
+    }
+  },
+  {
+    "id": "origin-mumbai-uplift",
+    "scope": "global",
+    "package": null,
+    "type": "origin",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.08,
+    "delta": 0,
+    "conditions": {
+      "origin_city": "Mumbai",
+      "description": "8% uplift for Mumbai origin"
+    }
+  },
+  {
+    "id": "origin-delhi-uplift",
+    "scope": "global",
+    "package": null,
+    "type": "origin",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.06,
+    "delta": 0,
+    "conditions": {
+      "origin_city": "Delhi",
+      "description": "6% uplift for Delhi origin"
+    }
+  },
+  {
+    "id": "goa-peak-season-extra",
+    "scope": "package",
+    "package": "goa-weekend-001",
+    "type": "custom",
+    "start_date": "2024-12-20",
+    "end_date": "2025-01-05",
+    "multiplier": 1.0,
+    "delta": 800,
+    "conditions": {
+      "description": "Christmas/New Year premium for Goa"
+    }
+  },
+  {
+    "id": "kashmir-winter-discount",
+    "scope": "package",
+    "package": "kashmir-valley-003",
+    "type": "custom",
+    "start_date": "2024-01-01",
+    "end_date": "2024-03-31",
+    "multiplier": 1.0,
+    "delta": -500,
+    "conditions": {
+      "description": "Early season discount for Kashmir"
+    }
+  },
+  {
+    "id": "bali-honeymoon-premium",
+    "scope": "package",
+    "package": "bali-tropical-004",
+    "type": "custom",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.0,
+    "delta": 1500,
+    "conditions": {
+      "description": "Honeymoon premium package",
+      "applies_to": "honeymoon_theme"
+    }
+  },
+  {
+    "id": "jammu-kashmir-season-peak",
+    "scope": "package",
+    "package": "jammu-kashmir-4n4d-007",
+    "type": "season",
+    "start_date": "2024-12-01",
+    "end_date": "2025-02-28",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season pricing for Kashmir"
+    }
+  },
+  {
+    "id": "jammu-kashmir-weekend-surcharge",
+    "scope": "package",
+    "package": "jammu-kashmir-4n4d-007",
+    "type": "weekend",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.05,
+    "delta": 0,
+    "conditions": {
+      "description": "Weekend surcharge for Kashmir"
+    }
+  },
+  {
+    "id": "vietnam-saigon-season-peak",
+    "scope": "package",
+    "package": "vietnam-saigon-4n-008",
+    "type": "season",
+    "start_date": "2024-12-15",
+    "end_date": "2025-01-10",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season pricing for Vietnam"
+    }
+  },
+  {
+    "id": "vietnam-saigon-weekend-surcharge",
+    "scope": "package",
+    "package": "vietnam-saigon-4n-008",
+    "type": "weekend",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.05,
+    "delta": 0,
+    "conditions": {
+      "description": "Weekend surcharge for Vietnam"
+    }
+  },
+  {
+    "id": "dubai-season-peak",
+    "scope": "package",
+    "package": "dubai-city-lights-4d-009",
+    "type": "season",
+    "start_date": "2024-12-20",
+    "end_date": "2025-01-05",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season pricing for Dubai"
+    }
+  },
+  {
+    "id": "dubai-weekend-surcharge",
+    "scope": "package",
+    "package": "dubai-city-lights-4d-009",
+    "type": "weekend",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.05,
+    "delta": 0,
+    "conditions": {
+      "description": "Weekend surcharge for Dubai"
+    }
+  },
+  {
+    "id": "thailand-season-peak",
+    "scope": "package",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "type": "season",
+    "start_date": "2024-12-15",
+    "end_date": "2025-01-10",
+    "multiplier": 1.25,
+    "delta": 0,
+    "conditions": {
+      "description": "Peak season pricing for Thailand"
+    }
+  },
+  {
+    "id": "thailand-weekend-surcharge",
+    "scope": "package",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "type": "weekend",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "multiplier": 1.05,
+    "delta": 0,
+    "conditions": {
+      "description": "Weekend surcharge for Thailand"
+    }
+  }
+]

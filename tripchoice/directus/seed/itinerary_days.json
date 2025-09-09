@@ -1,0 +1,708 @@
+[
+  {
+    "id": "goa-day-1",
+    "package": "goa-weekend-001",
+    "day_number": 1,
+    "title": "Arrival in Goa & Coastal Welcome",
+    "bullets": [
+      "Arrive at Goa International Airport - meet & greet with fresh flower garland",
+      "Private AC transfer to luxury beachfront resort in North Goa (45 minutes)",
+      "Check-in to ocean-view suite with welcome mocktail and traditional Goan cashew cookies",
+      "Afternoon relaxation at pristine Calangute Beach with complimentary beach chairs",
+      "Sunset dolphin watching boat cruise with refreshments (2 hours)",
+      "Evening Portuguese heritage walk through Panaji's colorful Latin Quarter",
+      "Authentic Goan dinner at beachfront restaurant featuring fish curry, bebinca, and feni tasting",
+      "Bonfire evening on the beach with live Konkani music and local dance performance"
+    ]
+  },
+  {
+    "id": "goa-day-2",
+    "package": "goa-weekend-001",
+    "day_number": 2,
+    "title": "North Goa Heritage & Adventure",
+    "bullets": [
+      "Early morning yoga session on the beach followed by healthy breakfast buffet",
+      "Guided tour of UNESCO World Heritage Fort Aguada with lighthouse climb",
+      "Explore vibrant Anjuna Flea Market for local handicrafts, jewelry, and spices",
+      "Thrilling water sports package: jet skiing, parasailing, and banana boat rides",
+      "Traditional Goan cooking class at local family home with lunch",
+      "Visit historic Chapel of St. Catherine and learn about Portuguese colonial history",
+      "Spice plantation tour with elephant interaction and organic spice shopping",
+      "Spectacular sunset viewing at Sinquerim Beach with photography session",
+      "Beachfront candlelight dinner with live Konkani folk music and cultural show"
+    ]
+  },
+  {
+    "id": "goa-day-3",
+    "package": "goa-weekend-001",
+    "day_number": 3,
+    "title": "South Goa & Departure",
+    "bullets": [
+      "Breakfast and check-out",
+      "Day trip to South Goa",
+      "Visit Colva Beach and Benaulim Beach",
+      "Explore Margao market",
+      "Transfer to airport for departure",
+      "End of your Goa weekend getaway"
+    ]
+  },
+  {
+    "id": "kerala-day-1",
+    "package": "kerala-backwaters-002",
+    "day_number": 1,
+    "title": "Arrival in Kochi",
+    "bullets": [
+      "Arrive at Kochi International Airport",
+      "Transfer to your heritage hotel",
+      "Visit the Dutch Cemetery and Jewish Synagogue",
+      "Explore the Chinese Fishing Nets",
+      "Cultural performance at the hotel",
+      "Traditional Kerala dinner"
+    ]
+  },
+  {
+    "id": "kerala-day-2",
+    "package": "kerala-backwaters-002",
+    "day_number": 2,
+    "title": "Alleppey Houseboat Experience",
+    "bullets": [
+      "Transfer to Alleppey (2 hours)",
+      "Board your private houseboat",
+      "Cruise through the backwaters",
+      "Visit local villages and see coir making",
+      "Fresh seafood lunch on board",
+      "Sunset cruise and overnight stay on houseboat"
+    ]
+  },
+  {
+    "id": "kerala-day-3",
+    "package": "kerala-backwaters-002",
+    "day_number": 3,
+    "title": "Backwaters Exploration",
+    "bullets": [
+      "Morning tea with backwater views",
+      "Visit the Kumarakom Bird Sanctuary",
+      "Ayurvedic massage session",
+      "Continue houseboat cruise",
+      "Local village interaction",
+      "Overnight stay on houseboat"
+    ]
+  },
+  {
+    "id": "kerala-day-4",
+    "package": "kerala-backwaters-002",
+    "day_number": 4,
+    "title": "Cultural Immersion",
+    "bullets": [
+      "Morning yoga/meditation session",
+      "Visit a local spice plantation",
+      "Cooking demonstration with local chef",
+      "Kathakali dance performance",
+      "Transfer back to Kochi",
+      "Farewell dinner"
+    ]
+  },
+  {
+    "id": "kerala-day-5",
+    "package": "kerala-backwaters-002",
+    "day_number": 5,
+    "title": "Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Transfer to airport",
+      "End of your Kerala backwaters retreat"
+    ]
+  },
+  {
+    "id": "kashmir-day-1",
+    "package": "kashmir-valley-003",
+    "day_number": 1,
+    "title": "Arrival in Paradise - Srinagar Welcome",
+    "bullets": [
+      "Arrive at Srinagar Airport - traditional Kashmiri welcome with shawl and flower garland",
+      "Scenic drive to premium deluxe houseboat on Dal Lake with mountain views",
+      "Check-in to elegantly furnished houseboat with traditional Kashmiri décor",
+      "Welcome ceremony with authentic Kashmiri Kahwa tea and local dry fruits",
+      "Romantic Shikara ride on Dal Lake watching floating gardens and local life",
+      "Sunset photography session at Nishat Bagh (Garden of Bliss) with Zabarwan mountains backdrop",
+      "Visit Shalimar Bagh (Garden of Love) - Mughal emperor's favorite retreat",
+      "Traditional Kashmiri Wazwan dinner on houseboat featuring Rogan Josh and Gushtaba",
+      "Evening storytelling session about Kashmir's rich history and legends"
+    ]
+  },
+  {
+    "id": "kashmir-day-2",
+    "package": "kashmir-valley-003",
+    "day_number": 2,
+    "title": "Gulmarg Adventure",
+    "bullets": [
+      "Drive to Gulmarg (2.5 hours)",
+      "Check-in at hotel",
+      "Visit Gulmarg Golf Course",
+      "Optional pony ride",
+      "Photography of the valley",
+      "Evening bonfire and local music"
+    ]
+  },
+  {
+    "id": "kashmir-day-3",
+    "package": "kashmir-valley-003",
+    "day_number": 3,
+    "title": "Gulmarg Skiing",
+    "bullets": [
+      "Full day skiing experience",
+      "Ski instructor guidance",
+      "Snow activities and games",
+      "Hot lunch at a local cafe",
+      "Photography in snow",
+      "Return to hotel for rest"
+    ]
+  },
+  {
+    "id": "kashmir-day-4",
+    "package": "kashmir-valley-003",
+    "day_number": 4,
+    "title": "Pahalgam Valley",
+    "bullets": [
+      "Drive to Pahalgam (3 hours)",
+      "Visit Betaab Valley and Aru Valley",
+      "River rafting (optional)",
+      "Local village visit",
+      "Campfire dinner under stars",
+      "Overnight in Pahalgam"
+    ]
+  },
+  {
+    "id": "kashmir-day-5",
+    "package": "kashmir-valley-003",
+    "day_number": 5,
+    "title": "Srinagar Sightseeing",
+    "bullets": [
+      "Return to Srinagar",
+      "Visit Shankaracharya Temple",
+      "Chashme Shahi Garden",
+      "Local handicraft shopping",
+      "Farewell dinner",
+      "Transfer to airport"
+    ]
+  },
+  {
+    "id": "kashmir-day-6",
+    "package": "kashmir-valley-003",
+    "day_number": 6,
+    "title": "Departure",
+    "bullets": [
+      "Flight back home",
+      "End of Kashmir adventure"
+    ]
+  },
+  {
+    "id": "bali-day-1",
+    "package": "bali-tropical-004",
+    "day_number": 1,
+    "title": "Arrival in Bali",
+    "bullets": [
+      "Arrive at Ngurah Rai Airport",
+      "Traditional Balinese welcome ceremony",
+      "Transfer to Ubud",
+      "Check-in at boutique hotel",
+      "Welcome dinner with Balinese cuisine",
+      "Evening rice field walk"
+    ]
+  },
+  {
+    "id": "bali-day-2",
+    "package": "bali-tropical-004",
+    "day_number": 2,
+    "title": "Ubud Cultural Exploration",
+    "bullets": [
+      "Visit Tirta Empul Temple",
+      "Sacred Monkey Forest",
+      "Traditional Balinese dance performance",
+      "Art market shopping",
+      "Coffee plantation tour",
+      "Sunset at Tegallalang Rice Terraces"
+    ]
+  },
+  {
+    "id": "bali-day-3",
+    "package": "bali-tropical-004",
+    "day_number": 3,
+    "title": "Beach Day in Seminyak",
+    "bullets": [
+      "Transfer to Seminyak",
+      "Beach relaxation at Seminyak Beach",
+      "Surfing lesson (optional)",
+      "Beach club experience",
+      "Sunset cocktails",
+      "Dinner at beachfront restaurant"
+    ]
+  },
+  {
+    "id": "bali-day-4",
+    "package": "bali-tropical-004",
+    "day_number": 4,
+    "title": "Adventure Activities",
+    "bullets": [
+      "ATV tour in the countryside",
+      "Visit Mount Batur viewpoint",
+      "Traditional Balinese cooking class",
+      "White water rafting (optional)",
+      "Evening temple ceremony",
+      "Cultural dinner experience"
+    ]
+  },
+  {
+    "id": "bali-day-5",
+    "package": "bali-tropical-004",
+    "day_number": 5,
+    "title": "Nusa Dua Relaxation",
+    "bullets": [
+      "Transfer to Nusa Dua",
+      "Spa treatment day",
+      "Private beach access",
+      "Water sports activities",
+      "Beachfront dinner",
+      "Traditional Balinese massage"
+    ]
+  },
+  {
+    "id": "bali-day-6",
+    "package": "bali-tropical-004",
+    "day_number": 6,
+    "title": "Temple Tours",
+    "bullets": [
+      "Visit Besakih Mother Temple",
+      "Uluwatu Temple at sunset",
+      "Kecak fire dance performance",
+      "Beach dinner at Jimbaran",
+      "Final night in Bali"
+    ]
+  },
+  {
+    "id": "bali-day-7",
+    "package": "bali-tropical-004",
+    "day_number": 7,
+    "title": "Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Transfer to airport",
+      "End of Bali adventure"
+    ]
+  },
+  {
+    "id": "dubai-day-1",
+    "package": "dubai-luxury-005",
+    "day_number": 1,
+    "title": "Arabian Luxury Arrival Experience",
+    "bullets": [
+      "Arrive at Dubai International Airport - VIP fast-track immigration and customs",
+      "Luxury Rolls Royce Phantom transfer with personal chauffeur to iconic Burj Al Arab",
+      "Royal Suite check-in with panoramic Arabian Gulf views and personal butler service",
+      "Welcome champagne, gold-dusted dates, and Arabic sweets in your private terrace",
+      "Afternoon helicopter tour over Palm Jumeirah, Atlantis, and Dubai Marina (45 minutes)",
+      "Exclusive access to Burj Al Arab's private beach club with infinity pool",
+      "Personal shopping consultation and styling session for evening attire",
+      "World-class dinner at Al Mahara underwater restaurant with live aquarium views",
+      "Private yacht boarding for tomorrow's adventure with sunset cocktails on deck"
+    ]
+  },
+  {
+    "id": "dubai-day-2",
+    "package": "dubai-luxury-005",
+    "day_number": 2,
+    "title": "Desert Safari Experience",
+    "bullets": [
+      "Private desert safari in 4x4 vehicles",
+      "Sand dune bashing",
+      "Camel riding experience",
+      "BBQ dinner under the stars",
+      "Traditional belly dancing show",
+      "Stargazing session",
+      "Return to hotel"
+    ]
+  },
+  {
+    "id": "dubai-day-3",
+    "package": "dubai-luxury-005",
+    "day_number": 3,
+    "title": "Dubai City Exploration",
+    "bullets": [
+      "Burj Khalifa visit with VIP access",
+      "Dubai Mall luxury shopping",
+      "Dubai Fountain show",
+      "Private yacht tour in Dubai Marina",
+      "Dinner cruise experience",
+      "Helicopter city tour (optional)"
+    ]
+  },
+  {
+    "id": "dubai-day-4",
+    "package": "dubai-luxury-005",
+    "day_number": 4,
+    "title": "Abu Dhabi Day Trip",
+    "bullets": [
+      "Private transfer to Abu Dhabi",
+      "Visit Sheikh Zayed Grand Mosque",
+      "Ferrari World experience",
+      "Louvre Abu Dhabi museum",
+      "Marina Mall shopping",
+      "Return to Dubai"
+    ]
+  },
+  {
+    "id": "dubai-day-5",
+    "package": "dubai-luxury-005",
+    "day_number": 5,
+    "title": "Departure",
+    "bullets": [
+      "Morning spa treatment",
+      "Private shopping assistance",
+      "Transfer to airport",
+      "End of Dubai luxury experience"
+    ]
+  },
+  {
+    "id": "danang-day-1",
+    "package": "danang-vietnam-006",
+    "day_number": 1,
+    "title": "Arrival in Da Nang",
+    "bullets": [
+      "Arrive at Da Nang International Airport",
+      "Transfer to hotel in Da Nang",
+      "Check-in and freshen up",
+      "Visit Son Tra Peninsula",
+      "Local beach relaxation",
+      "Fresh seafood dinner"
+    ]
+  },
+  {
+    "id": "danang-day-2",
+    "package": "danang-vietnam-006",
+    "day_number": 2,
+    "title": "Hoi An Ancient Town",
+    "bullets": [
+      "Transfer to Hoi An (30 minutes)",
+      "Explore Ancient Town UNESCO site",
+      "Tailor-made clothing shopping",
+      "Japanese Covered Bridge",
+      "Local market exploration",
+      "Traditional water puppet show",
+      "Overnight in Hoi An"
+    ]
+  },
+  {
+    "id": "danang-day-3",
+    "package": "danang-vietnam-006",
+    "day_number": 3,
+    "title": "Hoi An Countryside",
+    "bullets": [
+      "Bicycle tour of Hoi An countryside",
+      "Visit traditional villages",
+      "Cooking class with local family",
+      "My Son Holy Land (Hindu temples)",
+      "Perfume River cruise",
+      "Evening lantern-making workshop"
+    ]
+  },
+  {
+    "id": "danang-day-4",
+    "package": "danang-vietnam-006",
+    "day_number": 4,
+    "title": "Ba Na Hills Adventure",
+    "bullets": [
+      "Cable car ride to Ba Na Hills",
+      "Visit French Village",
+      "Fantasy Park exploration",
+      "Wine tasting at vineyard",
+      "Golden Bridge photography",
+      "Sunset at the hills",
+      "Return to Da Nang"
+    ]
+  },
+  {
+    "id": "danang-day-5",
+    "package": "danang-vietnam-006",
+    "day_number": 5,
+    "title": "Hue Imperial City",
+    "bullets": [
+      "Day trip to Hue (2 hours)",
+      "Visit Imperial City",
+      "Thien Mu Pagoda",
+      "Perfume River boat cruise",
+      "Royal tombs exploration",
+      "Traditional Hue cuisine dinner"
+    ]
+  },
+  {
+    "id": "danang-day-6",
+    "package": "danang-vietnam-006",
+    "day_number": 6,
+    "title": "Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Beach relaxation",
+      "Transfer to airport",
+      "End of Vietnam discovery"
+    ]
+  },
+  {
+    "id": "jammu-kashmir-day-1",
+    "package": "jammu-kashmir-4n4d-007",
+    "day_number": 1,
+    "title": "Srinagar — Check-in",
+    "bullets": [
+      "Arrive in Srinagar",
+      "Transfer to hotel",
+      "Visit Nishat Garden",
+      "Explore Pari Mahal",
+      "Visit Botanical Garden",
+      "Evening Shikara on Dal Lake",
+      "Overnight in Srinagar"
+    ]
+  },
+  {
+    "id": "jammu-kashmir-day-2",
+    "package": "jammu-kashmir-4n4d-007",
+    "day_number": 2,
+    "title": "Sonamarg — Day Trip",
+    "bullets": [
+      "Early morning departure to Sonamarg",
+      "Visit Tajiwās Glacier (horse ride optional)",
+      "Explore Zero Point/Zojila (by car)",
+      "Scenic mountain views",
+      "Return to Srinagar",
+      "Overnight in Srinagar"
+    ]
+  },
+  {
+    "id": "jammu-kashmir-day-3",
+    "package": "jammu-kashmir-4n4d-007",
+    "day_number": 3,
+    "title": "Gulmarg — Sightseeing",
+    "bullets": [
+      "Transfer to Gulmarg",
+      "Sightseeing in Gulmarg",
+      "Optional pony/ATV rides",
+      "Visit Butapathri",
+      "Gondola (cable car) ride",
+      "Evening at leisure",
+      "Overnight in Srinagar"
+    ]
+  },
+  {
+    "id": "jammu-kashmir-day-4",
+    "package": "jammu-kashmir-4n4d-007",
+    "day_number": 4,
+    "title": "Pahalgam — Sightseeing & Departure",
+    "bullets": [
+      "Drive to Pahalgam via saffron fields & apple garden",
+      "River rafting (optional)",
+      "Visit Aru Valley & Betaab Valley (car)",
+      "Mini Switzerland/Kashmir Valley/Waterfalls (horse ride optional)",
+      "Transfer to Anantnag railway station",
+      "End of Kashmir adventure"
+    ]
+  },
+  {
+    "id": "vietnam-saigon-day-1",
+    "package": "vietnam-saigon-4n-008",
+    "day_number": 1,
+    "title": "Saigon Arrival",
+    "bullets": [
+      "Arrive at Tan Son Nhat Airport",
+      "Private transfer to hotel",
+      "Check-in at Blue Diamond Luxury or Queen Ann",
+      "Evening at leisure",
+      "Welcome dinner (optional)",
+      "Overnight in Saigon"
+    ]
+  },
+  {
+    "id": "vietnam-saigon-day-2",
+    "package": "vietnam-saigon-4n-008",
+    "day_number": 2,
+    "title": "Mekong Delta Cruise",
+    "bullets": [
+      "Full-day SIC Mekong Delta tour",
+      "Visit local villages and floating markets",
+      "Experience authentic local life",
+      "Traditional lunch with local specialties",
+      "Return to Saigon",
+      "Overnight in Saigon"
+    ]
+  },
+  {
+    "id": "vietnam-saigon-day-3",
+    "package": "vietnam-saigon-4n-008",
+    "day_number": 3,
+    "title": "Vung Tau Beach Day",
+    "bullets": [
+      "Full-day SIC Vung Tau tour",
+      "Visit Jesus Statue and White Palace",
+      "Beach relaxation and water activities",
+      "Fresh seafood lunch",
+      "Visit Alcazar Show (optional)",
+      "Return to Saigon"
+    ]
+  },
+  {
+    "id": "vietnam-saigon-day-4",
+    "package": "vietnam-saigon-4n-008",
+    "day_number": 4,
+    "title": "Saigon Highlights + Cu Chi",
+    "bullets": [
+      "Morning SIC city tour",
+      "Visit War Remnants Museum",
+      "Explore Notre-Dame Cathedral",
+      "Local lunch",
+      "Afternoon Cu Chi Tunnels tour",
+      "Farewell dinner",
+      "Overnight in Saigon"
+    ]
+  },
+  {
+    "id": "vietnam-saigon-day-5",
+    "package": "vietnam-saigon-4n-008",
+    "day_number": 5,
+    "title": "Saigon/Hanoi Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Private transfer to airport",
+      "Flight to Hanoi or departure",
+      "End of Vietnam adventure"
+    ]
+  },
+  {
+    "id": "dubai-day-1",
+    "package": "dubai-city-lights-4d-009",
+    "day_number": 1,
+    "title": "Dubai Arrival & Downtown Exploration",
+    "bullets": [
+      "Arrive at Dubai International Airport",
+      "Private transfer to hotel",
+      "Check-in and freshen up",
+      "Explore Burj Khalifa area",
+      "Visit Dubai Mall",
+      "Evening fountain show (optional At The Top)",
+      "Overnight in Dubai"
+    ]
+  },
+  {
+    "id": "dubai-day-2",
+    "package": "dubai-city-lights-4d-009",
+    "day_number": 2,
+    "title": "Desert Safari Adventure",
+    "bullets": [
+      "Morning at leisure",
+      "Afternoon desert safari pickup",
+      "Dune bashing experience",
+      "Sunset photography",
+      "BBQ dinner in desert",
+      "Cultural show and belly dancing",
+      "Return to hotel",
+      "Overnight in Dubai"
+    ]
+  },
+  {
+    "id": "dubai-day-3",
+    "package": "dubai-city-lights-4d-009",
+    "day_number": 3,
+    "title": "Marina & Heritage Exploration",
+    "bullets": [
+      "Morning boat ride on Dubai Marina",
+      "Walk along Marina promenade",
+      "Visit Dubai Frame",
+      "Explore Old Dubai souks",
+      "Traditional lunch experience",
+      "Evening shopping time",
+      "Overnight in Dubai"
+    ]
+  },
+  {
+    "id": "dubai-day-4",
+    "package": "dubai-city-lights-4d-009",
+    "day_number": 4,
+    "title": "Leisure & Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Last-minute shopping",
+      "Private transfer to airport",
+      "Flight back home",
+      "End of Dubai adventure"
+    ]
+  },
+  {
+    "id": "thailand-bangkok-day-1",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "day_number": 1,
+    "title": "Bangkok Arrival",
+    "bullets": [
+      "Arrive at Bangkok Airport",
+      "Private transfer to hotel",
+      "Check-in and freshen up",
+      "Evening river walk",
+      "Visit Asiatique (optional)",
+      "Welcome dinner",
+      "Overnight in Bangkok"
+    ]
+  },
+  {
+    "id": "thailand-bangkok-day-2",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "day_number": 2,
+    "title": "Bangkok City & Temples",
+    "bullets": [
+      "Morning city temple tour",
+      "Visit Grand Palace (optional)",
+      "Explore Wat Arun & Wat Pho",
+      "Local lunch in Chinatown",
+      "Floating market experience",
+      "Evening temple ceremony",
+      "Overnight in Bangkok"
+    ]
+  },
+  {
+    "id": "thailand-bangkok-day-3",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "day_number": 3,
+    "title": "Pattaya Beach Day",
+    "bullets": [
+      "Transfer to Pattaya (2.5 hours)",
+      "Check-in at beach resort",
+      "Speedboat to Coral Island",
+      "Water activities (optional)",
+      "Beach relaxation",
+      "Evening Alcazar show (optional)",
+      "Overnight in Pattaya"
+    ]
+  },
+  {
+    "id": "thailand-bangkok-day-4",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "day_number": 4,
+    "title": "Pattaya Leisure",
+    "bullets": [
+      "Morning beach time",
+      "Visit Sanctuary of Truth (optional)",
+      "Explore Noong Nooch (optional)",
+      "Local seafood lunch",
+      "Afternoon shopping",
+      "Transfer back to Bangkok",
+      "Overnight in Bangkok"
+    ]
+  },
+  {
+    "id": "thailand-bangkok-day-5",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "day_number": 5,
+    "title": "Bangkok Departure",
+    "bullets": [
+      "Morning at leisure",
+      "Last shopping at markets",
+      "Private transfer to airport",
+      "Flight back home",
+      "End of Thailand adventure"
+    ]
+  }
+]

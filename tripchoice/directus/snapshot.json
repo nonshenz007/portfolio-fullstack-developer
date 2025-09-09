@@ -1,0 +1,836 @@
+{
+  "version": 1,
+  "directus": "10.0.0",
+  "collections": [
+    {
+      "collection": "packages",
+      "meta": {
+        "icon": "luggage",
+        "note": "Travel packages with pricing and content",
+        "display_template": "{{title}} - {{destinations}}",
+        "sort_field": "created_at"
+      },
+      "schema": {
+        "name": "packages",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "slug",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "options": {
+                "trim": true,
+                "slug": true
+              },
+              "width": "half",
+              "note": "URL-friendly identifier"
+            },
+            "schema": {
+              "is_unique": true,
+              "has_auto_increment": false
+            }
+          },
+          {
+            "field": "title",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "full",
+              "note": "Package title displayed to users"
+            },
+            "schema": {
+              "is_nullable": false
+            }
+          },
+          {
+            "field": "summary",
+            "type": "text",
+            "meta": {
+              "interface": "textarea",
+              "width": "full",
+              "note": "Brief description for cards and previews"
+            }
+          },
+          {
+            "field": "destinations",
+            "type": "json",
+            "meta": {
+              "interface": "tags",
+              "width": "full",
+              "note": "Array of destination names"
+            }
+          },
+          {
+            "field": "themes",
+            "type": "json",
+            "meta": {
+              "interface": "tags",
+              "width": "full",
+              "note": "Travel themes (Weekend, Honeymoon, etc.)"
+            }
+          },
+          {
+            "field": "duration_days",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Number of days for the trip"
+            }
+          },
+          {
+            "field": "base_price_pp",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Base price per person in INR"
+            }
+          },
+          {
+            "field": "min_pax",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Minimum number of passengers"
+            },
+            "schema": {
+              "default_value": 1
+            }
+          },
+          {
+            "field": "max_pax",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Maximum number of passengers"
+            }
+          },
+          {
+            "field": "hero",
+            "type": "uuid",
+            "meta": {
+              "interface": "file-image",
+              "width": "full",
+              "note": "Main hero image for the package"
+            },
+            "schema": {
+              "foreign_key_table": "directus_files"
+            }
+          },
+          {
+            "field": "gallery",
+            "type": "json",
+            "meta": {
+              "interface": "files",
+              "width": "full",
+              "note": "Gallery images for the package"
+            }
+          },
+          {
+            "field": "inclusions",
+            "type": "json",
+            "meta": {
+              "interface": "tags",
+              "width": "full",
+              "note": "What's included in the package"
+            }
+          },
+          {
+            "field": "exclusions",
+            "type": "json",
+            "meta": {
+              "interface": "tags",
+              "width": "full",
+              "note": "What's not included"
+            }
+          },
+          {
+            "field": "policies",
+            "type": "text",
+            "meta": {
+              "interface": "textarea",
+              "width": "full",
+              "note": "Cancellation and other policies"
+            }
+          },
+          {
+            "field": "domestic",
+            "type": "boolean",
+            "meta": {
+              "interface": "boolean",
+              "width": "half",
+              "note": "Is this a domestic trip?"
+            },
+            "schema": {
+              "default_value": true
+            }
+          },
+          {
+            "field": "rating",
+            "type": "decimal",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Average rating out of 5"
+            },
+            "schema": {
+              "default_value": 4.5
+            }
+          },
+          {
+            "field": "ratings_count",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Number of ratings"
+            },
+            "schema": {
+              "default_value": 0
+            }
+          },
+          {
+            "field": "status",
+            "type": "string",
+            "meta": {
+              "interface": "select-dropdown",
+              "width": "half",
+              "options": {
+                "choices": [
+                  {
+                    "text": "Draft",
+                    "value": "draft"
+                  },
+                  {
+                    "text": "Published",
+                    "value": "published"
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "default_value": "draft"
+            }
+          },
+          {
+            "field": "created_at",
+            "type": "timestamp",
+            "meta": {
+              "interface": "datetime",
+              "readonly": true,
+              "width": "half"
+            },
+            "schema": {
+              "default_value": "now()"
+            }
+          },
+          {
+            "field": "updated_at",
+            "type": "timestamp",
+            "meta": {
+              "interface": "datetime",
+              "readonly": true,
+              "width": "half"
+            },
+            "schema": {
+              "on_update": "now()"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "itinerary_days",
+      "meta": {
+        "icon": "calendar_today",
+        "note": "Day-by-day itinerary for packages",
+        "display_template": "Day {{day_number}}: {{title}}",
+        "sort_field": "day_number"
+      },
+      "schema": {
+        "name": "itinerary_days",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "package",
+            "type": "uuid",
+            "meta": {
+              "interface": "many-to-one",
+              "width": "full",
+              "note": "Related package"
+            },
+            "schema": {
+              "foreign_key_table": "packages",
+              "on_delete": "CASCADE"
+            }
+          },
+          {
+            "field": "day_number",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Day number in the itinerary"
+            }
+          },
+          {
+            "field": "title",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "full",
+              "note": "Day title"
+            }
+          },
+          {
+            "field": "bullets",
+            "type": "json",
+            "meta": {
+              "interface": "list",
+              "width": "full",
+              "note": "Bullet points for the day"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "variants",
+      "meta": {
+        "icon": "flight",
+        "note": "Travel variants (bus, train, flight, etc.)",
+        "display_template": "{{type}} - {{subclass}}"
+      },
+      "schema": {
+        "name": "variants",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "package",
+            "type": "uuid",
+            "meta": {
+              "interface": "many-to-one",
+              "width": "full",
+              "note": "Related package"
+            },
+            "schema": {
+              "foreign_key_table": "packages",
+              "on_delete": "CASCADE"
+            }
+          },
+          {
+            "field": "type",
+            "type": "string",
+            "meta": {
+              "interface": "select-dropdown",
+              "width": "half",
+              "options": {
+                "choices": [
+                  {
+                    "text": "Bus",
+                    "value": "bus"
+                  },
+                  {
+                    "text": "Train",
+                    "value": "train"
+                  },
+                  {
+                    "text": "Flight",
+                    "value": "flight"
+                  },
+                  {
+                    "text": "Cab",
+                    "value": "cab"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "field": "subclass",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Specific variant name"
+            }
+          },
+          {
+            "field": "adj_pp",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Price adjustment per person"
+            }
+          },
+          {
+            "field": "vendor_notes",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "full",
+              "note": "Notes from the vendor"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "price_rules",
+      "meta": {
+        "icon": "calculate",
+        "note": "Dynamic pricing rules",
+        "display_template": "{{type}} - {{scope}}"
+      },
+      "schema": {
+        "name": "price_rules",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "scope",
+            "type": "string",
+            "meta": {
+              "interface": "select-dropdown",
+              "width": "half",
+              "options": {
+                "choices": [
+                  {
+                    "text": "Global",
+                    "value": "global"
+                  },
+                  {
+                    "text": "Package",
+                    "value": "package"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "field": "package",
+            "type": "uuid",
+            "meta": {
+              "interface": "many-to-one",
+              "width": "half",
+              "note": "Related package (nullable for global rules)"
+            },
+            "schema": {
+              "foreign_key_table": "packages",
+              "is_nullable": true
+            }
+          },
+          {
+            "field": "type",
+            "type": "string",
+            "meta": {
+              "interface": "select-dropdown",
+              "width": "half",
+              "options": {
+                "choices": [
+                  {
+                    "text": "Season",
+                    "value": "season"
+                  },
+                  {
+                    "text": "Weekend",
+                    "value": "weekend"
+                  },
+                  {
+                    "text": "Origin",
+                    "value": "origin"
+                  },
+                  {
+                    "text": "Custom",
+                    "value": "custom"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "field": "start_date",
+            "type": "date",
+            "meta": {
+              "interface": "datetime",
+              "width": "half",
+              "note": "Rule start date"
+            }
+          },
+          {
+            "field": "end_date",
+            "type": "date",
+            "meta": {
+              "interface": "datetime",
+              "width": "half",
+              "note": "Rule end date"
+            }
+          },
+          {
+            "field": "multiplier",
+            "type": "decimal",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Price multiplier (1.0 = no change)"
+            },
+            "schema": {
+              "default_value": 1.0
+            }
+          },
+          {
+            "field": "delta",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Fixed price adjustment"
+            },
+            "schema": {
+              "default_value": 0
+            }
+          },
+          {
+            "field": "conditions",
+            "type": "json",
+            "meta": {
+              "interface": "input-code",
+              "width": "full",
+              "note": "Additional conditions for the rule"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "inventory",
+      "meta": {
+        "icon": "inventory",
+        "note": "Package inventory management",
+        "display_template": "{{package.title}} - {{date}}"
+      },
+      "schema": {
+        "name": "inventory",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "package",
+            "type": "uuid",
+            "meta": {
+              "interface": "many-to-one",
+              "width": "full",
+              "note": "Related package"
+            },
+            "schema": {
+              "foreign_key_table": "packages",
+              "on_delete": "CASCADE"
+            }
+          },
+          {
+            "field": "date",
+            "type": "date",
+            "meta": {
+              "interface": "datetime",
+              "width": "half",
+              "note": "Travel date"
+            }
+          },
+          {
+            "field": "seats_total",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Total seats available"
+            }
+          },
+          {
+            "field": "seats_sold",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Seats already sold"
+            },
+            "schema": {
+              "default_value": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "flash_sales",
+      "meta": {
+        "icon": "local_offer",
+        "note": "Limited-time flash sales",
+        "display_template": "{{name}} - {{discount_percent}}% off"
+      },
+      "schema": {
+        "name": "flash_sales",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "name",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "full",
+              "note": "Flash sale name"
+            }
+          },
+          {
+            "field": "packages",
+            "type": "json",
+            "meta": {
+              "interface": "list",
+              "width": "full",
+              "note": "Package IDs included in the sale"
+            }
+          },
+          {
+            "field": "discount_percent",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Discount percentage"
+            }
+          },
+          {
+            "field": "start_at",
+            "type": "datetime",
+            "meta": {
+              "interface": "datetime",
+              "width": "half",
+              "note": "Sale start time"
+            }
+          },
+          {
+            "field": "end_at",
+            "type": "datetime",
+            "meta": {
+              "interface": "datetime",
+              "width": "half",
+              "note": "Sale end time"
+            }
+          },
+          {
+            "field": "seat_cap",
+            "type": "integer",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Maximum seats for this sale"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "reviews",
+      "meta": {
+        "icon": "star",
+        "note": "Customer reviews and ratings",
+        "display_template": "{{author_name}} - {{rating}}/5"
+      },
+      "schema": {
+        "name": "reviews",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "package",
+            "type": "uuid",
+            "meta": {
+              "interface": "many-to-one",
+              "width": "full",
+              "note": "Related package"
+            },
+            "schema": {
+              "foreign_key_table": "packages",
+              "on_delete": "CASCADE"
+            }
+          },
+          {
+            "field": "rating",
+            "type": "decimal",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Rating out of 5"
+            }
+          },
+          {
+            "field": "text",
+            "type": "text",
+            "meta": {
+              "interface": "textarea",
+              "width": "full",
+              "note": "Review text"
+            }
+          },
+          {
+            "field": "author_name",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Reviewer name"
+            }
+          },
+          {
+            "field": "source",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "half",
+              "note": "Review source (website, social, etc.)"
+            }
+          },
+          {
+            "field": "media",
+            "type": "uuid",
+            "meta": {
+              "interface": "file-image",
+              "width": "full",
+              "note": "Review media (photo/video)"
+            },
+            "schema": {
+              "foreign_key_table": "directus_files",
+              "is_nullable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "collection": "pages",
+      "meta": {
+        "icon": "web",
+        "note": "Static pages and content",
+        "display_template": "{{title}}"
+      },
+      "schema": {
+        "name": "pages",
+        "fields": [
+          {
+            "field": "id",
+            "type": "uuid",
+            "meta": {
+              "interface": "input",
+              "readonly": true,
+              "hidden": true
+            }
+          },
+          {
+            "field": "slug",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "options": {
+                "trim": true,
+                "slug": true
+              },
+              "width": "half",
+              "note": "URL slug"
+            },
+            "schema": {
+              "is_unique": true
+            }
+          },
+          {
+            "field": "title",
+            "type": "string",
+            "meta": {
+              "interface": "input",
+              "width": "full",
+              "note": "Page title"
+            }
+          },
+          {
+            "field": "body",
+            "type": "text",
+            "meta": {
+              "interface": "input-rich-text-md",
+              "width": "full",
+              "note": "Page content in Markdown"
+            }
+          },
+          {
+            "field": "og_image",
+            "type": "uuid",
+            "meta": {
+              "interface": "file-image",
+              "width": "full",
+              "note": "Open Graph image"
+            },
+            "schema": {
+              "foreign_key_table": "directus_files",
+              "is_nullable": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

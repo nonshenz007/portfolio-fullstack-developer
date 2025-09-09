@@ -1,0 +1,258 @@
+[
+  {
+    "id": "goa-flight-premium",
+    "package": "goa-weekend-001",
+    "type": "flight",
+    "subclass": "Premium Flight",
+    "adj_pp": 2500,
+    "vendor_notes": "Includes lounge access and preferred seating"
+  },
+  {
+    "id": "goa-flight-economy",
+    "package": "goa-weekend-001",
+    "type": "flight",
+    "subclass": "Economy Flight",
+    "adj_pp": 1200,
+    "vendor_notes": "Standard economy class with meal"
+  },
+  {
+    "id": "goa-train-ac",
+    "package": "goa-weekend-001",
+    "type": "train",
+    "subclass": "AC Train",
+    "adj_pp": 800,
+    "vendor_notes": "Air-conditioned sleeper coach"
+  },
+  {
+    "id": "goa-bus-volvo",
+    "package": "goa-weekend-001",
+    "type": "bus",
+    "subclass": "Volvo AC Bus",
+    "adj_pp": 400,
+    "vendor_notes": "Semi-sleeper with AC and refreshments"
+  },
+  {
+    "id": "kerala-flight-business",
+    "package": "kerala-backwaters-002",
+    "type": "flight",
+    "subclass": "Business Class",
+    "adj_pp": 4500,
+    "vendor_notes": "Full business class experience"
+  },
+  {
+    "id": "kerala-flight-economy",
+    "package": "kerala-backwaters-002",
+    "type": "flight",
+    "subclass": "Economy Flight",
+    "adj_pp": 1800,
+    "vendor_notes": "Direct flight with meal"
+  },
+  {
+    "id": "kerala-train-premium",
+    "package": "kerala-backwaters-002",
+    "type": "train",
+    "subclass": "Premium AC",
+    "adj_pp": 1200,
+    "vendor_notes": "Executive class with meals"
+  },
+  {
+    "id": "kerala-bus-luxury",
+    "package": "kerala-backwaters-002",
+    "type": "bus",
+    "subclass": "Luxury Coach",
+    "adj_pp": 600,
+    "vendor_notes": "Multi-axle AC coach with reclining seats"
+  },
+  {
+    "id": "kashmir-flight-premium",
+    "package": "kashmir-valley-003",
+    "type": "flight",
+    "subclass": "Premium Economy",
+    "adj_pp": 3200,
+    "vendor_notes": "Extra legroom and priority boarding"
+  },
+  {
+    "id": "kashmir-flight-economy",
+    "package": "kashmir-valley-003",
+    "type": "flight",
+    "subclass": "Economy Flight",
+    "adj_pp": 1600,
+    "vendor_notes": "Direct flight to Srinagar"
+  },
+  {
+    "id": "kashmir-train-scenic",
+    "package": "kashmir-valley-003",
+    "type": "train",
+    "subclass": "Scenic AC",
+    "adj_pp": 1000,
+    "vendor_notes": "Overnight train with valley views"
+  },
+  {
+    "id": "kashmir-bus-mountain",
+    "package": "kashmir-valley-003",
+    "type": "bus",
+    "subclass": "Mountain Coach",
+    "adj_pp": 500,
+    "vendor_notes": "AC coach suitable for mountain terrain"
+  },
+  {
+    "id": "bali-flight-business",
+    "package": "bali-tropical-004",
+    "type": "flight",
+    "subclass": "Business Class",
+    "adj_pp": 8500,
+    "vendor_notes": "Full business class with premium amenities"
+  },
+  {
+    "id": "bali-flight-premium",
+    "package": "bali-tropical-004",
+    "type": "flight",
+    "subclass": "Premium Economy",
+    "adj_pp": 5200,
+    "vendor_notes": "Extra comfort and service"
+  },
+  {
+    "id": "bali-flight-economy",
+    "package": "bali-tropical-004",
+    "type": "flight",
+    "subclass": "Economy Flight",
+    "adj_pp": 2800,
+    "vendor_notes": "Standard economy with meal"
+  },
+  {
+    "id": "dubai-flight-first",
+    "package": "dubai-luxury-005",
+    "type": "flight",
+    "subclass": "First Class",
+    "adj_pp": 25000,
+    "vendor_notes": "Ultimate luxury experience"
+  },
+  {
+    "id": "dubai-flight-business",
+    "package": "dubai-luxury-005",
+    "type": "flight",
+    "subclass": "Business Class",
+    "adj_pp": 12000,
+    "vendor_notes": "Premium business class service"
+  },
+  {
+    "id": "dubai-flight-premium",
+    "package": "dubai-luxury-005",
+    "type": "flight",
+    "subclass": "Premium Economy",
+    "adj_pp": 6500,
+    "vendor_notes": "Enhanced economy experience"
+  },
+  {
+    "id": "danang-flight-premium",
+    "package": "danang-vietnam-006",
+    "type": "flight",
+    "subclass": "Premium Economy",
+    "adj_pp": 3800,
+    "vendor_notes": "Extra legroom and service"
+  },
+  {
+    "id": "danang-flight-economy",
+    "package": "danang-vietnam-006",
+    "type": "flight",
+    "subclass": "Economy Flight",
+    "adj_pp": 2100,
+    "vendor_notes": "Direct flight to Da Nang"
+  },
+  {
+    "id": "danang-flight-budget",
+    "package": "danang-vietnam-006",
+    "type": "flight",
+    "subclass": "Budget Airline",
+    "adj_pp": 1500,
+    "vendor_notes": "No-frills budget option"
+  },
+  {
+    "id": "jammu-kashmir-flight-economy",
+    "package": "jammu-kashmir-4n4d-007",
+    "type": "flight",
+    "subclass": "Economy",
+    "adj_pp": 8000,
+    "vendor_notes": "Direct flight to Srinagar"
+  },
+  {
+    "id": "jammu-kashmir-train-2a",
+    "package": "jammu-kashmir-4n4d-007",
+    "type": "train",
+    "subclass": "2A/3A",
+    "adj_pp": 2800,
+    "vendor_notes": "AC sleeper train to Jammu"
+  },
+  {
+    "id": "jammu-kashmir-cab-private",
+    "package": "jammu-kashmir-4n4d-007",
+    "type": "cab",
+    "subclass": "Private",
+    "adj_pp": 7000,
+    "vendor_notes": "Private AC vehicle"
+  },
+  {
+    "id": "vietnam-saigon-flight-economy",
+    "package": "vietnam-saigon-4n-008",
+    "type": "flight",
+    "subclass": "Economy",
+    "adj_pp": 22000,
+    "vendor_notes": "Direct international flight"
+  },
+  {
+    "id": "vietnam-saigon-flight-premium",
+    "package": "vietnam-saigon-4n-008",
+    "type": "flight",
+    "subclass": "Premium Eco",
+    "adj_pp": 35000,
+    "vendor_notes": "Enhanced economy experience"
+  },
+  {
+    "id": "vietnam-saigon-cab-private",
+    "package": "vietnam-saigon-4n-008",
+    "type": "cab",
+    "subclass": "Private",
+    "adj_pp": 6000,
+    "vendor_notes": "Private AC vehicle transfers"
+  },
+  {
+    "id": "dubai-flight-economy",
+    "package": "dubai-city-lights-4d-009",
+    "type": "flight",
+    "subclass": "Economy",
+    "adj_pp": 18000,
+    "vendor_notes": "Direct international flight"
+  },
+  {
+    "id": "dubai-flight-business",
+    "package": "dubai-city-lights-4d-009",
+    "type": "flight",
+    "subclass": "Business",
+    "adj_pp": 70000,
+    "vendor_notes": "Full business class experience"
+  },
+  {
+    "id": "dubai-cab-private",
+    "package": "dubai-city-lights-4d-009",
+    "type": "cab",
+    "subclass": "Private",
+    "adj_pp": 9000,
+    "vendor_notes": "Private chauffeur service"
+  },
+  {
+    "id": "thailand-flight-economy",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "type": "flight",
+    "subclass": "Economy",
+    "adj_pp": 22000,
+    "vendor_notes": "Direct international flight"
+  },
+  {
+    "id": "thailand-cab-private",
+    "package": "thailand-bangkok-pattaya-5d-010",
+    "type": "cab",
+    "subclass": "Private",
+    "adj_pp": 6000,
+    "vendor_notes": "Private AC vehicle transfers"
+  }
+]

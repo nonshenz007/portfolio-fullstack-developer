@@ -1,0 +1,74 @@
+[
+  {
+    "id": "winter-wonderland-2024",
+    "name": "Winter Wonderland Sale",
+    "packages": ["himachal-manali-shimla-5d-011", "kashmir-valley-003", "uttarakhand-rishikesh-haridwar-4d-017"],
+    "discount_percent": 25,
+    "start_at": "2024-12-01T00:00:00Z",
+    "end_at": "2024-12-31T23:59:59Z",
+    "seat_cap": 100
+  },
+  {
+    "id": "new-year-europe-2024",
+    "name": "New Year Europe Extravaganza",
+    "packages": ["europe-paris-amsterdam-10d-022"],
+    "discount_percent": 30,
+    "start_at": "2024-12-20T00:00:00Z",
+    "end_at": "2025-01-05T23:59:59Z",
+    "seat_cap": 20
+  },
+  {
+    "id": "honeymoon-bliss-2024",
+    "name": "Honeymoon Bliss Special",
+    "packages": ["maldives-male-5d-027", "dubai-luxury-005", "singapore-malaysia-7d-014"],
+    "discount_percent": 20,
+    "start_at": "2024-11-01T00:00:00Z",
+    "end_at": "2024-12-31T23:59:59Z",
+    "seat_cap": 50
+  },
+  {
+    "id": "beach-bum-bonanza",
+    "name": "Beach Bum Bonanza",
+    "packages": ["goa-north-south-4d-016", "andaman-port-blair-5d-013", "thailand-bangkok-pattaya-5d-010"],
+    "discount_percent": 18,
+    "start_at": "2024-11-15T00:00:00Z",
+    "end_at": "2024-12-15T23:59:59Z",
+    "seat_cap": 75
+  },
+  {
+    "id": "cultural-odyssey-deal",
+    "name": "Cultural Odyssey Deal",
+    "packages": ["rajasthan-jaipur-udaipur-6d-012", "kerala-munnar-periyar-5d-015", "japan-tokyo-kyoto-8d-021"],
+    "discount_percent": 22,
+    "start_at": "2024-11-01T00:00:00Z",
+    "end_at": "2024-11-30T23:59:59Z",
+    "seat_cap": 60
+  },
+  {
+    "id": "adventure-awaits-flash",
+    "name": "Adventure Awaits Flash Sale",
+    "packages": ["nepal-kathmandu-pokhara-7d-025", "bhutan-paro-thimphu-6d-024", "new-zealand-queenstown-10d-029"],
+    "discount_percent": 28,
+    "start_at": "2024-11-20T00:00:00Z",
+    "end_at": "2024-11-25T23:59:59Z",
+    "seat_cap": 30
+  },
+  {
+    "id": "luxury-escape-special",
+    "name": "Luxury Escape Special",
+    "packages": ["iceland-reykjavik-8d-028", "south-africa-cape-town-8d-023", "australia-sydney-12d-030"],
+    "discount_percent": 15,
+    "start_at": "2024-12-01T00:00:00Z",
+    "end_at": "2024-12-31T23:59:59Z",
+    "seat_cap": 40
+  },
+  {
+    "id": "family-fun-deal",
+    "name": "Family Fun Deal",
+    "packages": ["singapore-malaysia-7d-014", "thailand-bangkok-pattaya-5d-010", "karnataka-coorg-mysore-6d-019"],
+    "discount_percent": 20,
+    "start_at": "2024-11-25T00:00:00Z",
+    "end_at": "2024-12-10T23:59:59Z",
+    "seat_cap": 80
+  }
+]

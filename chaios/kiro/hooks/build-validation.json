@@ -1,0 +1,34 @@
+{
+  "name": "Build Validation",
+  "description": "Validates that the app builds successfully for target platforms",
+  "trigger": {
+    "type": "manual"
+  },
+  "actions": [
+    {
+      "type": "command",
+      "command": "flutter clean",
+      "description": "Clean build artifacts"
+    },
+    {
+      "type": "command",
+      "command": "flutter pub get",
+      "description": "Get dependencies"
+    },
+    {
+      "type": "command",
+      "command": "flutter build apk --debug",
+      "description": "Build Android APK"
+    },
+    {
+      "type": "command",
+      "command": "flutter build web",
+      "description": "Build web version",
+      "optional": true
+    }
+  ],
+  "notifications": {
+    "success": "Build validation completed successfully ✅",
+    "failure": "Build validation failed ❌ Please check build errors"
+  }
+}

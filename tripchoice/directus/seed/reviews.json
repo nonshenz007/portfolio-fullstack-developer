@@ -1,0 +1,623 @@
+[
+  {
+    "id": "goa-review-1",
+    "package": "goa-weekend-001",
+    "rating": 5,
+    "text": "Amazing weekend getaway! The beaches were pristine and the resort was perfect. TripChoice made everything so easy to book.",
+    "author_name": "Priya Sharma",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "goa-review-2",
+    "package": "goa-weekend-001",
+    "rating": 4,
+    "text": "Great package for a quick escape. Loved the water sports and local food. Only wish there was more time for relaxation.",
+    "author_name": "Rahul Kumar",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "kerala-review-1",
+    "package": "kerala-backwaters-002",
+    "rating": 5,
+    "text": "The houseboat experience was magical. Waking up to the backwaters was pure bliss. Highly recommend the Ayurvedic treatments!",
+    "author_name": "Anjali Patel",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "kerala-review-2",
+    "package": "kerala-backwaters-002",
+    "rating": 5,
+    "text": "Perfect retreat for relaxation. The local culture immersion was wonderful and the food was authentic Kerala cuisine.",
+    "author_name": "Vikram Singh",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "kashmir-review-1",
+    "package": "kashmir-valley-003",
+    "rating": 4,
+    "text": "Breathtaking landscapes! The houseboat stay was comfortable and the skiing in Gulmarg was an adventure. Weather was perfect.",
+    "author_name": "Meera Joshi",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "bali-review-1",
+    "package": "bali-tropical-004",
+    "rating": 5,
+    "text": "Bali exceeded all expectations! From the rice terraces to the beaches, every day was filled with wonder. Professional service throughout.",
+    "author_name": "Arjun Rao",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "bali-review-2",
+    "package": "bali-tropical-004",
+    "rating": 5,
+    "text": "The cultural experiences were authentic and the luxury accommodations were world-class. Perfect honeymoon destination!",
+    "author_name": "Sneha & Karan",
+    "source": "WeddingWire",
+    "media": null
+  },
+  {
+    "id": "dubai-review-1",
+    "package": "dubai-luxury-005",
+    "rating": 5,
+    "text": "Ultimate luxury experience! From the desert safari to the yacht tour, everything was perfectly orchestrated. Worth every penny.",
+    "author_name": "Rajesh Gupta",
+    "source": "Luxury Travel Magazine",
+    "media": null
+  },
+  {
+    "id": "danang-review-1",
+    "package": "danang-vietnam-006",
+    "rating": 4,
+    "text": "Vietnam was a pleasant surprise! Hoi An was charming and the food was incredible. Great value for money.",
+    "author_name": "Kavita Menon",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "himachal-review-1",
+    "package": "himachal-manali-shimla-5d-011",
+    "rating": 5,
+    "text": "Absolutely breathtaking! The Manali and Shimla combination was perfect. The river rafting was thrilling and the local culture was so authentic. TripChoice made everything seamless.",
+    "author_name": "Amit Sharma",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "himachal-review-2",
+    "package": "himachal-manali-shimla-5d-011",
+    "rating": 5,
+    "text": "From the misty mountains to the colonial charm of Shimla, this trip was magical. The food was amazing and our guide was incredibly knowledgeable about the local history.",
+    "author_name": "Priya Gupta",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "himachal-review-3",
+    "package": "himachal-manali-shimla-5d-011",
+    "rating": 4,
+    "text": "Great package for mountain lovers! Rohtang Pass was spectacular despite the weather. The accommodation was comfortable and the itinerary was well-planned.",
+    "author_name": "Rajesh Kumar",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "rajasthan-review-1",
+    "package": "rajasthan-jaipur-udaipur-6d-012",
+    "rating": 5,
+    "text": "Living a fairy tale in Rajasthan! The palaces, forts, and desert safari were incredible. Udaipur's Lake Palace view from our hotel was breathtaking. TripChoice exceeded all expectations!",
+    "author_name": "Sneha Patel",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "rajasthan-review-2",
+    "package": "rajasthan-jaipur-udaipur-6d-012",
+    "rating": 5,
+    "text": "From Jaipur's pink city to Udaipur's white city, every moment was special. The cultural performances and local cuisine made this trip unforgettable.",
+    "author_name": "Vikram Singh",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "rajasthan-review-3",
+    "package": "rajasthan-jaipur-udaipur-6d-012",
+    "rating": 4,
+    "text": "Authentic Rajasthan experience! The Pushkar camel safari and Chittorgarh fort visit were highlights. Great service and knowledgeable guides throughout.",
+    "author_name": "Anjali Rao",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "andaman-review-1",
+    "package": "andaman-port-blair-5d-013",
+    "rating": 5,
+    "text": "Paradise found! The Havelock Island beaches were pristine and the snorkeling was amazing. Cellular Jail was educational and the local hospitality was warm. Perfect island getaway!",
+    "author_name": "Karan Mehta",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "andaman-review-2",
+    "package": "andaman-port-blair-5d-013",
+    "rating": 5,
+    "text": "Crystal clear waters and untouched beauty! The Radhanagar Beach visit and Elephant Beach boat ride were spectacular. TripChoice's planning was impeccable.",
+    "author_name": "Meera Iyer",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "andaman-review-3",
+    "package": "andaman-port-blair-5d-013",
+    "rating": 4,
+    "text": "Great value for money! The sea walking and glass-bottom boat ride were unique experiences. Weather was perfect and the resort was comfortable.",
+    "author_name": "Arjun Nair",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "singapore-malaysia-review-1",
+    "package": "singapore-malaysia-7d-014",
+    "rating": 5,
+    "text": "Futuristic Singapore to vibrant Malaysia - incredible contrast! Gardens by the Bay was magical and Penang's street food was heavenly. Best twin nation experience!",
+    "author_name": "Ritu Jain",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "singapore-malaysia-review-2",
+    "package": "singapore-malaysia-7d-014",
+    "rating": 5,
+    "text": "From KL's Petronas Towers to Singapore's Marina Bay, every day brought new wonders. The tea plantation visit in Cameron Highlands was a pleasant surprise.",
+    "author_name": "Deepak Sharma",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "singapore-malaysia-review-3",
+    "package": "singapore-malaysia-7d-014",
+    "rating": 4,
+    "text": "Comprehensive Southeast Asia experience! Universal Studios was fun and the cultural shows were authentic. Great mix of modern and traditional.",
+    "author_name": "Poonam Agarwal",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "kerala-munnar-review-1",
+    "package": "kerala-munnar-periyar-5d-015",
+    "rating": 5,
+    "text": "Kerala's green paradise! Munnar's tea estates were stunning and Periyar's wildlife sanctuary exceeded expectations. The Ayurvedic massage was pure bliss!",
+    "author_name": "Sunita Prasad",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "kerala-munnar-review-2",
+    "package": "kerala-munnar-periyar-5d-015",
+    "rating": 5,
+    "text": "Nature's bounty at its finest! From misty mountains to wildlife safaris, every moment was special. The local cuisine and Kathakali performance were highlights.",
+    "author_name": "Mohan Reddy",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "kerala-munnar-review-3",
+    "package": "kerala-munnar-periyar-5d-015",
+    "rating": 4,
+    "text": "Perfect wellness retreat! The bamboo rafting and spice garden tour were amazing. Great balance of adventure and relaxation.",
+    "author_name": "Lakshmi Venkatesh",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "goa-north-south-review-1",
+    "package": "goa-north-south-4d-016",
+    "rating": 5,
+    "text": "Best of both Goas! From serene Anjuna beaches to lively Baga nightlife, this package had everything. Water sports were thrilling and the seafood was incredible!",
+    "author_name": "Rahul Kapoor",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "goa-north-south-review-2",
+    "package": "goa-north-south-4d-016",
+    "rating": 4,
+    "text": "Perfect beach vacation! The Dudhsagar waterfall was spectacular and the Portuguese heritage sites were charming. Great mix of relaxation and adventure.",
+    "author_name": "Neha Singh",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "goa-north-south-review-3",
+    "package": "goa-north-south-4d-016",
+    "rating": 5,
+    "text": "Goa magic! The sunset cruise and cultural tour were unforgettable. TripChoice's attention to detail made our trip special.",
+    "author_name": "Sandeep Joshi",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "rishikesh-haridwar-review-1",
+    "package": "uttarakhand-rishikesh-haridwar-4d-017",
+    "rating": 5,
+    "text": "Spiritual awakening! The Ganga Aarti in Haridwar was divine and river rafting in Rishikesh was exhilarating. The Beatles Ashram visit was nostalgic.",
+    "author_name": "Divya Chatterjee",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "rishikesh-haridwar-review-2",
+    "package": "uttarakhand-rishikesh-haridwar-4d-017",
+    "rating": 5,
+    "text": "Perfect balance of spirituality and adventure! Yoga sessions were rejuvenating and the local temples were serene. Highly recommend for soul seekers.",
+    "author_name": "Amitabh Banerjee",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "rishikesh-haridwar-review-3",
+    "package": "uttarakhand-rishikesh-haridwar-4d-017",
+    "rating": 4,
+    "text": "Transformative experience! Bungee jumping was thrilling and the Ganges River cruise was peaceful. Great wellness and adventure combination.",
+    "author_name": "Kavita Das",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "ajanta-ellora-review-1",
+    "package": "maharashtra-ajanta-ellora-5d-018",
+    "rating": 5,
+    "text": "UNESCO wonders! The Ajanta and Ellora caves were masterpieces of ancient art. The sound and light show was spectacular. Incredible archaeological journey!",
+    "author_name": "Rajendra Prasad",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "ajanta-ellora-review-2",
+    "package": "maharashtra-ajanta-ellora-5d-018",
+    "rating": 4,
+    "text": "Rich heritage experience! From Buddhist caves to Hindu temples, the diversity was amazing. Our guide's knowledge made the trip educational and engaging.",
+    "author_name": "Sarika Mishra",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "ajanta-ellora-review-3",
+    "package": "maharashtra-ajanta-ellora-5d-018",
+    "rating": 5,
+    "text": "Time travel through history! The cave paintings were mesmerizing and the Daulatabad Fort was impressive. Perfect cultural immersion.",
+    "author_name": "Vijayalakshmi Iyer",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "coorg-mysore-review-1",
+    "package": "karnataka-coorg-mysore-6d-019",
+    "rating": 5,
+    "text": "Coffee-scented paradise! Coorg's plantations were beautiful and Mysore Palace was grand. The Kodava cultural performance was authentic and memorable.",
+    "author_name": "Nandini Krishnan",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "coorg-mysore-review-2",
+    "package": "karnataka-coorg-mysore-6d-019",
+    "rating": 5,
+    "text": "South India's charm! From misty hills to royal palaces, every destination was special. The elephant camp visit and local cuisine were highlights.",
+    "author_name": "Arvind Menon",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "coorg-mysore-review-3",
+    "package": "karnataka-coorg-mysore-6d-019",
+    "rating": 4,
+    "text": "Perfect cultural exploration! Abbey Falls was stunning and the Mysore Dussehra preparations were exciting. Great mix of nature and heritage.",
+    "author_name": "Meenakshi Rao",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "amritsar-golden-temple-review-1",
+    "package": "punjab-amritsar-golden-temple-4d-020",
+    "rating": 5,
+    "text": "Spiritual bliss! The Golden Temple experience was divine and the langar meal was soul-satisfying. Wagah Border ceremony was patriotic and emotional.",
+    "author_name": "Gurpreet Kaur",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "amritsar-golden-temple-review-2",
+    "package": "punjab-amritsar-golden-temple-4d-020",
+    "rating": 5,
+    "text": "Heart of Punjab! From the majestic Golden Temple to Jallianwala Bagh, every site told a powerful story. The Punjabi hospitality was overwhelming.",
+    "author_name": "Jaspreet Singh",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "amritsar-golden-temple-review-3",
+    "package": "punjab-amritsar-golden-temple-4d-020",
+    "rating": 4,
+    "text": "Moving tribute to history! The Golden Temple sewa experience was humbling and the cooking class was fun. Authentic Sikh culture immersion.",
+    "author_name": "Harpreet Gill",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "japan-review-1",
+    "package": "japan-tokyo-kyoto-8d-021",
+    "rating": 5,
+    "text": "Japan magic! From Tokyo's neon lights to Kyoto's serene temples, every moment was special. The bullet train experience and tea ceremony were highlights.",
+    "author_name": "Akira Tanaka",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "japan-review-2",
+    "package": "japan-tokyo-kyoto-8d-021",
+    "rating": 5,
+    "text": "Land of the Rising Sun lived up to its name! Mount Fuji was breathtaking and the food was incredible. Professional guides made everything perfect.",
+    "author_name": "Yuki Nakamura",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "japan-review-3",
+    "package": "japan-tokyo-kyoto-8d-021",
+    "rating": 4,
+    "text": "Cultural masterpiece! From Shibuya Crossing to Hiroshima Peace Memorial, the diversity was amazing. Sumo demonstration was unique.",
+    "author_name": "Hiroshi Sato",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "europe-review-1",
+    "package": "europe-paris-amsterdam-10d-022",
+    "rating": 5,
+    "text": "European dream! Paris's Eiffel Tower was romantic and Amsterdam's canals were picturesque. Louvre and Versailles were incredible cultural experiences.",
+    "author_name": "Sophie Laurent",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "europe-review-2",
+    "package": "europe-paris-amsterdam-10d-022",
+    "rating": 5,
+    "text": "Romantic journey through history! From Notre Dame to Anne Frank House, every site had a story. The Seine cruise was magical.",
+    "author_name": "Pierre Dubois",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "europe-review-3",
+    "package": "europe-paris-amsterdam-10d-022",
+    "rating": 4,
+    "text": "Architectural wonder! Eiffel Tower views and Bruges canals were spectacular. The chocolate making class was a sweet surprise.",
+    "author_name": "Marie Dubois",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "south-africa-review-1",
+    "package": "south-africa-cape-town-8d-023",
+    "rating": 5,
+    "text": "Rainbow Nation's beauty! Table Mountain views were breathtaking and the Cape Peninsula tour was spectacular. Wine tasting was excellent.",
+    "author_name": "David Nkosi",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "south-africa-review-2",
+    "package": "south-africa-cape-town-8d-023",
+    "rating": 5,
+    "text": "Diverse experiences! From safari to penguin colonies, every day brought new adventures. The local cuisine and hospitality were amazing.",
+    "author_name": "Sarah Thompson",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "south-africa-review-3",
+    "package": "south-africa-cape-town-8d-023",
+    "rating": 4,
+    "text": "Natural wonders! Cape Point and Stellenbosch wine region were highlights. Great balance of adventure and relaxation.",
+    "author_name": "John Smit",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "bhutan-review-1",
+    "package": "bhutan-paro-thimphu-6d-024",
+    "rating": 5,
+    "text": "Last Shangri-La indeed! Tiger's Nest Monastery trek was challenging but rewarding. The pristine valleys and warm Bhutanese hospitality were unforgettable.",
+    "author_name": "Tenzin Dorji",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "bhutan-review-2",
+    "package": "bhutan-paro-thimphu-6d-024",
+    "rating": 5,
+    "text": "Sustainable paradise! From Dochula Pass to Phobjikha Valley, the natural beauty was pristine. Hot stone bath and archery were unique experiences.",
+    "author_name": "Karma Wangchuk",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "bhutan-review-3",
+    "package": "bhutan-paro-thimphu-6d-024",
+    "rating": 4,
+    "text": "Spiritual journey! Tashichho Dzong was magnificent and the cultural immersion was authentic. Great Gross National Happiness experience.",
+    "author_name": "Pema Lhamo",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "nepal-review-1",
+    "package": "nepal-kathmandu-pokhara-7d-025",
+    "rating": 5,
+    "text": "Himalayan paradise! Everest flight was breathtaking and Chitwan safari was thrilling. Pokhara's lakes and Kathmandu's temples created perfect balance.",
+    "author_name": "Sagar Thapa",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "nepal-review-2",
+    "package": "nepal-kathmandu-pokhara-7d-025",
+    "rating": 5,
+    "text": "Nepal's diversity! From ancient Durbar Square to Chitwan wildlife, every experience was special. Paragliding over Pokhara was exhilarating.",
+    "author_name": "Anita Gurung",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "nepal-review-3",
+    "package": "nepal-kathmandu-pokhara-7d-025",
+    "rating": 4,
+    "text": "Cultural and natural wonder! Mountain flight and Nagarkot sunrise were highlights. Nepali hospitality and cuisine were amazing.",
+    "author_name": "Rajesh Maharjan",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "sri-lanka-review-1",
+    "package": "sri-lanka-colombo-kandy-7d-026",
+    "rating": 5,
+    "text": "Island paradise! Sigiriya Rock Fortress climb was adventurous and Temple of the Tooth was spiritual. Colombo's mix of old and new was fascinating.",
+    "author_name": "Nimal Perera",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "sri-lanka-review-2",
+    "package": "sri-lanka-colombo-kandy-7d-026",
+    "rating": 5,
+    "text": "Tea country to beach paradise! Nuwara Eliya was charming and Galle Fort was historic. Cooking class and elephant orphanage were highlights.",
+    "author_name": "Chamika Fernando",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "sri-lanka-review-3",
+    "package": "sri-lanka-colombo-kandy-7d-026",
+    "rating": 4,
+    "text": "Cultural mosaic! From Anuradhapura stupas to Kandy's festivals, the heritage was rich. Great food and warm hospitality throughout.",
+    "author_name": "Roshan Silva",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "maldives-review-1",
+    "package": "maldives-male-5d-027",
+    "rating": 5,
+    "text": "Ultimate luxury escape! Overwater bungalow was paradise and the seaplane transfer was exciting. Snorkeling in crystal waters was magical.",
+    "author_name": "Ahmed Hassan",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "maldives-review-2",
+    "package": "maldives-male-5d-027",
+    "rating": 5,
+    "text": "Romantic paradise! Sunset dolphin cruise and private dinner were perfect. The spa treatments and water sports made it unforgettable.",
+    "author_name": "Fatima Ali",
+    "source": null,
+    "media": null
+  },
+  {
+    "id": "maldives-review-3",
+    "package": "maldives-male-5d-027",
+    "rating": 4,
+    "text": "Tropical dream! House reef was amazing and the welcome champagne was a nice touch. Perfect relaxation and adventure combination.",
+    "author_name": "Mohamed Saeed",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "iceland-review-1",
+    "package": "iceland-reykjavik-8d-028",
+    "rating": 5,
+    "text": "Land of Fire and Ice! Northern Lights were magical and Golden Circle geysers were spectacular. Glacier hiking was adventurous and Blue Lagoon was relaxing.",
+    "author_name": "Bjork Jonsdottir",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "iceland-review-2",
+    "package": "iceland-reykjavik-8d-028",
+    "rating": 5,
+    "text": "Otherworldly landscapes! Waterfalls, volcanoes, and black sand beaches were incredible. South Coast adventure was breathtaking.",
+    "author_name": "Magnus Olafsson",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "iceland-review-3",
+    "package": "iceland-reykjavik-8d-028",
+    "rating": 4,
+    "text": "Natural wonders! Snorkeling in Silfra was unique and the geology tours were educational. Cold but absolutely worth it!",
+    "author_name": "Anna Sigurdardottir",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "new-zealand-review-1",
+    "package": "new-zealand-queenstown-10d-029",
+    "rating": 5,
+    "text": "Adventure capital! Bungee jumping was thrilling and Milford Sound cruise was spectacular. Maori cultural show was authentic and moving.",
+    "author_name": "Tane Williams",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "new-zealand-review-2",
+    "package": "new-zealand-queenstown-10d-029",
+    "rating": 5,
+    "text": "Pure natural beauty! Franz Josef Glacier helicopter tour was incredible and Rotorua's geothermal areas were fascinating.",
+    "author_name": "Hana Thompson",
+    "source": "Facebook",
+    "media": null
+  },
+  {
+    "id": "new-zealand-review-3",
+    "package": "new-zealand-queenstown-10d-029",
+    "rating": 4,
+    "text": "Diverse experiences! From fjords to glaciers, every landscape was different and beautiful. Skyline Queenstown views were stunning.",
+    "author_name": "Kiri Johnson",
+    "source": "TripAdvisor",
+    "media": null
+  },
+  {
+    "id": "australia-review-1",
+    "package": "australia-sydney-12d-030",
+    "rating": 5,
+    "text": "Down Under dreams! Sydney Opera House was iconic and Great Barrier Reef snorkeling was magical. Uluru at sunset was spiritual.",
+    "author_name": "Steve Mitchell",
+    "source": "Google Reviews",
+    "media": null
+  },
+  {
+    "id": "australia-review-2",
+    "package": "australia-sydney-12d-030",
+    "rating": 5,
+    "text": "Continent of wonders! From Sydney Harbour to Melbourne's culture, the diversity was amazing. Kangaroo Island wildlife was special.",
+    "author_name": "Emma Wilson",
+    "source": "Instagram",
+    "media": null
+  },
+  {
+    "id": "australia-review-3",
+    "package": "australia-sydney-12d-030",
+    "rating": 4,
+    "text": "Natural and cultural treasure! Great Barrier Reef was vibrant and Uluru's ancient energy was palpable. Perfect mix of everything.",
+    "author_name": "James Brown",
+    "source": "TripAdvisor",
+    "media": null
+  }
+]

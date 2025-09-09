@@ -1,0 +1,24 @@
+{
+  "name": "Documentation Sync",
+  "description": "Updates documentation when code changes are made",
+  "trigger": {
+    "type": "file_save",
+    "pattern": "lib/features/**/*.dart"
+  },
+  "actions": [
+    {
+      "type": "command",
+      "command": "dart doc",
+      "description": "Generate API documentation"
+    },
+    {
+      "type": "agent_task",
+      "description": "Update README.md with new features and API changes",
+      "prompt": "Review the recent code changes and update the README.md file to reflect any new features, API changes, or important updates. Maintain the existing structure and style."
+    }
+  ],
+  "notifications": {
+    "success": "Documentation updated successfully 📚",
+    "failure": "Documentation update failed ❌"
+  }
+}

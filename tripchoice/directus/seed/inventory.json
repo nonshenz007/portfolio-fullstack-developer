@@ -1,0 +1,51 @@
+[
+  {
+    "id": "goa-inventory-2024-11",
+    "package": "goa-weekend-001",
+    "date": "2024-11-15",
+    "seats_total": 20,
+    "seats_sold": 8
+  },
+  {
+    "id": "goa-inventory-2024-12",
+    "package": "goa-weekend-001",
+    "date": "2024-12-20",
+    "seats_total": 25,
+    "seats_sold": 15
+  },
+  {
+    "id": "kerala-inventory-2024-11",
+    "package": "kerala-backwaters-002",
+    "date": "2024-11-10",
+    "seats_total": 15,
+    "seats_sold": 6
+  },
+  {
+    "id": "kashmir-inventory-2024-12",
+    "package": "kashmir-valley-003",
+    "date": "2024-12-01",
+    "seats_total": 12,
+    "seats_sold": 4
+  },
+  {
+    "id": "bali-inventory-2024-07",
+    "package": "bali-tropical-004",
+    "date": "2024-07-15",
+    "seats_total": 30,
+    "seats_sold": 12
+  },
+  {
+    "id": "dubai-inventory-2024-08",
+    "package": "dubai-luxury-005",
+    "date": "2024-08-10",
+    "seats_total": 10,
+    "seats_sold": 3
+  },
+  {
+    "id": "danang-inventory-2024-06",
+    "package": "danang-vietnam-006",
+    "date": "2024-06-20",
+    "seats_total": 18,
+    "seats_sold": 7
+  }
+]

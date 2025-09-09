@@ -1,0 +1,206 @@
+/* Intro overlay styles (brand tokens only) */
+
+/* Brand tokens (reference only):
+   ink #071C3C, surface #FDFDF9, slate #4A5365, cloud #AEB5BC, warm #ED6B08, cool #0647AE */
+
+.intro-root {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+}
+
+.intro-backdrop {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 180deg at 50% 50%, rgba(6,71,174,0.12), #071C3C 40%, #071C3C 60%, rgba(6,71,174,0.12));
+  background-color: #071C3C; /* ink */
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+.intro-grain {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* CSS fallback noise pattern */
+    radial-gradient(1px 1px at 10% 20%, #071C3C10 1px, transparent 1px),
+    radial-gradient(1px 1px at 20% 40%, #0647AE10 1px, transparent 1px),
+    radial-gradient(1px 1px at 70% 80%, #4A536510 1px, transparent 1px),
+    radial-gradient(1px 1px at 90% 30%, #AEB5BC10 1px, transparent 1px);
+  background-size: 64px 64px;
+  mix-blend-mode: overlay;
+  opacity: 0.025; /* 2.5% */
+  pointer-events: none;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  color: #FDFDF9; /* surface */
+}
+
+.intro-content.intro-compress {
+  animation: introCompress 0.12s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+
+@keyframes introCompress {
+  from { transform: scale(1); }
+  to { transform: scale(0.985); }
+}
+
+.intro-overline {
+  font-family: var(--font-inter, ui-sans-serif);
+  font-size: 14px;
+  color: #AEB5BC; /* cloud */
+}
+
+.intro-mark-wrap {
+  width: 160px;
+  height: 160px;
+}
+
+.intro-logo-frame {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: grid;
+  place-items: center;
+}
+.intro-logo-image { width: 100%; height: 100%; object-fit: contain; image-rendering: -webkit-optimize-contrast; }
+.intro-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(6,71,174,0.22), rgba(7,28,60,0.0) 70%);
+  filter: blur(2px);
+}
+.intro-logo-card {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 16px;
+  background: #FDFDF9; /* surface backplate */
+  border: 1px solid rgba(174,181,188,0.35); /* cloud 35% */
+  box-shadow: 0 10px 30px rgba(7,28,60,0.22); /* ink shadow */
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.intro-logo-frame .ring {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.intro-logo-frame .ring.outer {
+  width: 168px;
+  height: 168px;
+  border: 1.5px solid rgba(6,71,174,0.24); /* cool @24% */
+}
+.intro-logo-frame .ring.inner {
+  width: 144px;
+  height: 144px;
+  border: 1px solid rgba(253,253,249,0.7); /* surface @70% */
+}
+.ringPulse { animation: ringPulse 1600ms ease-in-out infinite; }
+@keyframes ringPulse {
+  0% { transform: scale(1); opacity: 1 }
+  50% { transform: scale(1.06); opacity: 0.95 }
+  100% { transform: scale(1); opacity: 1 }
+}
+
+.intro-wordmark {
+  font-family: var(--font-fraunces, ui-serif), var(--font-inter, ui-sans-serif);
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: #FDFDF9;
+}
+
+.intro-tagline {
+  min-height: 22px;
+  font-family: var(--font-inter, ui-sans-serif);
+  font-size: 16px;
+  color: #4A5365; /* slate on ink */
+}
+
+.type-reveal {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 1px solid #AEB5BC;
+  animation: typing 0.40s steps(18, end), blink 0.8s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 18ch }
+}
+@keyframes blink {
+  0%, 100% { border-color: transparent }
+  50% { border-color: #AEB5BC }
+}
+
+.intro-cta {
+  margin-top: 8px;
+  background: #ED6B08; /* warm */
+  color: #FDFDF9;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid #ED6B08;
+  box-shadow: 0 6px 16px rgba(7,28,60,0.18);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+.intro-cta:hover { transform: translateY(-1px); }
+.intro-cta:active { transform: scale(0.985); }
+.intro-cta:focus { outline: none; box-shadow: 0 0 0 2px #0647AE; }
+
+.intro-cta-hint {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 500;
+  color: #FDFDF9;
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+/* Underlay/hero dynamics while intro is active */
+#page-shell {
+  transform-origin: 50% 50%;
+  transform: scale(var(--intro-scale, 1)) translate3d(var(--intro-trx, 0px), var(--intro-try, 0px), 0);
+  filter: none;
+  transition: transform 240ms cubic-bezier(0.2,0.8,0.2,1), filter 240ms cubic-bezier(0.2,0.8,0.2,1);
+  will-change: transform, filter, clip-path;
+}
+
+#page-shell.intro-active {
+  filter: blur(6px);
+  clip-path: circle(var(--intro-clip, 0%) at 50% 50%);
+}
+
+#page-shell.intro-revealing {
+  filter: blur(0px);
+  transform: scale(1) translate3d(0,0,0);
+  transition: transform 300ms cubic-bezier(0.2,0.8,0.2,1), filter 300ms cubic-bezier(0.2,0.8,0.2,1), clip-path 420ms cubic-bezier(0.2,0.8,0.2,1);
+  clip-path: circle(var(--intro-clip, 140%) at 50% 50%);
+}
+
+/* Header fade-in with reveal */
+#page-shell.intro-active header { opacity: 0; transform: translateY(-4px); }
+#page-shell.intro-revealing header { opacity: 1; transform: translateY(0); transition: opacity 240ms ease, transform 240ms ease; }
+
+/* Reduced motion: skip heavy effects */
+@media (prefers-reduced-motion: reduce) {
+  .type-reveal { animation: none; border: 0; }
+  #page-shell.intro-active { filter: none; transform: none; clip-path: none; }
+  #page-shell.intro-revealing { clip-path: none; }
+  .ringPulse { animation: none; }
+}

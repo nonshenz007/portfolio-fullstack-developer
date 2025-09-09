@@ -1,0 +1,29 @@
+{
+  "name": "Code Quality Check",
+  "description": "Runs comprehensive code quality checks on Dart files",
+  "trigger": {
+    "type": "file_save",
+    "pattern": "lib/**/*.dart"
+  },
+  "actions": [
+    {
+      "type": "command",
+      "command": "flutter analyze",
+      "description": "Run Flutter static analysis"
+    },
+    {
+      "type": "command", 
+      "command": "dart format --set-exit-if-changed .",
+      "description": "Check code formatting"
+    },
+    {
+      "type": "command",
+      "command": "dart fix --dry-run",
+      "description": "Check for available code fixes"
+    }
+  ],
+  "notifications": {
+    "success": "Code quality check passed ✅",
+    "failure": "Code quality issues found ❌ Please review and fix"
+  }
+}

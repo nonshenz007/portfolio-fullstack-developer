@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: directus
+      POSTGRES_USER: directus
+      POSTGRES_PASSWORD: directus
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - tripchoice
+
+  # Directus CMS
+  directus:
+    image: directus/directus:latest
+    ports:
+      - "8055:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - ./directus/snapshot.json:/directus/snapshot.json
+    depends_on:
+      - postgres
+    environment:
+      SECRET: "replace-with-secure-secret"
+      DB_CLIENT: "pg"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_DATABASE: "directus"
+      DB_USER: "directus"
+      DB_PASSWORD: "directus"
+      ADMIN_EMAIL: "admin@tripchoice.com"
+      ADMIN_PASSWORD: "admin123"
+      PUBLIC_URL: "http://localhost:8055"
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "http://localhost:3000"
+    networks:
+      - tripchoice
+
+  # Next.js Web App
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - directus
+    environment:
+      DIRECTUS_URL: "http://directus:8055"
+      DIRECTUS_TOKEN: "your-token-here"
+      NEXT_PUBLIC_WHATSAPP_NUMBER: "+919876543210"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      NEXT_PUBLIC_PLAUSIBLE_DOMAIN: "localhost"
+    networks:
+      - tripchoice
+
+volumes:
+  postgres_data:
+  directus_uploads:
+
+networks:
+  tripchoice:
+    driver: bridge

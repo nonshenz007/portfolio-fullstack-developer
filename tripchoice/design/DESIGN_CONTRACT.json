@@ -1,0 +1,27 @@
+{
+  "brand": {
+    "colors": {
+      "ink": "#071C3C",
+      "surface": "#FDFDF9",
+      "slate": "#4A5365",
+      "cloud": "#AEB5BC",
+      "accent": { "warm": "#ED6B08", "cool": "#0647AE" }
+    },
+    "radius": { "sm": 12, "md": 16, "xl": 24, "xxl": 28 },
+    "shadows": { "e1": "0 1px 2px rgba(0,0,0,.06)", "e2": "0 6px 16px rgba(7,28,60,.15)", "e3": "0 18px 48px rgba(7,28,60,.18)" },
+    "type": { "display": "Plus Jakarta", "ui": "Inter", "scale": { "h1": [64,1.05], "h2": [40,1.1], "h3": [28,1.15], "body": [16,1.6] } }
+  },
+  "ux": {
+    "hero": { "overlay": "cool->ink", "headline": "Plan less. Travel more.", "sub": "Curated trips for when wanderlust calls." },
+    "chips": ["Weekend","Under ₹15k","Visa-free","Honeymoon","Mountains"],
+    "personalization": ["name*","persona","vibe","city"],
+    "cards": { "ratio": "4:3", "meta": ["destination","days","pax"], "tabs": ["Bus","Train","Flight"] }
+  },
+  "rules": {
+    "noGender": true,
+    "minContrast": 4.5,
+    "noAdClutter": true,
+    "priceSource": "DB_ONLY",
+    "reducedMotion": true
+  }
+}
