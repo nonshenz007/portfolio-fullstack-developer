@@ -5,6 +5,11 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const contactForm = document.getElementById('contactForm');
 const skillBars = document.querySelectorAll('.skill-progress');
+const heroBrain = document.querySelector('.ai-brain');
+const floatingIcons = document.querySelectorAll('.floating-icon');
+const typingTexts = document.querySelectorAll('.typing-text');
+const aiCards = document.querySelectorAll('.ai-card');
+const projectCards = document.querySelectorAll('.project-card');
 
 // Navigation Scroll Effect
 window.addEventListener('scroll', () => {
@@ -328,10 +333,221 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Console message for developers
-console.log(`
-🚀 Portfolio Loaded Successfully!
-💻 Full-Stack Developer Portfolio
+// AI Brain Interaction
+if (heroBrain) {
+    heroBrain.addEventListener('click', () => {
+        const nodes = heroBrain.querySelectorAll('.node');
+        nodes.forEach(node => {
+            node.style.animation = 'none';
+            setTimeout(() => {
+                node.style.animation = '';
+            }, 100);
+        });
+    });
+}
+
+// AI Card Hover Effects
+aiCards.forEach((card, index) => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+        const icon = card.querySelector('.ai-icon');
+        if (icon) {
+            icon.style.transform = 'scale(1.1) rotate(5deg)';
+            icon.style.boxShadow = '0 12px 35px rgba(99, 102, 241, 0.4)';
+        }
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+        const icon = card.querySelector('.ai-icon');
+        if (icon) {
+            icon.style.transform = 'scale(1) rotate(0deg)';
+            icon.style.boxShadow = '0 8px 25px rgba(99, 102, 241, 0.3)';
+        }
+    });
+});
+
+// Typing Animation for Terminal
+let typingIndex = 0;
+let charIndex = 0;
+const typingSpeed = 100;
+
+function typeText() {
+    if (typingIndex < typingTexts.length) {
+        const text = typingTexts[typingIndex];
+        const fullText = text.textContent;
+
+        if (charIndex < fullText.length) {
+            text.textContent = fullText.substring(0, charIndex + 1);
+            charIndex++;
+            setTimeout(typeText, typingSpeed);
+        } else {
+            typingIndex++;
+            charIndex = 0;
+            if (typingIndex < typingTexts.length) {
+                setTimeout(typeText, 1000);
+            }
+        }
+    }
+}
+
+// Start typing animation
+setTimeout(typeText, 2000);
+
+// Neural Network Animation
+function createNeuralConnections() {
+    const brainNodes = document.querySelectorAll('.brain-nodes .node');
+    const connections = document.querySelector('.connections');
+
+    if (brainNodes.length > 0 && connections) {
+        brainNodes.forEach((node, index) => {
+            node.style.animationDelay = `${index * 0.2}s`;
+        });
+    }
+}
+
+// Magnetic Effect for Floating Icons
+document.addEventListener('mousemove', (e) => {
+    floatingIcons.forEach((icon, index) => {
+        const rect = icon.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const deltaX = (e.clientX - centerX) * 0.02;
+        const deltaY = (e.clientY - centerY) * 0.02;
+
+        icon.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    });
+});
+
+// AI Thinking Animation
+function aiThinkingAnimation() {
+    const aiIcons = document.querySelectorAll('.ai-icon i');
+    aiIcons.forEach((icon, index) => {
+        setTimeout(() => {
+            icon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                icon.style.transform = 'scale(1)';
+            }, 500);
+        }, index * 200);
+    });
+}
+
+// Project Card AI Glow Effect
+projectCards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+        const icon = card.querySelector('.project-main-icon');
+        if (icon) {
+            icon.style.filter = 'drop-shadow(0 0 20px rgba(99, 102, 241, 0.8))';
+        }
+    });
+
+    card.addEventListener('mouseleave', () => {
+        const icon = card.querySelector('.project-main-icon');
+        if (icon) {
+            icon.style.filter = 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))';
+        }
+    });
+});
+
+// AI Status Pulse
+const statusDot = document.querySelector('.status-dot');
+if (statusDot) {
+    setInterval(() => {
+        statusDot.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            statusDot.style.transform = 'scale(1)';
+        }, 500);
+    }, 3000);
+}
+
+// Scroll-triggered AI Effects
+const aiObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if (entry.target.classList.contains('ai-showcase')) {
+                aiThinkingAnimation();
+            }
+            aiObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+const aiShowcase = document.querySelector('.ai-showcase');
+if (aiShowcase) {
+    aiObserver.observe(aiShowcase);
+}
+
+// Dynamic Background Particles
+function createAIParticles() {
+    const particleContainer = document.createElement('div');
+    particleContainer.className = 'ai-particles';
+    particleContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    `;
+
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: aiParticleFloat ${3 + Math.random() * 4}s linear infinite;
+        `;
+        particleContainer.appendChild(particle);
+    }
+
+    document.body.appendChild(particleContainer);
+}
+
+const aiParticleStyle = document.createElement('style');
+aiParticleStyle.textContent = `
+    @keyframes aiParticleFloat {
+        0% {
+            transform: translateY(0px) translateX(0px);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(aiParticleStyle);
+
+// Initialize AI Features
+document.addEventListener('DOMContentLoaded', () => {
+    createNeuralConnections();
+    createAIParticles();
+
+    // AI Welcome Message
+    setTimeout(() => {
+        console.log(`
+🤖 AI Developer Portfolio Initialized
+🚀 Full-Stack Developer | AI Specialist
+🧠 Machine Learning | Computer Vision | NLP
 📧 Contact: your.email@example.com
 🔗 GitHub: https://github.com/nonshenz007/portfolio-fullstack-developer
-`);
+
+⚡ Neural Networks: Online
+🎯 AI Models: Loaded
+💡 Innovation: Activated
+        `);
+    }, 1000);
+});
