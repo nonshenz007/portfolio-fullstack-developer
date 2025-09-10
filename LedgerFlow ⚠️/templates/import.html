@@ -1,0 +1,752 @@
+{% extends "base.html" %}
+
+{% block title %}Import Products - LedgerFlow{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container">
+        <!-- Main Upload Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">📁 Import Product Catalog</h2>
+                <p class="text-muted">Upload your Excel file to import products for invoice generation</p>
+            </div>
+            
+            <!-- File Upload Area -->
+            <div class="file-upload-area" id="fileUploadArea">
+                <div class="file-upload-content">
+                    <div class="file-upload-icon">📄</div>
+                    <h3 class="file-upload-title">Drop your Excel file here</h3>
+                    <p class="file-upload-subtitle">or click to browse</p>
+                    <div class="file-upload-formats">
+                        <span class="format-tag">.xlsx</span>
+                        <span class="format-tag">.xls</span>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;">
+            </div>
+
+            <!-- Upload Progress -->
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText">Uploading...</p>
+            </div>
+
+            <!-- Expected Columns Section -->
+            <div class="card-section">
+                <h3 class="card-section-title">Required Excel Columns</h3>
+                <div class="columns-grid">
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Product Name</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">SKU/HSN Code</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Base Rate</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Quantity</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Category</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">GST Rate</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Unit</span>
+                    </div>
+                    <div class="column-item">
+                        <span class="column-icon">✅</span>
+                        <span class="column-name">Stock Quantity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Download Card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">📥 Download Template</h3>
+                <p class="text-muted">Get the properly formatted Excel template</p>
+            </div>
+            <div class="template-download-content">
+                <a href="/api/template/download" class="btn btn-success template-download-btn">
+                    <span class="btn-icon">📊</span>
+                    <span class="btn-text">Download Excel Template</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Current Products Card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">📦 Current Products</h3>
+                <div class="products-actions">
+                    <button class="btn btn-secondary" onclick="loadCurrentProducts()" id="refreshBtn">
+                        <span class="btn-icon">🔄</span>
+                        <span class="btn-text">Refresh</span>
+                    </button>
+                    <button class="btn btn-error" onclick="clearAllProducts()" id="clearAllBtn" style="display: none;">
+                        <span class="btn-icon">🗑️</span>
+                        <span class="btn-text">Clear All</span>
+                    </button>
+                </div>
+            </div>
+            <div class="products-content" id="currentProducts">
+                <div class="loading-state">
+                    <div class="loading-spinner">⏳</div>
+                    <p class="loading-text">Loading products...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Import Results Card -->
+        <div class="card" id="importResultsCard" style="display: none;">
+            <div class="card-header">
+                <h3 class="card-title">✅ Import Results</h3>
+            </div>
+            <div class="import-results-content" id="importResults">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Import Page Specific Styles */
+.file-upload-area {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    margin-bottom: 1.5rem;
+    background: var(--bg-light);
+}
+
+body.dark .file-upload-area {
+    border-color: var(--gray-700);
+    background: var(--gray-900);
+}
+
+.file-upload-area:hover {
+    border-color: var(--accent);
+    background: rgba(10, 132, 255, 0.02);
+}
+
+body.dark .file-upload-area:hover {
+    background: rgba(10, 132, 255, 0.05);
+}
+
+.file-upload-area.dragover {
+    border-color: var(--accent);
+    background: rgba(10, 132, 255, 0.05);
+    transform: scale(1.02);
+}
+
+.file-upload-content {
+    pointer-events: none;
+}
+
+.file-upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.file-upload-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+body.dark .file-upload-title {
+    color: var(--text-dark);
+}
+
+.file-upload-subtitle {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+.file-upload-formats {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.format-tag {
+    background: var(--gray-200);
+    color: var(--gray-700);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+body.dark .format-tag {
+    background: var(--gray-800);
+    color: var(--gray-400);
+}
+
+.upload-progress {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: var(--radius);
+}
+
+body.dark .upload-progress {
+    background: var(--gray-900);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--gray-300);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+body.dark .progress-bar {
+    background: var(--gray-700);
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width var(--transition);
+    border-radius: 4px;
+}
+
+.progress-text {
+    text-align: center;
+    color: var(--gray-700);
+    font-weight: 500;
+    margin: 0;
+}
+
+body.dark .progress-text {
+    color: var(--gray-400);
+}
+
+.columns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.column-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+}
+
+body.dark .column-item {
+    background: var(--gray-900);
+}
+
+.column-icon {
+    margin-right: 0.75rem;
+    font-size: 1rem;
+}
+
+.column-name {
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+body.dark .column-name {
+    color: var(--text-dark);
+}
+
+.template-download-content {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.template-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.products-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.products-content {
+    min-height: 200px;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-600);
+}
+
+.loading-spinner {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin: 0;
+    font-weight: 500;
+}
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.product-item {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition);
+}
+
+body.dark .product-item {
+    background: var(--gray-900);
+}
+
+.product-item:hover {
+    background: var(--gray-200);
+}
+
+body.dark .product-item:hover {
+    background: var(--gray-800);
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-light);
+}
+
+body.dark .product-name {
+    color: var(--text-dark);
+}
+
+.product-details {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.products-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+body.dark .products-summary {
+    background: var(--gray-900);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray-600);
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.import-results-content {
+    padding: 1rem;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--gray-100);
+}
+
+body.dark .result-item {
+    background: var(--gray-900);
+}
+
+.result-icon {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.result-success {
+    background: rgba(52, 199, 89, 0.1);
+    color: var(--success);
+}
+
+.result-error {
+    background: rgba(255, 59, 48, 0.1);
+    color: var(--error);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .file-upload-area {
+        padding: 2rem 1rem;
+    }
+    
+    .columns-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .products-actions {
+        flex-direction: column;
+    }
+    
+    .product-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .product-actions {
+        align-self: flex-end;
+    }
+}
+</style>
+
+<script>
+// Import page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFileUpload();
+    loadCurrentProducts();
+});
+
+function initializeFileUpload() {
+    const fileUploadArea = document.getElementById('fileUploadArea');
+    const fileInput = document.getElementById('fileInput');
+    
+    // Click to browse
+    fileUploadArea.addEventListener('click', () => {
+        fileInput.click();
+    });
+    
+    // File selection
+    fileInput.addEventListener('change', handleFileSelect);
+    
+    // Drag and drop
+    fileUploadArea.addEventListener('dragover', handleDragOver);
+    fileUploadArea.addEventListener('dragleave', handleDragLeave);
+    fileUploadArea.addEventListener('drop', handleDrop);
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.add('dragover');
+}
+
+function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove('dragover');
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove('dragover');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        handleFileUpload(files[0]);
+    }
+}
+
+function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+        handleFileUpload(file);
+    }
+}
+
+function handleFileUpload(file) {
+    // Validate file type
+    const allowedTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel'
+    ];
+    
+    if (!allowedTypes.includes(file.type) && !file.name.match(/\.(xlsx|xls)$/i)) {
+        showToast('Please select a valid Excel file (.xlsx or .xls)', 'error');
+        return;
+    }
+    
+    // Show progress
+    showUploadProgress();
+    
+    // Create form data
+    const formData = new FormData();
+    formData.append('product_file', file);
+    
+    // Upload file
+    uploadFile(formData);
+}
+
+function showUploadProgress() {
+    const progressContainer = document.getElementById('uploadProgress');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    
+    progressContainer.style.display = 'block';
+    progressFill.style.width = '0%';
+    progressText.textContent = 'Uploading...';
+    
+    // Simulate progress
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 90) {
+            progress = 90;
+            clearInterval(interval);
+        }
+        progressFill.style.width = progress + '%';
+    }, 200);
+    
+    return interval;
+}
+
+async function uploadFile(formData) {
+    const progressContainer = document.getElementById('uploadProgress');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    
+    try {
+        const response = await fetch('/api/products/import', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        // Complete progress
+        progressFill.style.width = '100%';
+        progressText.textContent = 'Processing...';
+        
+        setTimeout(() => {
+            progressContainer.style.display = 'none';
+            handleUploadResponse(data);
+        }, 500);
+        
+    } catch (error) {
+        console.error('Upload error:', error);
+        progressContainer.style.display = 'none';
+        showToast('Upload failed. Please try again.', 'error');
+    }
+}
+
+function handleUploadResponse(data) {
+    const resultsCard = document.getElementById('importResultsCard');
+    const resultsContent = document.getElementById('importResults');
+    
+    if (data.success) {
+        showToast(`Successfully imported ${data.count || 0} products`, 'success');
+        
+        // Show results
+        resultsContent.innerHTML = `
+            <div class="result-item result-success">
+                <span class="result-icon">✅</span>
+                <div>
+                    <strong>Import Successful</strong><br>
+                    <span class="text-muted">${data.count || 0} products imported successfully</span>
+                </div>
+            </div>
+        `;
+        
+        // Refresh products list
+        loadCurrentProducts();
+    } else {
+        showToast(data.error || 'Import failed', 'error');
+        
+        resultsContent.innerHTML = `
+            <div class="result-item result-error">
+                <span class="result-icon">❌</span>
+                <div>
+                    <strong>Import Failed</strong><br>
+                    <span class="text-muted">${data.error || 'Unknown error occurred'}</span>
+                </div>
+            </div>
+        `;
+    }
+    
+    resultsCard.style.display = 'block';
+    resultsCard.scrollIntoView({ behavior: 'smooth' });
+}
+
+async function loadCurrentProducts() {
+    const productsContent = document.getElementById('currentProducts');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    
+    // Show loading state
+    productsContent.innerHTML = `
+        <div class="loading-state">
+            <div class="loading-spinner">⏳</div>
+            <p class="loading-text">Loading products...</p>
+        </div>
+    `;
+    
+    try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        
+        if (data.success && data.products && data.products.length > 0) {
+            // Show products summary
+            const summaryHtml = `
+                <div class="products-summary">
+                    <span>${data.products.length} Products Loaded</span>
+                    <span class="text-muted">Ready for invoice generation</span>
+                </div>
+            `;
+            
+            // Show products list (first 10)
+            const productsHtml = data.products.slice(0, 10).map(product => `
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-details">${product.code} • ₹${product.sale_price} • ${product.unit || 'Unit'}</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-icon btn-error" onclick="deleteProduct(${product.id})" title="Delete Product">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const moreText = data.products.length > 10 ? 
+                `<div class="text-center text-muted mt-3">... and ${data.products.length - 10} more products</div>` : '';
+            
+            productsContent.innerHTML = summaryHtml + '<div class="products-list">' + productsHtml + '</div>' + moreText;
+            clearAllBtn.style.display = 'inline-flex';
+            
+        } else {
+            // Show empty state
+            productsContent.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📦</div>
+                    <p><strong>No products imported yet</strong></p>
+                    <p class="text-muted">Upload an Excel file to get started</p>
+                </div>
+            `;
+            clearAllBtn.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error loading products:', error);
+        productsContent.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">❌</div>
+                <p><strong>Error loading products</strong></p>
+                <p class="text-muted">Please try refreshing the page</p>
+            </div>
+        `;
+        clearAllBtn.style.display = 'none';
+    }
+}
+
+async function deleteProduct(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+        try {
+            const response = await fetch(`/api/products/${productId}`, {
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                showToast('Product deleted successfully', 'success');
+                loadCurrentProducts();
+            } else {
+                showToast('Failed to delete product', 'error');
+            }
+        } catch (error) {
+            showToast('Error deleting product', 'error');
+        }
+    }
+}
+
+async function clearAllProducts() {
+    if (confirm('Are you sure you want to delete all products? This action cannot be undone.')) {
+        try {
+            const response = await fetch('/api/products/delete-all', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                showToast('All products deleted successfully', 'success');
+                loadCurrentProducts();
+            } else {
+                showToast('Failed to delete products', 'error');
+            }
+        } catch (error) {
+            showToast('Error deleting products', 'error');
+        }
+    }
+}
+
+function showToast(message, type = 'info') {
+    // Use existing toast system if available, otherwise fallback to alert
+    if (typeof toast === 'function') {
+        toast(message, type === 'success');
+    } else {
+        alert(message);
+    }
+}
+</script>
+{% endblock %} 

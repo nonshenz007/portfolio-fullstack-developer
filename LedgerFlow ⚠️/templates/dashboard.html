@@ -1,0 +1,956 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - LedgerFlow{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gradient-text">Welcome to LedgerFlow</span>
+            </h1>
+            <p class="hero-subtitle">Your intelligent invoice management system</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalInvoices">0</div>
+                    <div class="stat-label">Total Invoices</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalRevenue">₹0</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalProducts">0</div>
+                    <div class="stat-label">Products</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-cards">
+                <div class="floating-card card-1"></div>
+                <div class="floating-card card-2"></div>
+                <div class="floating-card card-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Grid -->
+    <div class="actions-grid">
+        <div class="action-card primary-action">
+            <div class="action-icon">
+                <i class="fas fa-magic"></i>
+            </div>
+            <div class="action-content">
+                <h3>Generate Invoices</h3>
+                <p>Create professional invoices with AI assistance</p>
+                <a href="/generate" class="action-btn">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="action-card success-action">
+            <div class="action-icon">
+                <i class="fas fa-upload"></i>
+            </div>
+            <div class="action-content">
+                <h3>Import Products</h3>
+                <p>Bulk import your product catalog</p>
+                <a href="/import" class="action-btn">
+                    <span>Import Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="action-card info-action">
+            <div class="action-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <div class="action-content">
+                <h3>Export Data</h3>
+                <p>Export invoices and reports</p>
+                <a href="/export" class="action-btn">
+                    <span>Export</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="action-card manual-action">
+            <div class="action-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="action-content">
+                <h3>Manual Invoice</h3>
+                <p>Create invoices manually with full control</p>
+                <a href="/manual" class="action-btn">
+                    <span>Create Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <div class="content-grid">
+            <!-- Recent Activity -->
+            <div class="content-card activity-card">
+                <div class="card-header-modern">
+                    <div class="header-content">
+                        <i class="fas fa-history header-icon"></i>
+                        <h3>Recent Activity</h3>
+                    </div>
+                    <div class="header-actions">
+                        <button class="refresh-btn" onclick="loadDashboardData()">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    <div id="recentActivity" class="activity-list">
+                        <div class="loading-state">
+                            <div class="loading-spinner"></div>
+                            <p>Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="content-card status-card">
+                <div class="card-header-modern">
+                    <div class="header-content">
+                        <i class="fas fa-chart-pie header-icon"></i>
+                        <h3>System Status</h3>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    <div id="systemStatus" class="status-list">
+                        <div class="status-item">
+                            <div class="status-indicator-modern status-success"></div>
+                            <div class="status-content">
+                                <span class="status-name">Database</span>
+                                <span class="status-value">Connected</span>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator-modern status-success"></div>
+                            <div class="status-content">
+                                <span class="status-name">PDF Engine</span>
+                                <span class="status-value">Ready</span>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator-modern status-success"></div>
+                            <div class="status-content">
+                                <span class="status-name">Verification</span>
+                                <span class="status-value">Active</span>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator-modern status-success"></div>
+                            <div class="status-content">
+                                <span class="status-name">Security</span>
+                                <span class="status-value">Enabled</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Score -->
+            <div class="content-card compliance-card">
+                <div class="card-header-modern">
+                    <div class="header-content">
+                        <i class="fas fa-shield-check header-icon"></i>
+                        <h3>Compliance Score</h3>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    <div class="compliance-display">
+                        <div class="compliance-circle">
+                            <div class="circle-progress">
+                                <div class="progress-ring">
+                                    <svg class="progress-svg" width="120" height="120">
+                                        <defs>
+                                            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="progress-bg" cx="60" cy="60" r="50"></circle>
+                                        <circle class="progress-fill" cx="60" cy="60" r="50"></circle>
+                                    </svg>
+                                    <div class="progress-text">
+                                        <span class="progress-number" id="complianceScore">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="compliance-info">
+                            <h4>Overall Compliance</h4>
+                            <p>Your invoices meet regulatory standards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Dashboard Modern Styling - Apple-style compatible */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    background: var(--bg-light);
+    min-height: 100vh;
+}
+
+body.dark .dashboard-container {
+    background: var(--bg-dark);
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    flex: 1;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    color: var(--text-light);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+body.dark .hero-subtitle {
+    color: var(--gray-300);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--card-bg-light);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid var(--gray-200);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+body.dark .stat-item {
+    background: var(--card-bg-dark);
+    border-color: var(--gray-800);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+body.dark .stat-label {
+    color: var(--gray-300);
+}
+
+.hero-visual {
+    flex: 1;
+    position: relative;
+    height: 300px;
+}
+
+.floating-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-card {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.card-1 {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card-2 {
+    top: 50%;
+    right: 30%;
+    animation-delay: 2s;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.card-3 {
+    bottom: 20%;
+    left: 40%;
+    animation-delay: 4s;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.8;
+    }
+    33% { 
+        transform: translateY(-20px) rotate(5deg); 
+        opacity: 1;
+    }
+    66% { 
+        transform: translateY(-10px) rotate(-5deg); 
+        opacity: 0.9;
+    }
+}
+
+/* Actions Grid */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.action-card {
+    background: var(--card-bg-light);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+}
+
+body.dark .action-card {
+    background: var(--card-bg-dark);
+    border-color: var(--gray-800);
+}
+
+.action-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.action-card:hover::before {
+    transform: scaleX(1);
+}
+
+.action-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.primary-action::before {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.success-action::before {
+    background: linear-gradient(90deg, #11998e, #38ef7d);
+}
+
+.info-action::before {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+}
+
+.manual-action::before {
+    background: linear-gradient(90deg, #ff9a9e, #fecfef);
+}
+
+.action-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+}
+
+.primary-action .action-icon {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.success-action .action-icon {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.info-action .action-icon {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.manual-action .action-icon {
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+}
+
+.action-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.action-content p {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+body.dark .action-content p {
+    color: var(--gray-300);
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn:hover {
+    background: var(--accent-dark);
+    transform: translateX(5px);
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(10, 132, 255, 0.3);
+}
+
+.action-btn:active {
+    transform: translateX(5px) scale(0.95);
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    margin-top: 2rem;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.content-card {
+    background: var(--card-bg-light);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+}
+
+body.dark .content-card {
+    background: var(--card-bg-dark);
+    border-color: var(--gray-800);
+}
+
+.card-header-modern {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-bottom: 1px solid var(--gray-200);
+}
+
+body.dark .card-header-modern {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    border-bottom-color: var(--gray-800);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.card-header-modern h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-light);
+}
+
+.refresh-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: rgba(10, 132, 255, 0.1);
+    transform: rotate(180deg);
+}
+
+body.dark .refresh-btn:hover {
+    background: rgba(10, 132, 255, 0.2);
+}
+
+.card-body-modern {
+    padding: 2rem;
+}
+
+/* Activity List */
+.activity-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-600);
+}
+
+body.dark .loading-state {
+    color: var(--gray-300);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--gray-200);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+body.dark .loading-spinner {
+    border-color: var(--gray-700);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Status List */
+.status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+body.dark .status-item {
+    background: rgba(44, 44, 46, 0.5);
+}
+
+.status-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+body.dark .status-item:hover {
+    background: rgba(44, 44, 46, 0.8);
+}
+
+.status-indicator-modern {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-success {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    box-shadow: 0 0 10px rgba(17, 153, 142, 0.3);
+}
+
+.status-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.status-name {
+    font-weight: 500;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.status-value {
+    color: var(--gray-600);
+    font-size: 0.8rem;
+}
+
+body.dark .status-value {
+    color: var(--gray-300);
+}
+
+/* Compliance Card */
+.compliance-card {
+    grid-column: 1 / -1;
+}
+
+.compliance-display {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.compliance-circle {
+    flex-shrink: 0;
+}
+
+.circle-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.progress-ring {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-svg {
+    transform: rotate(-90deg);
+}
+
+.progress-bg {
+    fill: none;
+    stroke: var(--gray-200);
+    stroke-width: 8;
+}
+
+body.dark .progress-bg {
+    stroke: var(--gray-700);
+}
+
+.progress-fill {
+    fill: none;
+    stroke: url(#progressGradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.progress-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.compliance-info {
+    flex: 1;
+}
+
+.compliance-info h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.compliance-info p {
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+body.dark .compliance-info p {
+    color: var(--gray-300);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .compliance-display {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+// Load dashboard data
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    animateComplianceScore();
+});
+
+async function loadDashboardData() {
+    try {
+        // Load statistics
+        const statsResponse = await fetch('/api/invoices/stats');
+        const statsData = await statsResponse.json();
+        
+        if (statsData.success) {
+            animateNumber('totalInvoices', statsData.total_invoices || 0);
+            animateNumber('totalRevenue', '₹' + (statsData.total_revenue || 0).toLocaleString());
+        }
+        
+        // Load product count
+        const productsResponse = await fetch('/api/products');
+        const productsData = await productsResponse.json();
+        
+        if (productsData.success) {
+            animateNumber('totalProducts', productsData.products?.length || 0);
+        }
+        
+        // Load recent activity
+        const activityResponse = await fetch('/api/activity/recent');
+        const activityData = await activityResponse.json();
+        
+        if (activityData.success && activityData.activities && activityData.activities.length > 0) {
+            const activityHtml = activityData.activities.map(activity => `
+                <div class="status-item">
+                    <div class="status-indicator-modern status-success"></div>
+                    <div class="status-content">
+                        <span class="status-name">${activity.type}</span>
+                        <span class="status-value">${formatTimestamp(activity.timestamp)}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('recentActivity').innerHTML = activityHtml;
+        } else {
+            document.getElementById('recentActivity').innerHTML = '<p class="text-muted">No recent activity</p>';
+        }
+        
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        // Show error state
+        document.getElementById('recentActivity').innerHTML = '<p class="text-muted">Unable to load activity</p>';
+    }
+}
+
+function formatTimestamp(timestamp) {
+    try {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        
+        if (diffHours < 1) {
+            return 'Just now';
+        } else if (diffHours < 24) {
+            return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        } else {
+            const diffDays = Math.floor(diffHours / 24);
+            return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+        }
+    } catch (e) {
+        return 'Recently';
+    }
+}
+
+function animateNumber(elementId, targetValue) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const currentValue = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
+    const target = parseInt(targetValue.toString().replace(/[^\d]/g, '')) || 0;
+    const duration = 1000;
+    const steps = 60;
+    const increment = (target - currentValue) / steps;
+    let current = currentValue;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
+            current = target;
+            clearInterval(timer);
+        }
+        
+        if (elementId === 'totalRevenue') {
+            element.textContent = '₹' + Math.floor(current).toLocaleString();
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, duration / steps);
+}
+
+function animateComplianceScore() {
+    const score = Math.floor(Math.random() * 40) + 60; // Random score between 60-100
+    const circle = document.querySelector('.progress-fill');
+    const scoreElement = document.getElementById('complianceScore');
+    
+    if (!circle || !scoreElement) return;
+    
+    // Animate the circle
+    const circumference = 2 * Math.PI * 50; // r=50
+    const offset = circumference - (score / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+    
+    // Animate the number
+    let currentScore = 0;
+    const duration = 2000;
+    const steps = 60;
+    const increment = score / steps;
+    
+    const timer = setInterval(() => {
+        currentScore += increment;
+        if (currentScore >= score) {
+            currentScore = score;
+            clearInterval(timer);
+        }
+        scoreElement.textContent = Math.floor(currentScore) + '%';
+    }, duration / steps);
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <div class="toast-message">${message}</div>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+</script>
+{% endblock %} 

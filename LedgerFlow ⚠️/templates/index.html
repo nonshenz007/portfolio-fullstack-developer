@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block title %}LedgerFlow Dashboard{% endblock %}
+
+{% block content %}
+<!-- Page Container -->
+<div class="page-container">
+    <!-- Home Page -->
+    <div class="page-content active" id="home-page">
+        <div class="welcome-container">
+            <h1 class="welcome-title">Welcome to LedgerFlow</h1>
+            <p class="welcome-subtitle">
+                Your professional invoice generator is ready to streamline your business workflow. 
+                Start creating beautiful invoices in minutes.
+            </p>
+            <div class="welcome-buttons">
+                <button class="btn btn-primary btn-large" onclick="navigateToPage('company-setup')">
+                    <i class="fas fa-rocket me-2"></i>
+                    Get Started
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="navigateToPage('settings')">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Page -->
+    <div class="page-content" id="import-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-file-import me-2"></i>
+                Import Products
+            </h3>
+            <div id="import-content">
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin mb-3"></i>
+                    <p>Loading import content...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Page -->
+    <div class="page-content" id="generate-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-magic me-2"></i>
+                Generate Invoices
+            </h3>
+            <div id="generate-content"></div>
+        </div>
+    </div>
+
+    <!-- Manual Page -->
+    <div class="page-content" id="manual-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-edit me-2"></i>
+                Manual Invoice Entry
+            </h3>
+            <div id="manual-content">
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin mb-3"></i>
+                    <p>Loading manual entry content...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Page -->
+    <div class="page-content" id="export-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-download me-2"></i>
+                Export Data
+            </h3>
+            <div id="export-content">
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin mb-3"></i>
+                    <p>Loading export content...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="page-content" id="settings-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-cog me-2"></i>
+                Settings
+            </h3>
+            <div id="settings-content">
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin mb-3"></i>
+                    <p>Loading settings content...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Company Setup Page -->
+    <div class="page-content" id="company-setup-page">
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="fas fa-building me-2"></i>
+                Company Setup
+            </h3>
+            <form id="company-setup-form" class="needs-validation" novalidate>
+                <div class="mb-4">
+                    <label for="company-name" class="form-label">Company Name *</label>
+                    <input type="text" class="form-control" id="company-name" required>
+                    <div class="invalid-feedback">Please enter your company name</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="company-address" class="form-label">Company Address *</label>
+                    <textarea class="form-control" id="company-address" rows="3" required></textarea>
+                    <div class="invalid-feedback">Please enter your company address</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="company-phone" class="form-label">Phone Number (Optional)</label>
+                    <input type="tel" class="form-control" id="company-phone">
+                </div>
+                
+                <div class="d-flex justify-content-end gap-3">
+                    <button type="button" class="btn btn-secondary" onclick="navigateToPage('home')">
+                        <i class="fas fa-arrow-left me-2"></i>Back
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Continue<i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .welcome-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 70vh;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .welcome-title {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+    }
+    
+    .welcome-buttons {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-large {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        min-width: 140px;
+    }
+    
+    .btn-large:hover {
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        .welcome-title {
+            font-size: 2.2rem;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1rem;
+        }
+        
+        .welcome-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn-large {
+            width: 100%;
+            max-width: 280px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Initialize page transitions
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize page transitions
+    initializePageTransitions();
+    
+    // Initialize company setup form
+    initializeCompanySetupForm();
+    
+    // Check if we should show home page by default
+    if (!window.location.hash || window.location.hash === '#home') {
+        navigateToPage('home');
+    }
+});
+
+function initializeCompanySetupForm() {
+    const form = document.getElementById('company-setup-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (form.checkValidity()) {
+            const companyData = {
+                name: document.getElementById('company-name').value,
+                address: document.getElementById('company-address').value,
+                phone: document.getElementById('company-phone').value
+            };
+            
+            // Send company data to server
+            fetch('/api/company/setup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(companyData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Proceed to import page after successful setup
+                    navigateToPage('import');
+                } else {
+                    alert(data.error || 'Failed to save company information');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to save company information');
+            });
+        }
+        
+        form.classList.add('was-validated');
+    });
+}
+</script>
+{% endblock %}

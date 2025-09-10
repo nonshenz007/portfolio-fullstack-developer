@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block title %}LedgerFlow - Manual Invoice Entry{% endblock %}
+
+{% block content %}
+<div class="manual-header">
+    <h1 class="manual-title">
+        <i data-lucide="edit" class="me-3"></i>
+        Manual Invoice Entry
+    </h1>
+    <p class="manual-subtitle">
+        Create individual invoices manually with complete control over every detail
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <form id="manualInvoiceForm">
+                    <!-- Invoice Header -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i data-lucide="file-text" class="me-2"></i>
+                                Invoice Details
+                            </h5>
+                            <div class="mb-3">
+                                <label class="form-label">Invoice Number</label>
+                                <input type="text" class="form-control" id="invoiceNumber" placeholder="INV-001" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Invoice Date</label>
+                                <input type="date" class="form-control" id="invoiceDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Due Date</label>
+                                <input type="date" class="form-control" id="dueDate">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i data-lucide="building" class="me-2"></i>
+                                Your Business
+                            </h5>
+                            <div class="mb-3">
+                                <label class="form-label">Business Name</label>
+                                <input type="text" class="form-control" id="businessName" placeholder="Your Business Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Business Address</label>
+                                <textarea class="form-control" id="businessAddress" rows="3" placeholder="Business Address"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tax Number (GST/VAT)</label>
+                                <input type="text" class="form-control" id="businessTaxNumber" placeholder="Tax Registration Number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Details -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="mb-3">
+                                <i data-lucide="user" class="me-2"></i>
+                                Customer Details
+                            </h5>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="customerName" placeholder="Customer Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Customer Address</label>
+                                <textarea class="form-control" id="customerAddress" rows="3" placeholder="Customer Address"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="customerPhone" placeholder="Phone Number">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="customerEmail" placeholder="Email Address">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Customer Tax Number</label>
+                                <input type="text" class="form-control" id="customerTaxNumber" placeholder="Customer Tax Number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Invoice Items -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">
+                                <i data-lucide="shopping-cart" class="me-2"></i>
+                                Invoice Items
+                            </h5>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="addInvoiceItem()">
+                                <i data-lucide="plus" class="me-1"></i>
+                                Add Item
+                            </button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Description</th>
+                                        <th width="100">Quantity</th>
+                                        <th width="120">Unit Price</th>
+                                        <th width="100">Tax %</th>
+                                        <th width="120">Total</th>
+                                        <th width="80">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoiceItems">
+                                    <!-- Items will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Notes and Terms -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" id="invoiceNotes" rows="3" placeholder="Additional notes for the invoice"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Terms & Conditions</label>
+                                <textarea class="form-control" id="invoiceTerms" rows="3" placeholder="Payment terms and conditions"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-3">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="createManualInvoice()">
+                            <i data-lucide="save" class="me-2"></i>
+                            Create Invoice
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="previewInvoice()">
+                            <i data-lucide="eye" class="me-2"></i>
+                            Preview
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" onclick="clearForm()">
+                            <i data-lucide="trash-2" class="me-2"></i>
+                            Clear Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-4">
+                    <i data-lucide="calculator" class="me-2"></i>
+                    Invoice Summary
+                </h5>
+                
+                <div class="summary-item">
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <strong id="subtotalAmount">₹0.00</strong>
+                    </div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="d-flex justify-content-between">
+                        <span>Tax Amount:</span>
+                        <strong id="taxAmount">₹0.00</strong>
+                    </div>
+                </div>
+                
+                <div class="summary-item total-row">
+                    <div class="d-flex justify-content-between">
+                        <span>Total Amount:</span>
+                        <strong id="totalAmount">₹0.00</strong>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="mt-4">
+                    <h6 class="mb-3">Quick Templates</h6>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('retail')">
+                            <i data-lucide="shopping-bag" class="me-1"></i>
+                            Retail Invoice
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('service')">
+                            <i data-lucide="briefcase" class="me-1"></i>
+                            Service Invoice
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('consulting')">
+                            <i data-lucide="users" class="me-1"></i>
+                            Consulting Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .manual-header {
+        margin-bottom: 32px;
+    }
+    .manual-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .manual-subtitle {
+        color: #64748b;
+        font-size: 1.1rem;
+        max-width: 600px;
+    }
+    .summary-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .summary-item:last-child {
+        border-bottom: none;
+    }
+    .total-row {
+        background: #f8fafc;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 8px;
+        border: none !important;
+    }
+    .total-row strong {
+        color: #2563eb;
+        font-size: 1.1rem;
+    }
+    .item-row {
+        background: #f8fafc;
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+    .item-row:last-child {
+        margin-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let itemCounter = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default date to today
+    document.getElementById('invoiceDate').valueAsDate = new Date();
+    
+    // Add first item
+    addInvoiceItem();
+    
+    // Add event listeners for real-time calculation
+    document.addEventListener('input', calculateTotals);
+});
+
+function addInvoiceItem() {
+    itemCounter++;
+    const tbody = document.getElementById('invoiceItems');
+    const row = document.createElement('tr');
+    row.className = 'item-row';
+    row.innerHTML = `
+        <td>
+            <input type="text" class="form-control" name="itemDescription" placeholder="Item description" required>
+        </td>
+        <td>
+            <input type="number" class="form-control" name="itemQuantity" value="1" min="1" step="1" required>
+        </td>
+        <td>
+            <input type="number" class="form-control" name="itemPrice" value="0" min="0" step="0.01" required>
+        </td>
+        <td>
+            <input type="number" class="form-control" name="itemTax" value="18" min="0" max="100" step="0.01">
+        </td>
+        <td>
+            <input type="number" class="form-control item-total" readonly>
+        </td>
+        <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvoiceItem(this)">
+                <i data-lucide="trash-2"></i>
+            </button>
+        </td>
+    `;
+    tbody.appendChild(row);
+    
+    // Re-create Lucide icons
+    lucide.createIcons();
+    
+    calculateTotals();
+}
+
+function removeInvoiceItem(button) {
+    const row = button.closest('tr');
+    const tbody = document.getElementById('invoiceItems');
+    
+    if (tbody.children.length > 1) {
+        row.remove();
+        calculateTotals();
+    } else {
+        showAlert('warning', 'At least one item is required');
+    }
+}
+
+function calculateTotals() {
+    const rows = document.querySelectorAll('#invoiceItems tr');
+    let subtotal = 0;
+    let totalTax = 0;
+    
+    rows.forEach(row => {
+        const quantity = parseFloat(row.querySelector('[name="itemQuantity"]').value) || 0;
+        const price = parseFloat(row.querySelector('[name="itemPrice"]').value) || 0;
+        const taxRate = parseFloat(row.querySelector('[name="itemTax"]').value) || 0;
+        
+        const itemTotal = quantity * price;
+        const itemTax = itemTotal * (taxRate / 100);
+        const itemTotalWithTax = itemTotal + itemTax;
+        
+        row.querySelector('.item-total').value = itemTotalWithTax.toFixed(2);
+        
+        subtotal += itemTotal;
+        totalTax += itemTax;
+    });
+    
+    const total = subtotal + totalTax;
+    
+    document.getElementById('subtotalAmount').textContent = `₹${subtotal.toFixed(2)}`;
+    document.getElementById('taxAmount').textContent = `₹${totalTax.toFixed(2)}`;
+    document.getElementById('totalAmount').textContent = `₹${total.toFixed(2)}`;
+}
+
+function createManualInvoice() {
+    // Validate form
+    const form = document.getElementById('manualInvoiceForm');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+    
+    // Collect invoice data
+    const invoiceData = {
+        invoiceNumber: document.getElementById('invoiceNumber').value,
+        invoiceDate: document.getElementById('invoiceDate').value,
+        dueDate: document.getElementById('dueDate').value,
+        business: {
+            name: document.getElementById('businessName').value,
+            address: document.getElementById('businessAddress').value,
+            taxNumber: document.getElementById('businessTaxNumber').value
+        },
+        customer: {
+            name: document.getElementById('customerName').value,
+            address: document.getElementById('customerAddress').value,
+            phone: document.getElementById('customerPhone').value,
+            email: document.getElementById('customerEmail').value,
+            taxNumber: document.getElementById('customerTaxNumber').value
+        },
+        items: [],
+        notes: document.getElementById('invoiceNotes').value,
+        terms: document.getElementById('invoiceTerms').value
+    };
+    
+    // Collect items
+    document.querySelectorAll('#invoiceItems tr').forEach(row => {
+        const description = row.querySelector('[name="itemDescription"]').value;
+        const quantity = parseFloat(row.querySelector('[name="itemQuantity"]').value) || 0;
+        const price = parseFloat(row.querySelector('[name="itemPrice"]').value) || 0;
+        const taxRate = parseFloat(row.querySelector('[name="itemTax"]').value) || 0;
+        
+        if (description && quantity > 0 && price > 0) {
+            invoiceData.items.push({
+                description,
+                quantity,
+                price,
+                taxRate
+            });
+        }
+    });
+    
+    if (invoiceData.items.length === 0) {
+        showAlert('warning', 'Please add at least one item');
+        return;
+    }
+    
+    // Send to server
+    fetch('/api/invoices/manual', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(invoiceData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showAlert('success', 'Invoice created successfully!');
+            clearForm();
+        } else {
+            showAlert('error', data.error || 'Failed to create invoice');
+        }
+    })
+    .catch(error => {
+        showAlert('error', 'Failed to create invoice: ' + error.message);
+    });
+}
+
+function previewInvoice() {
+    showAlert('info', 'Preview functionality coming soon!');
+}
+
+function clearForm() {
+    document.getElementById('manualInvoiceForm').reset();
+    document.getElementById('invoiceItems').innerHTML = '';
+    document.getElementById('invoiceDate').valueAsDate = new Date();
+    addInvoiceItem();
+    calculateTotals();
+}
+
+function loadTemplate(type) {
+    const templates = {
+        retail: {
+            businessName: 'Retail Store',
+            items: [
+                { description: 'Product Item', quantity: 1, price: 100, taxRate: 18 }
+            ]
+        },
+        service: {
+            businessName: 'Service Provider',
+            items: [
+                { description: 'Service Consultation', quantity: 1, price: 500, taxRate: 18 }
+            ]
+        },
+        consulting: {
+            businessName: 'Consulting Firm',
+            items: [
+                { description: 'Consulting Hours', quantity: 8, price: 1000, taxRate: 18 }
+            ]
+        }
+    };
+    
+    const template = templates[type];
+    if (template) {
+        document.getElementById('businessName').value = template.businessName;
+        
+        // Clear existing items
+        document.getElementById('invoiceItems').innerHTML = '';
+        
+        // Add template items
+        template.items.forEach(item => {
+            addInvoiceItem();
+            const lastRow = document.querySelector('#invoiceItems tr:last-child');
+            lastRow.querySelector('[name="itemDescription"]').value = item.description;
+            lastRow.querySelector('[name="itemQuantity"]').value = item.quantity;
+            lastRow.querySelector('[name="itemPrice"]').value = item.price;
+            lastRow.querySelector('[name="itemTax"]').value = item.taxRate;
+        });
+        
+        calculateTotals();
+        showAlert('success', `${type.charAt(0).toUpperCase() + type.slice(1)} template loaded!`);
+    }
+}
+</script>
+{% endblock %} 

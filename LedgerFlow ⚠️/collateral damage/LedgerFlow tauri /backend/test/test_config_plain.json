@@ -1,0 +1,15 @@
+{
+  "revenue_target": 100000,
+  "start_date": "2023-01-01",
+  "end_date": "2023-01-31",
+  "invoice_type": "plain",
+  "min_items": 1,
+  "max_items": 5,
+  "min_invoice_amount": 1000,
+  "max_invoice_amount": 10000,
+  "item_filter_mode": "all",
+  "selected_items": [],
+  "name_type": "indian_company",
+  "realism_mode": "random",
+  "seed": 12345
+} 

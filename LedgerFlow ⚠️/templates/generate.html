@@ -1,0 +1,1814 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="generate-form">
+    <form id="generateForm" class="form" action="/api/invoices/generate" method="POST">
+        <!-- Basic Parameters Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Basic Parameters</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="revenue_target">Revenue Target (₹)</label>
+                    <input type="number" id="revenue_target" name="revenue_target" class="form-control" step="any" min="0" placeholder="Enter target revenue" required>
+                    <small class="form-text">Total revenue to generate across all invoices</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="invoice_count">Invoice Count</label>
+                    <input type="number" id="invoice_count" name="invoice_count" class="form-control" value="100" min="1" max="10000">
+                    <small class="form-text">Number of invoices to generate</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" value="">
+                    <small class="form-text">Start date for invoice generation (YYYY-MM-DD)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="end_date">End Date</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control" value="">
+                    <small class="form-text">End date for invoice generation (YYYY-MM-DD)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="template_type">Template Type</label>
+                    <div class="segmented-control" data-input="template_type">
+                        <div class="segment active" data-value="gst_einvoice">GST E-Invoice</div>
+                        <div class="segment" data-value="bahrain_vat">Bahrain VAT</div>
+                        <div class="segment" data-value="plain_cash">Plain Cash</div>
+                    </div>
+                    <input type="hidden" id="template_type" name="template_type" value="gst_einvoice">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="business_style">Business Style</label>
+                    <div class="select-container">
+                        <select id="business_style" name="business_style" class="form-control">
+                            <option value="retail_shop">Retail Shop</option>
+                            <option value="distributor">Distributor</option>
+                            <option value="exporter">Exporter</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="it_service">IT Service</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="country">Country</label>
+                    <div class="select-container">
+                        <select id="country" name="country" class="form-control">
+                            <option value="India">India</option>
+                            <option value="Bahrain">Bahrain</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="invoice_type">Invoice Type</label>
+                    <div class="segmented-control" data-input="invoice_type">
+                        <div class="segment active" data-value="gst">GST</div>
+                        <div class="segment" data-value="vat">VAT</div>
+                        <div class="segment" data-value="cash">Cash</div>
+                    </div>
+                    <input type="hidden" id="invoice_type" name="invoice_type" value="gst">
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Information Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Business Information</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="business_name">Business Name</label>
+                    <input type="text" id="business_name" name="business_name" class="form-control" placeholder="Your Company Name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="business_state">Business State</label>
+                    <div class="select-container">
+                        <select id="business_state" name="business_state" class="form-control">
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Bahrain">Bahrain</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group form-group-full">
+                    <label class="form-label" for="business_address">Business Address</label>
+                    <textarea id="business_address" name="business_address" class="form-control" rows="3" placeholder="Company Address"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="business_gst_number">GST Number</label>
+                    <input type="text" id="business_gst_number" name="business_gst_number" class="form-control" placeholder="22AAAAA0000A1Z5">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="business_vat_number">VAT Number</label>
+                    <input type="text" id="business_vat_number" name="business_vat_number" class="form-control" placeholder="For Bahrain VAT">
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Parameters Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Invoice Parameters</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="min_items_per_invoice">Min Items per Invoice</label>
+                    <input type="number" id="min_items_per_invoice" name="min_items_per_invoice" class="form-control" value="1" min="1" max="50">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="max_items_per_invoice">Max Items per Invoice</label>
+                    <input type="number" id="max_items_per_invoice" name="max_items_per_invoice" class="form-control" value="8" min="1" max="50">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="min_invoice_amount">Min Invoice Amount (₹)</label>
+                    <input type="number" id="min_invoice_amount" name="min_invoice_amount" class="form-control" value="100" min="1" step="any">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="max_invoice_amount">Max Invoice Amount (₹)</label>
+                    <input type="number" id="max_invoice_amount" name="max_invoice_amount" class="form-control" value="50000" min="1" step="any">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="revenue_distribution">Revenue Distribution</label>
+                    <div class="segmented-control" data-input="revenue_distribution">
+                        <div class="segment active" data-value="realistic">Realistic</div>
+                        <div class="segment" data-value="uniform">Uniform</div>
+                        <div class="segment" data-value="skewed">Skewed</div>
+                    </div>
+                    <input type="hidden" id="revenue_distribution" name="revenue_distribution" value="realistic">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="invoice_spacing">Invoice Spacing</label>
+                    <div class="segmented-control" data-input="invoice_spacing">
+                        <div class="segment active" data-value="natural">Natural</div>
+                        <div class="segment" data-value="uniform">Uniform</div>
+                        <div class="segment" data-value="clustered">Clustered</div>
+                    </div>
+                    <input type="hidden" id="invoice_spacing" name="invoice_spacing" value="natural">
+                </div>
+            </div>
+        </div>
+
+        <!-- Reality Controls Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Reality Controls</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="reality_buffer">Reality Buffer</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="reality_buffer" name="reality_buffer" class="range-slider-input" min="0" max="100" value="75" data-unit="%">
+                        <div id="reality_buffer-value" class="range-slider-value">75%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                    <small class="form-text">Higher = More realistic patterns</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="believability_stress">Believability Stress</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="believability_stress" name="believability_stress" class="range-slider-input" min="0" max="100" value="50" data-unit="%">
+                        <div id="believability_stress-value" class="range-slider-value">50%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>Low</span>
+                        <span>High</span>
+                    </div>
+                    <small class="form-text">Higher = More statistical complexity</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="customer_repeat_rate">Customer Repeat Rate</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="customer_repeat_rate" name="customer_repeat_rate" class="range-slider-input" min="0" max="100" value="30" data-unit="%">
+                        <div id="customer_repeat_rate-value" class="range-slider-value">30%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                    <small class="form-text">Percentage of returning customers</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="seasonal_variation">Seasonal Variation</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="seasonal_variation" name="seasonal_variation" class="range-slider-input" min="0" max="100" value="20" data-unit="%">
+                        <div id="seasonal_variation-value" class="range-slider-value">20%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                    <small class="form-text">Business fluctuation due to seasons</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="customer_return_rate">Customer Return Rate</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="customer_return_rate" name="customer_return_rate" class="range-slider-input" min="0" max="100" value="30" data-unit="%">
+                        <div id="customer_return_rate-value" class="range-slider-value">30%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                    <small class="form-text">Probability of customers returning</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="audit_risk">Audit Risk Level</label>
+                    <div class="segmented-control">
+                        <div class="segment" data-value="low">Low</div>
+                        <div class="segment active" data-value="medium">Medium</div>
+                        <div class="segment" data-value="high">High</div>
+                    </div>
+                    <input type="hidden" id="audit_risk" name="audit_risk" value="medium">
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Settings Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Advanced Settings</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="customer_region">Customer Region</label>
+                    <div class="select-container">
+                        <select id="customer_region" name="customer_region" class="form-control">
+                            <option value="generic_indian">Generic Indian Names</option>
+                            <option value="south_muslim">South Indian Muslim Names</option>
+                            <option value="bahrain_arabic">Bahrain Arabic Names</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="customer_type_mix">Customer Type Mix</label>
+                    <div class="select-container">
+                        <select id="customer_type_mix" name="customer_type_mix" class="form-control">
+                            <option value="mixed">Mixed (Business + Individual)</option>
+                            <option value="business">Business Only</option>
+                            <option value="individual">Individual Only</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="timeflow_mode">Timeflow Mode</label>
+                    <div class="select-container">
+                        <select id="timeflow_mode" name="timeflow_mode" class="form-control">
+                            <option value="realistic">Realistic (Natural clustering)</option>
+                            <option value="linear">Linear (Even spacing)</option>
+                            <option value="compressed">Compressed (Busy periods)</option>
+                            <option value="extended">Extended (Sparse periods)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="entropy_mode">Entropy Mode</label>
+                    <div class="select-container">
+                        <select id="entropy_mode" name="entropy_mode" class="form-control">
+                            <option value="smart">Smart (AI-driven patterns)</option>
+                            <option value="random">Random (Pure randomness)</option>
+                            <option value="structured">Structured (Predictable patterns)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="docuflex_formatter">DocuFlex Formatter</label>
+                    <label class="switch">
+                        <input type="checkbox" id="docuflex_formatter" name="docuflex_formatter" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <small class="form-text">Enable advanced document formatting</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="enable_verification">Enable Verification</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable_verification" name="enable_verification" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <small class="form-text">Automatically verify generated invoices</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="range-slider-label">
+                        <label class="form-label" for="min_compliance_score">Min Compliance Score</label>
+                    </div>
+                    <div class="range-slider-container">
+                        <input type="range" id="min_compliance_score" name="min_compliance_score" class="range-slider-input" min="0" max="100" value="85" data-unit="%">
+                        <div id="min_compliance_score-value" class="range-slider-value">85%</div>
+                    </div>
+                    <div class="range-slider-limits">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                    <small class="form-text">Minimum compliance score for generated invoices</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Selection Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Product Selection</h2>
+            </div>
+            <div class="form-grid form-grid-3">
+                <div class="form-group">
+                    <label class="form-label" for="most_sold_products">Most Sold Products</label>
+                    <div class="multi-select" data-source="/api/products">
+                        <div class="multi-select-trigger" tabindex="0">
+                            <div class="multi-select-placeholder">Select products that appear more frequently...</div>
+                            <div class="multi-select-selected" style="display: none;"></div>
+                            <div class="multi-select-arrow">▼</div>
+                        </div>
+                        <div class="multi-select-dropdown">
+                            <input type="text" class="multi-select-search" placeholder="Search products...">
+                            <div class="multi-select-options"></div>
+                        </div>
+                        <input type="hidden" id="most_sold_products" name="most_sold_products" value="">
+                    </div>
+                    <small class="form-text">Products that appear more frequently</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="least_sold_products">Least Sold Products</label>
+                    <div class="multi-select" data-source="/api/products">
+                        <div class="multi-select-trigger" tabindex="0">
+                            <div class="multi-select-placeholder">Select products that appear less frequently...</div>
+                            <div class="multi-select-selected" style="display: none;"></div>
+                            <div class="multi-select-arrow">▼</div>
+                        </div>
+                        <div class="multi-select-dropdown">
+                            <input type="text" class="multi-select-search" placeholder="Search products...">
+                            <div class="multi-select-options"></div>
+                        </div>
+                        <input type="hidden" id="least_sold_products" name="least_sold_products" value="">
+                    </div>
+                    <small class="form-text">Products that appear less frequently</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="excluded_products">Excluded Products</label>
+                    <div class="multi-select" data-source="/api/products">
+                        <div class="multi-select-trigger" tabindex="0">
+                            <div class="multi-select-placeholder">Select products to exclude completely...</div>
+                            <div class="multi-select-selected" style="display: none;"></div>
+                            <div class="multi-select-arrow">▼</div>
+                        </div>
+                        <div class="multi-select-dropdown">
+                            <input type="text" class="multi-select-search" placeholder="Search products...">
+                            <div class="multi-select-options"></div>
+                        </div>
+                        <input type="hidden" id="excluded_products" name="excluded_products" value="">
+                    </div>
+                    <small class="form-text">Products that will NEVER appear</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="card">
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <span class="btn-icon">⚡</span>
+                    Generate Invoices
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Results Panel -->
+    <div id="resultsPanel" class="card" style="display: none;">
+        <div class="card-header">
+            <h2 class="card-title">Generation Results</h2>
+        </div>
+        <div id="resultsContent">
+            <!-- Results will be populated here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Generate Page Specific Styles */
+.generate-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.form-grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.form-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+body.dark .form-text {
+  color: var(--gray-500);
+}
+
+/* Apple-style field validation styles */
+.field-error {
+  color: var(--error);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+.field-error .error-icon {
+  font-size: 1rem;
+}
+
+.field-error .error-text {
+  flex: 1;
+}
+
+.form-control.error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.2);
+  background-color: rgba(255, 59, 48, 0.05);
+}
+
+body.dark .form-control.error {
+  background-color: rgba(255, 59, 48, 0.1);
+}
+
+.form-group.has-error .form-label {
+  color: var(--error);
+}
+
+/* Shake animation for error fields */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Multi-select styling */
+select[multiple] {
+  height: 120px;
+  padding: 0.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  background: var(--card-bg-light);
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.multi-select {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.multi-select-trigger {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+body.dark select[multiple] {
+  border-color: var(--gray-700);
+  background: var(--gray-900);
+}
+
+select[multiple] option {
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: background-color var(--transition);
+}
+
+select[multiple] option:hover {
+  background-color: var(--gray-100);
+}
+
+body.dark select[multiple] option:hover {
+  background-color: var(--gray-800);
+}
+
+select[multiple] option:checked {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Enhanced segmented control styling */
+.segmented-control {
+  display: flex;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  margin-bottom: 1rem;
+  min-height: 36px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body.dark .segmented-control {
+  background-color: var(--gray-800);
+}
+
+.segment {
+  flex: 1;
+  text-align: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: calc(var(--radius-sm) - 2px);
+  transition: all var(--transition);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+body.dark .segment {
+  color: var(--gray-400);
+}
+
+.segment:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+body.dark .segment:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.segment.active {
+  background-color: var(--card-bg-light);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+
+body.dark .segment.active {
+  background-color: var(--card-bg-dark);
+  color: var(--accent-light);
+}
+
+/* Enhanced range slider styling */
+.range-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.range-slider-input {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  background: var(--gray-300);
+  border-radius: 3px;
+  outline: none;
+  transition: background var(--transition);
+  min-width: 0;
+}
+
+body.dark .range-slider-input {
+  background: var(--gray-700);
+}
+
+.range-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition);
+}
+
+.range-slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.range-slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.range-slider-value {
+  min-width: 50px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* Enhanced switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  margin-bottom: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--gray-300);
+  transition: var(--transition);
+  border-radius: 28px;
+}
+
+body.dark .switch-slider {
+  background-color: var(--gray-700);
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+input:checked + .switch-slider {
+  background-color: var(--accent);
+}
+
+input:checked + .switch-slider:before {
+  transform: translateX(22px);
+}
+
+/* Button styling */
+.btn-lg {
+  height: 48px;
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+
+.btn-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Date input styling */
+input[type="date"] {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  background: var(--card-bg-light);
+  color: var(--text-light);
+  transition: all var(--transition);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body.dark input[type="date"] {
+  border-color: var(--gray-700);
+  background: var(--gray-900);
+  color: var(--text-dark);
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+input[type="date"]:hover {
+  border-color: var(--gray-400);
+}
+
+body.dark input[type="date"]:hover {
+  border-color: var(--gray-600);
+}
+
+/* Enhanced Apple-style results panel */
+#resultsPanel {
+  margin-top: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+#resultsPanel.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-item {
+  padding: 1.5rem;
+  background: var(--card-bg-light);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+body.dark .result-item {
+  background: var(--card-bg-dark);
+  border-color: var(--gray-700);
+}
+
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.result-title h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.result-subtitle {
+  margin: 0;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+body.dark .result-subtitle {
+  color: var(--gray-400);
+}
+
+.result-details {
+  margin-bottom: 1.5rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+body.dark .detail-label {
+  color: var(--gray-400);
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+body.dark .detail-value {
+  color: var(--text-dark);
+}
+
+.status-ready {
+  color: var(--success);
+}
+
+.result-success {
+  border-left: 4px solid var(--success);
+  background: rgba(52, 199, 89, 0.05);
+}
+
+body.dark .result-success {
+  background: rgba(52, 199, 89, 0.1);
+}
+
+.result-error {
+  border-left: 4px solid var(--error);
+  background: rgba(255, 59, 48, 0.05);
+}
+
+body.dark .result-error {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+.error-message {
+  padding: 1rem;
+  background: rgba(255, 59, 48, 0.1);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+
+body.dark .error-message {
+  background: rgba(255, 59, 48, 0.15);
+}
+
+.error-details h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.error-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.error-list li {
+  margin-bottom: 0.25rem;
+  color: var(--gray-700);
+}
+
+body.dark .error-list li {
+  color: var(--gray-300);
+}
+
+.result-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.result-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.result-actions .btn-icon {
+  font-size: 1rem;
+}
+
+/* Card section improvements */
+.card-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+body.dark .card-section {
+  border-bottom-color: var(--gray-800);
+}
+
+.card-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .form-grid-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .form-grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .generate-form {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid,
+  .form-grid-3,
+  .form-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .generate-form {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  .segment {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    min-height: 40px;
+  }
+  
+  .range-slider-container {
+    gap: 8px;
+  }
+  
+  .range-slider-value {
+    min-width: 45px;
+    font-size: 0.85rem;
+  }
+  
+  .btn-lg {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  /* Mobile-specific form improvements */
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  select[multiple] {
+    height: 140px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+  }
+  
+  .result-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .generate-form {
+    margin: 0;
+    padding: 0 0.25rem;
+  }
+  
+  .card {
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    padding: 0.75rem;
+  }
+  
+  .card-header {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .form-text {
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+  }
+  
+  .segment {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    min-height: 36px;
+  }
+  
+  .range-slider-container {
+    gap: 6px;
+  }
+  
+  .range-slider-value {
+    min-width: 40px;
+    font-size: 0.8rem;
+  }
+  
+  .switch {
+    width: 48px;
+    height: 28px;
+  }
+  
+  .switch-slider:before {
+    height: 24px;
+    width: 24px;
+  }
+  
+  input:checked + .switch-slider:before {
+    transform: translateX(20px);
+  }
+  
+  /* Compact multi-select for mobile */
+  select[multiple] {
+    height: 120px;
+    font-size: 14px;
+  }
+  
+  /* Mobile toast adjustments */
+  .toast {
+    margin: 0.25rem;
+    padding: 0.75rem;
+  }
+  
+  .toast-title {
+    font-size: 0.9rem;
+  }
+  
+  .toast-message {
+    font-size: 0.8rem;
+  }
+}
+
+/* Fallback notification styles */
+.fallback-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: white;
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 10000;
+  max-width: 400px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: slideInRight 0.3s ease;
+}
+
+.fallback-notification.success {
+  background: var(--success);
+}
+
+.fallback-notification.error {
+  background: var(--error);
+}
+
+.fallback-notification.warning {
+  background: var(--warning);
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-content strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.notification-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.notification-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure all form elements are properly contained */
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Animation for smooth transitions */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-submission.js') }}"></script>
+<script>
+// Form parameter auto-discovery and management
+class GenerateFormManager {
+    constructor() {
+        this.form = document.getElementById('generateForm');
+        this.parameterMap = this.initializeParameterMap();
+        this.init();
+    }
+    
+    initializeParameterMap() {
+        return {
+            // Basic Parameters
+            revenue_target: { type: 'number', required: true, step: 'any', min: 0 },
+            invoice_count: { type: 'number', default: 100, min: 1, max: 10000 },
+            start_date: { type: 'date', default: this.getDefaultStartDate() },
+            end_date: { type: 'date', default: this.getDefaultEndDate() },
+            template_type: { type: 'segmented', options: ['gst_einvoice', 'bahrain_vat', 'plain_cash'], default: 'gst_einvoice' },
+            business_style: { type: 'select', options: ['retail_shop', 'distributor', 'exporter', 'pharmacy', 'it_service'], default: 'retail_shop' },
+            country: { type: 'select', options: ['India', 'Bahrain'], default: 'India' },
+            invoice_type: { type: 'segmented', options: ['gst', 'vat', 'cash'], default: 'gst' },
+            
+            // Business Information
+            business_name: { type: 'text', placeholder: 'Your Company Name' },
+            business_address: { type: 'textarea', placeholder: 'Company Address' },
+            business_gst_number: { type: 'text', placeholder: '22AAAAA0000A1Z5' },
+            business_vat_number: { type: 'text', placeholder: 'For Bahrain VAT' },
+            business_state: { type: 'select', options: ['Maharashtra', 'Gujarat', 'Karnataka', 'Tamil Nadu', 'Delhi', 'Uttar Pradesh', 'West Bengal', 'Rajasthan', 'Bahrain'], default: 'Maharashtra' },
+            
+            // Invoice Parameters
+            min_items_per_invoice: { type: 'number', default: 1, min: 1, max: 50 },
+            max_items_per_invoice: { type: 'number', default: 8, min: 1, max: 50 },
+            min_invoice_amount: { type: 'number', default: 100, min: 1, step: 'any' },
+            max_invoice_amount: { type: 'number', default: 50000, min: 1, step: 'any' },
+            revenue_distribution: { type: 'segmented', options: ['realistic', 'uniform', 'skewed'], default: 'realistic' },
+            invoice_spacing: { type: 'segmented', options: ['natural', 'uniform', 'clustered'], default: 'natural' },
+            
+            // Reality Controls (Sliders)
+            reality_buffer: { type: 'range', default: 75, min: 0, max: 100, unit: '%' },
+            believability_stress: { type: 'range', default: 50, min: 0, max: 100, unit: '%' },
+            customer_repeat_rate: { type: 'range', default: 30, min: 0, max: 100, unit: '%' },
+            seasonal_variation: { type: 'range', default: 20, min: 0, max: 100, unit: '%' },
+            customer_return_rate: { type: 'range', default: 30, min: 0, max: 100, unit: '%' },
+            
+            // Advanced Settings
+            customer_region: { type: 'select', options: ['generic_indian', 'south_muslim', 'bahrain_arabic'], default: 'generic_indian' },
+            customer_type_mix: { type: 'select', options: ['mixed', 'business', 'individual'], default: 'mixed' },
+            timeflow_mode: { type: 'select', options: ['realistic', 'linear', 'compressed', 'extended'], default: 'realistic' },
+            entropy_mode: { type: 'select', options: ['smart', 'random', 'structured'], default: 'smart' },
+            audit_risk: { type: 'segmented', options: ['low', 'medium', 'high'], default: 'medium' },
+            
+            // Boolean Parameters
+            docuflex_formatter: { type: 'checkbox', default: true },
+            enable_verification: { type: 'checkbox', default: true },
+            
+            // Quality Controls
+            min_compliance_score: { type: 'range', default: 85, min: 0, max: 100, unit: '%' },
+            
+            // Product Selection (Multi-select)
+            most_sold_products: { type: 'multiselect', source: '/api/products' },
+            least_sold_products: { type: 'multiselect', source: '/api/products' },
+            excluded_products: { type: 'multiselect', source: '/api/products' }
+        };
+    }
+    
+    init() {
+        this.setupSegmentedControls();
+        this.setupRangeSliders();
+        this.setupFormSubmission();
+        this.loadProducts();
+        this.loadBusinessInfo();
+        this.setupFormValidation();
+        this.setupDateFields();
+    }
+    
+    getDefaultStartDate() {
+        const date = new Date();
+        date.setDate(date.getDate() - 30); // 30 days ago
+        return date.toISOString().split('T')[0];
+    }
+    
+    getDefaultEndDate() {
+        return new Date().toISOString().split('T')[0]; // Today
+    }
+    
+    setupDateFields() {
+        // Set default dates if not already set
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+        
+        if (startDateInput && !startDateInput.value) {
+            startDateInput.value = this.getDefaultStartDate();
+        }
+        
+        if (endDateInput && !endDateInput.value) {
+            endDateInput.value = this.getDefaultEndDate();
+        }
+        
+        // Add validation to ensure end_date >= start_date
+        if (startDateInput && endDateInput) {
+            const validateDates = () => {
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+                
+                if (startDate > endDate) {
+                    this.setFieldValidation(endDateInput, false, 'End date must be after start date');
+                    return false;
+                } else {
+                    this.setFieldValidation(startDateInput, true);
+                    this.setFieldValidation(endDateInput, true);
+                    return true;
+                }
+            };
+            
+            startDateInput.addEventListener('change', validateDates);
+            endDateInput.addEventListener('change', validateDates);
+        }
+    }
+    
+    setupSegmentedControls() {
+        // Handle all segmented controls
+        const segmentedControls = document.querySelectorAll('.segmented-control');
+        segmentedControls.forEach(control => {
+            const segments = control.querySelectorAll('.segment');
+            const hiddenInput = control.nextElementSibling;
+            
+            segments.forEach(segment => {
+                segment.addEventListener('click', () => {
+                    // Remove active class from siblings
+                    segments.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked segment
+                    segment.classList.add('active');
+                    
+                    // Update hidden input value
+                    if (hiddenInput && hiddenInput.type === 'hidden') {
+                        hiddenInput.value = segment.dataset.value;
+                    }
+                });
+            });
+        });
+    }
+    
+    setupRangeSliders() {
+        const sliders = document.querySelectorAll('.range-slider-input');
+        sliders.forEach(slider => {
+            const valueDisplay = slider.parentElement.querySelector('.range-slider-value');
+            const paramName = slider.name;
+            const paramConfig = this.parameterMap[paramName];
+            
+            const updateValue = () => {
+                const unit = paramConfig?.unit || '%';
+                valueDisplay.textContent = slider.value + unit;
+            };
+            
+            // Initialize display
+            updateValue();
+            
+            slider.addEventListener('input', updateValue);
+        });
+    }
+    
+    setupFormValidation() {
+        // Add real-time validation for numeric fields
+        const numericInputs = document.querySelectorAll('input[type="number"]');
+        numericInputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                this.validateNumericField(input);
+            });
+        });
+        
+        // Validate min/max relationships
+        const minAmountInput = document.getElementById('min_invoice_amount');
+        const maxAmountInput = document.getElementById('max_invoice_amount');
+        const minItemsInput = document.getElementById('min_items_per_invoice');
+        const maxItemsInput = document.getElementById('max_items_per_invoice');
+        
+        if (minAmountInput && maxAmountInput) {
+            [minAmountInput, maxAmountInput].forEach(input => {
+                input.addEventListener('blur', () => {
+                    this.validateMinMaxPair(minAmountInput, maxAmountInput, 'Invoice amounts');
+                });
+            });
+        }
+        
+        if (minItemsInput && maxItemsInput) {
+            [minItemsInput, maxItemsInput].forEach(input => {
+                input.addEventListener('blur', () => {
+                    this.validateMinMaxPair(minItemsInput, maxItemsInput, 'Items per invoice');
+                });
+            });
+        }
+    }
+    
+    validateNumericField(input) {
+        const value = parseFloat(input.value);
+        const min = parseFloat(input.min);
+        const max = parseFloat(input.max);
+        
+        let isValid = true;
+        let message = '';
+        
+        if (isNaN(value) && input.required) {
+            isValid = false;
+            message = 'This field is required';
+        } else if (!isNaN(value)) {
+            if (!isNaN(min) && value < min) {
+                isValid = false;
+                message = `Value must be at least ${min}`;
+            } else if (!isNaN(max) && value > max) {
+                isValid = false;
+                message = `Value must be at most ${max}`;
+            }
+        }
+        
+        this.setFieldValidation(input, isValid, message);
+        return isValid;
+    }
+    
+    validateMinMaxPair(minInput, maxInput, fieldName) {
+        const minValue = parseFloat(minInput.value);
+        const maxValue = parseFloat(maxInput.value);
+        
+        if (!isNaN(minValue) && !isNaN(maxValue) && minValue >= maxValue) {
+            const message = `${fieldName}: Maximum must be greater than minimum`;
+            this.setFieldValidation(maxInput, false, message);
+            return false;
+        } else {
+            this.setFieldValidation(minInput, true);
+            this.setFieldValidation(maxInput, true);
+            return true;
+        }
+    }
+    
+    setFieldValidation(input, isValid, message = '') {
+        const formGroup = input.closest('.form-group');
+        let errorElement = formGroup.querySelector('.field-error');
+        
+        if (isValid) {
+            input.classList.remove('error');
+            if (errorElement) {
+                errorElement.remove();
+            }
+        } else {
+            input.classList.add('error');
+            if (!errorElement) {
+                errorElement = document.createElement('small');
+                errorElement.className = 'field-error text-error';
+                errorElement.style.display = 'block';
+                errorElement.style.marginTop = '0.25rem';
+                input.parentNode.appendChild(errorElement);
+            }
+            errorElement.textContent = message;
+        }
+    }
+    
+    setupFormSubmission() {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (this.validateForm()) {
+                this.submitForm();
+            }
+        });
+    }
+    
+    validateForm() {
+        let isValid = true;
+        
+        // Validate all numeric fields
+        const numericInputs = document.querySelectorAll('input[type="number"]');
+        numericInputs.forEach(input => {
+            if (!this.validateNumericField(input)) {
+                isValid = false;
+            }
+        });
+        
+        // Validate date fields
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+        
+        if (startDateInput && endDateInput) {
+            if (!this.validateDateRange(startDateInput, endDateInput)) {
+                isValid = false;
+            }
+        }
+        
+        // Validate min/max pairs
+        const minAmountInput = document.getElementById('min_invoice_amount');
+        const maxAmountInput = document.getElementById('max_invoice_amount');
+        const minItemsInput = document.getElementById('min_items_per_invoice');
+        const maxItemsInput = document.getElementById('max_items_per_invoice');
+        
+        if (minAmountInput && maxAmountInput) {
+            if (!this.validateMinMaxPair(minAmountInput, maxAmountInput, 'Invoice amounts')) {
+                isValid = false;
+            }
+        }
+        
+        if (minItemsInput && maxItemsInput) {
+            if (!this.validateMinMaxPair(minItemsInput, maxItemsInput, 'Items per invoice')) {
+                isValid = false;
+            }
+        }
+        
+        if (!isValid) {
+            this.showToast('Please fix the validation errors before submitting', 'error');
+        }
+        
+        return isValid;
+    }
+    
+    validateDateRange(startInput, endInput) {
+        const startDate = new Date(startInput.value);
+        const endDate = new Date(endInput.value);
+        
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            this.setFieldValidation(startInput, false, 'Please enter a valid date');
+            this.setFieldValidation(endInput, false, 'Please enter a valid date');
+            return false;
+        }
+        
+        if (startDate > endDate) {
+            this.setFieldValidation(endInput, false, 'End date must be after start date');
+            return false;
+        }
+        
+        this.setFieldValidation(startInput, true);
+        this.setFieldValidation(endInput, true);
+        return true;
+    }
+    
+    async loadProducts() {
+        try {
+            const response = await fetch('/api/products');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const products = Array.isArray(data) ? data : (data.products || []);
+            
+            const selects = [
+                'most_sold_products',
+                'least_sold_products', 
+                'excluded_products'
+            ];
+            
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select) {
+                    select.innerHTML = '';
+                    
+                    products.forEach(product => {
+                        const option = document.createElement('option');
+                        option.value = product.name || product;
+                        option.textContent = product.name || product;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error loading products:', error);
+            // Don't show error toast for products as it's not critical
+        }
+    }
+    
+    async loadBusinessInfo() {
+        try {
+            const response = await fetch('/api/settings');
+            if (!response.ok) {
+                return; // Settings endpoint might not exist
+            }
+            
+            const settings = await response.json();
+            
+            if (settings) {
+                const businessNameInput = document.getElementById('business_name');
+                const businessAddressInput = document.getElementById('business_address');
+                const businessGstInput = document.getElementById('business_gst_number');
+                const businessVatInput = document.getElementById('business_vat_number');
+                
+                if (businessNameInput) businessNameInput.value = settings.business_name || '';
+                if (businessAddressInput) businessAddressInput.value = settings.business_address || '';
+                if (businessGstInput) businessGstInput.value = settings.business_gst || '';
+                if (businessVatInput) businessVatInput.value = settings.business_vat || '';
+            }
+        } catch (error) {
+            console.error('Error loading business info:', error);
+            // Don't show error toast as settings might not be implemented
+        }
+    }
+    
+    async submitForm() {
+        const submitButton = this.form.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+        
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="btn-icon">⏳</span>Generating...';
+        
+        try {
+            // Collect form data
+            const formData = this.collectFormData();
+            
+            // Submit to API
+            const response = await fetch('/api/invoices/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.showResults(result);
+                this.showToast(`Successfully generated ${result.count} invoices!`, 'success');
+            } else {
+                this.showToast(`Generation failed: ${result.error}`, 'error');
+            }
+        } catch (error) {
+            console.error('Generation error:', error);
+            this.showToast('Generation failed: Network error', 'error');
+        } finally {
+            // Restore button
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+        }
+    }
+    
+    collectFormData() {
+        const data = {};
+        
+        // Collect all form inputs
+        if (!this.parameterMap) {
+            console.error('Parameter map not initialized');
+            return {};
+        }
+        
+        Object.keys(this.parameterMap).forEach(paramName => {
+            const element = document.getElementById(paramName);
+            const config = this.parameterMap[paramName];
+            
+            if (!config) {
+                console.warn(`No configuration found for parameter '${paramName}'`);
+                return;
+            }
+            
+            if (!element) {
+                console.warn(`Element with id '${paramName}' not found`);
+                return;
+            }
+            
+            switch (config.type) {
+                case 'number':
+                    const numValue = parseFloat(element.value);
+                    data[paramName] = isNaN(numValue) ? (config.default || 0) : numValue;
+                    break;
+                    
+                case 'date':
+                    data[paramName] = element.value || config.default || '';
+                    break;
+                    
+                case 'text':
+                case 'textarea':
+                    data[paramName] = element.value || config.default || '';
+                    break;
+                    
+                case 'select':
+                    data[paramName] = element.value || config.default;
+                    break;
+                    
+                case 'segmented':
+                    data[paramName] = element.value || config.default;
+                    break;
+                    
+                case 'checkbox':
+                    data[paramName] = element.checked;
+                    break;
+                    
+                case 'range':
+                    data[paramName] = parseInt(element.value) || config.default;
+                    break;
+                    
+                case 'multiselect':
+                    try {
+                        if (element.selectedOptions && element.selectedOptions.length > 0) {
+                            data[paramName] = Array.from(element.selectedOptions).map(option => option.value);
+                        } else {
+                            data[paramName] = [];
+                        }
+                    } catch (error) {
+                        console.warn(`Error processing multiselect for ${paramName}:`, error);
+                        data[paramName] = [];
+                    }
+                    break;
+            }
+        });
+        
+        // Convert percentage values to decimals for backend compatibility
+        const percentageFields = ['customer_repeat_rate', 'seasonal_variation', 'customer_return_rate'];
+        percentageFields.forEach(field => {
+            if (data[field] !== undefined) {
+                data[field] = data[field] / 100;
+            }
+        });
+        
+        return data;
+    }
+    
+    showResults(result) {
+        const resultsPanel = document.getElementById('resultsPanel');
+        const resultsContent = document.getElementById('resultsContent');
+        
+        resultsContent.innerHTML = `
+            <div class="result-item result-success">
+                <h3>✅ Generation Completed Successfully</h3>
+                <p>Generated ${result.count} invoices in batch ${result.batch_id}</p>
+            </div>
+            
+            <div class="result-item">
+                <h4>Generation Summary</h4>
+                <ul>
+                    <li><strong>Total Invoices:</strong> ${result.count}</li>
+                    <li><strong>Batch ID:</strong> ${result.batch_id}</li>
+                    <li><strong>Status:</strong> Complete</li>
+                </ul>
+            </div>
+            
+            <div class="result-item">
+                <h4>Next Steps</h4>
+                <p>Your invoices are ready for verification and export.</p>
+                <button class="btn btn-secondary" onclick="window.location.href='/export'">
+                    Export Invoices
+                </button>
+            </div>
+        `;
+        
+        resultsPanel.style.display = 'block';
+        resultsPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    showToast(message, type = 'info') {
+        // Create toast notification
+        const toast = document.createElement('div');
+        toast.className = `toast show`;
+        toast.innerHTML = `
+            <div class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</div>
+            <div class="toast-content">
+                <div class="toast-message">${message}</div>
+            </div>
+        `;
+        
+        // Add to container
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+        
+        container.appendChild(toast);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 5000);
+    }
+}
+
+// Initialize form manager when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    new GenerateFormManager();
+});
+</script>
+{% endblock %}

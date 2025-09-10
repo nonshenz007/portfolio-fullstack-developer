@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST e-Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .business-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .business-address {
+            margin-top: 5px;
+        }
+        .e-invoice-title {
+            background-color: #4472C4;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .invoice-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .qr-code {
+            float: right;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #ddd;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .tax-summary {
+            margin-top: 20px;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: right;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 10px;
+            text-align: center;
+        }
+        .irn-details {
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="e-invoice-title">
+        GST e-INVOICE
+    </div>
+    
+    <div class="header">
+        <div class="business-name">{{ invoice.business_name }}</div>
+        <div class="business-address">{{ invoice.business_address }}</div>
+        <div>GSTIN: {{ invoice.business_tax_number }}</div>
+    </div>
+    
+    <div class="irn-details">
+        <div class="section-title">IRN: {{ invoice.irn }}</div>
+        <div class="section-title">Ack No: {{ invoice.ack_no }}</div>
+        <div class="section-title">Ack Date: {{ invoice.invoice_date.strftime('%d-%m-%Y %H:%M:%S') }}</div>
+    </div>
+    
+    <div class="invoice-details">
+        <div>
+            <div class="section-title">Invoice No: {{ invoice.invoice_number }}</div>
+            <div class="section-title">Date: {{ invoice.invoice_date.strftime('%d-%m-%Y') }}</div>
+        </div>
+        
+        {% if invoice.qr_code %}
+        <div class="qr-code">
+            <img src="{{ invoice.qr_code }}" alt="QR Code" width="120" height="120">
+        </div>
+        {% endif %}
+    </div>
+    
+    <div>
+        <div class="section-title">Customer: {{ invoice.customer_name }}</div>
+        <div>{{ invoice.customer_address }}</div>
+        {% if invoice.customer_gstin %}
+        <div>GSTIN: {{ invoice.customer_gstin }}</div>
+        {% endif %}
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Description</th>
+                <th>HSN Code</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>CGST %</th>
+                <th>CGST Amt</th>
+                <th>SGST %</th>
+                <th>SGST Amt</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in invoice.items %}
+            {% set gst_rate = item.gst_rate or 9 %}
+            {% set amount = item.quantity * item.unit_price %}
+            {% set cgst_amount = amount * gst_rate / 100 %}
+            {% set sgst_amount = amount * gst_rate / 100 %}
+            {% set total_amount = amount + cgst_amount + sgst_amount %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.hsn_code }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.unit_price|round(2) }}</td>
+                <td>₹{{ amount|round(2) }}</td>
+                <td>{{ gst_rate }}%</td>
+                <td>₹{{ cgst_amount|round(2) }}</td>
+                <td>{{ gst_rate }}%</td>
+                <td>₹{{ sgst_amount|round(2) }}</td>
+                <td>₹{{ total_amount|round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="tax-summary">
+        <div class="section-title">Tax Summary:</div>
+        <div>Taxable Amount: ₹{{ invoice.subtotal|round(2) }}</div>
+        <div>CGST Amount: ₹{{ invoice.cgst_amount|round(2) }}</div>
+        <div>SGST Amount: ₹{{ invoice.sgst_amount|round(2) }}</div>
+    </div>
+    
+    <div class="total">
+        Total Amount: ₹{{ invoice.total_amount|round(2) }}
+    </div>
+    
+    <div class="footer">
+        <div>This is an electronically generated invoice and does not require a physical signature.</div>
+        <div style="margin-top: 10px;">Certified that the particulars given above are true and correct.</div>
+    </div>
+</body>
+</html>

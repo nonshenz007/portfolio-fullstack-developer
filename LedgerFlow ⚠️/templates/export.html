@@ -1,0 +1,1536 @@
+{% extends "base.html" %}
+
+{% block title %}Verification & Export - LedgerFlow{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <!-- Verification Status Banner -->
+    <div class="verification-banner" id="verificationBanner">
+        <div class="verification-status">
+            <div class="status-icon" id="statusIcon">⚠️</div>
+            <div class="status-text">
+                <h3 id="statusTitle">Verification Required</h3>
+                <p id="statusMessage">Run comprehensive verification before exporting invoices</p>
+        </div>
+                </div>
+        <div class="verification-actions-banner">
+            <button class="btn btn-primary" onclick="runComprehensiveVerification()" id="verifyNowBtn">
+                🔍 Run Verification Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Verification Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="card-title">🔍 Verification Center</h2>
+            <p class="text-muted mb-0">Comprehensive verification is required before export</p>
+        </div>
+        
+        <!-- Verification Actions -->
+        <div class="verification-actions">
+            <button class="verification-btn verification-btn-primary" onclick="runComprehensiveVerification()" id="comprehensiveVerifyBtn">
+                <div class="verification-btn-icon">🔍</div>
+                <div class="verification-btn-content">
+                    <h4>Comprehensive Verification</h4>
+                    <p>Full compliance, accuracy, and business logic verification</p>
+                    <div class="verification-features">
+                        <span class="feature-tag">Structure</span>
+                        <span class="feature-tag">Tax</span>
+                        <span class="feature-tag">Compliance</span>
+                        <span class="feature-tag">Business Logic</span>
+                    </div>
+                </div>
+                <div class="verification-btn-arrow">→</div>
+            </button>
+            
+            <button class="verification-btn verification-btn-secondary" onclick="runQuickVerification()" id="quickVerifyBtn">
+                <div class="verification-btn-icon">⚡</div>
+                <div class="verification-btn-content">
+                    <h4>Quick Verification</h4>
+                    <p>Fast basic structure and totals verification</p>
+                </div>
+                <div class="verification-btn-arrow">→</div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Verification Results -->
+    <div class="card mb-4" style="display: none;" id="verificationResultsCard">
+        <div class="card-header">
+            <h3 class="card-title">✅ Verification Results</h3>
+            <div class="verification-timestamp" id="verificationTimestamp"></div>
+        </div>
+        <div id="verificationResults">
+            <!-- Results will be populated here -->
+        </div>
+        </div>
+        
+    <!-- Export Section (Initially Disabled) -->
+    <div class="card mb-4" id="exportSection">
+        <div class="card-header">
+            <h3 class="card-title">📤 Export Center</h3>
+            <p class="text-muted mb-0">Export options will be enabled after successful verification</p>
+        </div>
+        
+        <!-- Export Actions (Initially Disabled) -->
+        <div class="export-actions" id="exportActions">
+            <button class="export-btn export-btn-pdf disabled" onclick="exportPDFs()" id="pdfExportBtn" disabled>
+                <div class="export-btn-icon">📄</div>
+                <div class="export-btn-content">
+                    <h3>Export PDFs</h3>
+                    <p>Download all invoices as PDF files</p>
+                    <div class="export-status">🔒 Verification Required</div>
+                </div>
+                <div class="export-btn-arrow">→</div>
+            </button>
+            
+            <button class="export-btn export-btn-excel disabled" onclick="exportExcel()" id="excelExportBtn" disabled>
+                <div class="export-btn-icon">📊</div>
+                <div class="export-btn-content">
+                    <h3>Export Excel</h3>
+                    <p>Download invoice data as spreadsheet</p>
+                    <div class="export-status">🔒 Verification Required</div>
+                </div>
+                <div class="export-btn-arrow">→</div>
+            </button>
+        </div>
+
+        <!-- Additional Export Options -->
+        <div class="additional-actions" id="additionalActions">
+            <button class="additional-btn disabled" onclick="exportZIP()" id="zipExportBtn" disabled>
+                <div class="additional-btn-icon">🗜️</div>
+                <div class="additional-btn-content">
+                    <h4>Export ZIP</h4>
+                    <p>Download all files as compressed archive</p>
+                    <div class="export-status">🔒 Verification Required</div>
+                </div>
+            </button>
+            
+            <button class="additional-btn" onclick="exportVerificationReport()" id="reportExportBtn">
+                <div class="additional-btn-icon">📋</div>
+                <div class="additional-btn-content">
+                    <h4>Export Verification Report</h4>
+                    <p>Download detailed verification results as JSON</p>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Export Results -->
+    <div class="card" style="display: none;" id="exportResultsCard">
+        <div class="card-header">
+            <h3 class="card-title">✅ Export Results</h3>
+        </div>
+        <div id="exportResults">
+            <!-- Results will be populated here -->
+        </div>
+    </div>
+
+    <!-- Statistics and Recent Activity -->
+    <div class="stats-grid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">📊 Export Statistics</h3>
+                <button class="clear-btn" onclick="clearExportStats()" title="Clear Statistics">
+                    🗑️ Clear
+                </button>
+            </div>
+            <div id="exportStats">
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading statistics...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">🕒 Recent Activity</h3>
+                <button class="clear-btn" onclick="clearRecentActivity()" title="Clear Activity">
+                    🗑️ Clear
+                </button>
+            </div>
+            <div id="recentActivity">
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading recent activity...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Verification Banner Styles */
+.verification-banner {
+    background: linear-gradient(135deg, #ff9500 0%, #ffcc02 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.verification-banner.verified {
+    background: linear-gradient(135deg, #34c759 0%, #5dd97c 100%);
+}
+
+.verification-banner.failed {
+    background: linear-gradient(135deg, #ff3b30 0%, #ff6b5a 100%);
+}
+
+.verification-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status-icon {
+    font-size: 2rem;
+}
+
+.status-text h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.25rem;
+}
+
+.status-text p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.verification-actions-banner {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Export Page Specific Styles */
+.verification-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.export-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.verification-btn, .export-btn {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--card-bg-light);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all var(--transition);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark .verification-btn, body.dark .export-btn {
+    background: var(--card-bg-dark);
+}
+
+.verification-btn:hover, .export-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.verification-btn:active, .export-btn:active:not(.disabled) {
+    transform: translateY(0);
+}
+
+.verification-btn-primary {
+    background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+    color: white;
+}
+
+.verification-btn-primary:hover {
+    background: linear-gradient(135deg, #0056cc 0%, #4ab8e6 100%);
+}
+
+.verification-btn-secondary {
+    background: linear-gradient(135deg, #ff9500 0%, #ffcc02 100%);
+    color: white;
+}
+
+.verification-btn-secondary:hover {
+    background: linear-gradient(135deg, #e68500 0%, #e6b800 100%);
+}
+
+.export-btn-pdf {
+    background: linear-gradient(135deg, #ff3b30 0%, #ff6b5a 100%);
+    color: white;
+}
+
+.export-btn-pdf:hover:not(.disabled) {
+    background: linear-gradient(135deg, #e6342a 0%, #ff5a49 100%);
+}
+
+.export-btn-excel {
+    background: linear-gradient(135deg, #34c759 0%, #5dd97c 100%);
+    color: white;
+}
+
+.export-btn-excel:hover:not(.disabled) {
+    background: linear-gradient(135deg, #2fb350 0%, #4dd46b 100%);
+}
+
+/* Disabled state styles */
+.export-btn.disabled, .additional-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--gray-300) !important;
+    color: var(--gray-600) !important;
+}
+
+body.dark .export-btn.disabled, body.dark .additional-btn.disabled {
+    background: var(--gray-700) !important;
+    color: var(--gray-400) !important;
+}
+
+.export-btn.disabled:hover, .additional-btn.disabled:hover {
+    transform: none !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.export-status {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+.verification-btn-icon, .export-btn-icon {
+    font-size: 3rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.verification-btn-content, .export-btn-content {
+    flex: 1;
+}
+
+.verification-btn-content h4, .export-btn-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.verification-btn-content h4 {
+    font-size: 1.25rem;
+}
+
+.verification-btn-content p, .export-btn-content p {
+    margin: 0 0 0.5rem 0;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.verification-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.feature-tag {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.verification-btn-arrow, .export-btn-arrow {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    transition: transform var(--transition);
+}
+
+.verification-btn:hover .verification-btn-arrow, .export-btn:hover:not(.disabled) .export-btn-arrow {
+    transform: translateX(4px);
+}
+
+.additional-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.additional-btn {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    background: var(--card-bg-light);
+    cursor: pointer;
+    transition: all var(--transition);
+    text-align: left;
+}
+
+body.dark .additional-btn {
+    background: var(--card-bg-dark);
+    border-color: var(--gray-700);
+}
+
+.additional-btn:hover:not(.disabled) {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.additional-btn-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.additional-btn-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-light);
+}
+
+body.dark .additional-btn-content h4 {
+    color: var(--text-dark);
+}
+
+.additional-btn-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+body.dark .additional-btn-content p {
+    color: var(--gray-400);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: var(--gray-600);
+}
+
+body.dark .loading-state {
+    color: var(--gray-400);
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--gray-300);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+body.dark .loading-spinner {
+    border-color: var(--gray-700);
+    border-top-color: var(--accent);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.verification-btn.loading, .export-btn.loading, .additional-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.verification-btn.loading .verification-btn-arrow, .export-btn.loading .export-btn-arrow {
+    animation: spin 1s linear infinite;
+}
+
+.verification-timestamp {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-top: 0.5rem;
+}
+
+body.dark .verification-timestamp {
+    color: var(--gray-400);
+}
+
+.verification-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.verification-stat {
+    background: var(--gray-100);
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+body.dark .verification-stat {
+    background: var(--gray-800);
+}
+
+.verification-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.verification-stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+body.dark .verification-stat-label {
+    color: var(--gray-400);
+}
+
+.verification-details {
+    margin-top: 1.5rem;
+}
+
+.verification-section {
+    margin-bottom: 1.5rem;
+}
+
+.verification-section h4 {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+body.dark .verification-section h4 {
+    color: var(--text-dark);
+}
+
+.error-item, .warning-item, .info-item {
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    border-left: 4px solid;
+}
+
+.error-item {
+    background: rgba(255, 59, 48, 0.1);
+    border-left-color: #ff3b30;
+}
+
+.warning-item {
+    background: rgba(255, 149, 0, 0.1);
+    border-left-color: #ff9500;
+}
+
+.info-item {
+    background: rgba(0, 122, 255, 0.1);
+    border-left-color: #007aff;
+}
+
+.error-item .error-type, .warning-item .warning-type, .info-item .info-type {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.error-item .error-type {
+    color: #ff3b30;
+}
+
+.warning-item .warning-type {
+    color: #ff9500;
+}
+
+.info-item .info-type {
+    color: #007aff;
+}
+
+.error-message, .warning-message, .info-message {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.error-suggestion, .warning-suggestion, .info-suggestion {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    font-style: italic;
+}
+
+body.dark .error-suggestion, body.dark .warning-suggestion, body.dark .info-suggestion {
+    color: var(--gray-400);
+}
+
+.stats-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+}
+
+body.dark .stats-card {
+    background: var(--gray-800);
+}
+
+.stats-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.stats-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+body.dark .stats-label {
+    color: var(--gray-400);
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+body.dark .activity-item {
+    border-bottom-color: var(--gray-800);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-type {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+body.dark .activity-type {
+    color: var(--text-dark);
+}
+
+.activity-date {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+}
+
+body.dark .activity-date {
+    color: var(--gray-400);
+}
+
+.activity-count {
+    background: var(--accent);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.activity-details {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+body.dark .activity-details {
+    color: var(--gray-400);
+}
+
+/* Clear button styles */
+.clear-btn {
+    background: var(--gray-200);
+    color: var(--gray-700);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+body.dark .clear-btn {
+    background: var(--gray-700);
+    color: var(--gray-300);
+}
+
+.clear-btn:hover {
+    background: var(--red-100);
+    color: var(--red-700);
+}
+
+body.dark .clear-btn:hover {
+    background: var(--red-900);
+    color: var(--red-300);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .verification-banner {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .verification-actions, .export-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .additional-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .verification-btn, .export-btn {
+        padding: 1.5rem;
+    }
+    
+    .verification-btn-icon, .export-btn-icon {
+        font-size: 2.5rem;
+        margin-right: 1rem;
+    }
+    
+    .verification-btn-content h4, .export-btn-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .verification-summary {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+// Global verification state
+let verificationState = {
+    isVerified: false,
+    complianceScore: 0,
+    riskLevel: 'unknown',
+    lastVerification: null
+};
+
+// Indian number formatting function
+function formatIndianNumber(num) {
+    if (num === null || num === undefined) return '0';
+    
+    const number = parseFloat(num);
+    if (isNaN(number)) return '0';
+    
+    if (number >= 10000000) {
+        // Crores
+        return (number / 10000000).toFixed(2) + ' Cr';
+    } else if (number >= 100000) {
+        // Lakhs
+        return (number / 100000).toFixed(2) + ' L';
+    } else if (number >= 1000) {
+        // Thousands
+        return (number / 1000).toFixed(1) + 'K';
+    } else {
+        return number.toLocaleString('en-IN');
+    }
+}
+
+// Format currency in Indian Rupees
+function formatIndianCurrency(amount) {
+    if (amount === null || amount === undefined) return '₹0';
+    
+    const number = parseFloat(amount);
+    if (isNaN(number)) return '₹0';
+    
+    if (number >= 10000000) {
+        // Crores
+        return '₹' + (number / 10000000).toFixed(2) + ' Cr';
+    } else if (number >= 100000) {
+        // Lakhs
+        return '₹' + (number / 100000).toFixed(2) + ' L';
+    } else if (number >= 1000) {
+        // Thousands
+        return '₹' + (number / 1000).toFixed(1) + 'K';
+    } else {
+        return '₹' + number.toLocaleString('en-IN');
+    }
+}
+
+// Load export data
+document.addEventListener('DOMContentLoaded', function() {
+    loadExportStats();
+    loadRecentActivity();
+    updateVerificationBanner();
+});
+
+function updateVerificationBanner() {
+    const banner = document.getElementById('verificationBanner');
+    const statusIcon = document.getElementById('statusIcon');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusMessage = document.getElementById('statusMessage');
+    const verifyNowBtn = document.getElementById('verifyNowBtn');
+    
+    if (verificationState.isVerified) {
+        banner.className = 'verification-banner verified';
+        statusIcon.textContent = '✅';
+        statusTitle.textContent = 'Verification Passed';
+        statusMessage.textContent = `Compliance Score: ${verificationState.complianceScore}% | Risk Level: ${verificationState.riskLevel}`;
+        verifyNowBtn.textContent = '🔄 Re-verify';
+        enableExportButtons();
+    } else {
+        banner.className = 'verification-banner';
+        statusIcon.textContent = '⚠️';
+        statusTitle.textContent = 'Verification Required';
+        statusMessage.textContent = 'Run comprehensive verification before exporting invoices';
+        verifyNowBtn.textContent = '🔍 Run Verification Now';
+        disableExportButtons();
+    }
+}
+
+function enableExportButtons() {
+    const exportButtons = document.querySelectorAll('.export-btn, .additional-btn');
+    exportButtons.forEach(btn => {
+        if (btn.id !== 'reportExportBtn') { // Keep verification report enabled
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+            const statusDiv = btn.querySelector('.export-status');
+            if (statusDiv) {
+                statusDiv.textContent = '✅ Ready to Export';
+            }
+        }
+    });
+}
+
+function disableExportButtons() {
+    const exportButtons = document.querySelectorAll('.export-btn, .additional-btn');
+    exportButtons.forEach(btn => {
+        if (btn.id !== 'reportExportBtn') { // Keep verification report enabled
+            btn.classList.add('disabled');
+            btn.disabled = true;
+            const statusDiv = btn.querySelector('.export-status');
+            if (statusDiv) {
+                statusDiv.textContent = '🔒 Verification Required';
+            }
+        }
+    });
+}
+
+async function loadExportStats() {
+    try {
+        const response = await fetch('/api/invoices/stats');
+        const data = await response.json();
+        
+        if (data.success) {
+            // Check if stats are all zero (cleared state)
+            const isCleared = data.total_invoices === 0 && data.total_revenue === 0;
+            
+            if (isCleared) {
+                document.getElementById('exportStats').innerHTML = `
+                    <div class="info-item">
+                        <div class="info-type">✅ Statistics Cleared</div>
+                        <div class="info-message">Export statistics have been reset successfully.</div>
+                        <div class="info-suggestion">Generate invoices to see new statistics.</div>
+                    </div>
+                `;
+            } else {
+                const statsHtml = `
+                    <div class="stats-card">
+                        <div>
+                            <div class="stats-value">${formatIndianNumber(data.total_invoices || 0)}</div>
+                            <div class="stats-label">Total Invoices</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div>
+                            <div class="stats-value">${formatIndianCurrency(data.total_revenue || 0)}</div>
+                            <div class="stats-label">Total Revenue</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div>
+                            <div class="stats-value">${formatIndianNumber(data.verified_count || 0)}</div>
+                            <div class="stats-label">Verified</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div>
+                            <div class="stats-value">${formatIndianNumber(data.pending_count || 0)}</div>
+                            <div class="stats-label">Pending</div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('exportStats').innerHTML = statsHtml;
+            }
+        } else {
+            throw new Error(data.error || 'Failed to load statistics');
+        }
+    } catch (error) {
+        console.error('Error loading export stats:', error);
+        document.getElementById('exportStats').innerHTML = `
+            <div class="error-item">
+                <div class="error-type">Statistics Error</div>
+                <div class="error-message">Failed to load export statistics</div>
+                <div class="error-suggestion">Please try refreshing the page</div>
+            </div>
+        `;
+    }
+}
+
+async function loadRecentActivity() {
+    try {
+        const response = await fetch('/api/activity/recent');
+        const data = await response.json();
+        
+        if (data.success && data.activities && data.activities.length > 0) {
+            const activitiesHtml = data.activities.map(activity => {
+                const timestamp = new Date(activity.timestamp);
+                const timeAgo = getTimeAgo(timestamp);
+                
+                return `
+                    <div class="activity-item">
+                        <div>
+                            <div class="activity-type">${getActivityIcon(activity.type)} ${activity.type}</div>
+                            <div class="activity-date">${timeAgo}</div>
+                            ${activity.details ? `<div class="activity-details">${activity.details}</div>` : ''}
+                        </div>
+                        <div class="activity-count">${formatIndianNumber(activity.count || 0)}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('recentActivity').innerHTML = activitiesHtml;
+        } else {
+            // Show no activity message
+            document.getElementById('recentActivity').innerHTML = `
+                <div class="info-item">
+                    <div class="info-type">✅ Activity Cleared</div>
+                    <div class="info-message">All recent activity has been cleared successfully.</div>
+                    <div class="info-suggestion">Generate invoices or run verification to see new activity.</div>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading recent activity:', error);
+        document.getElementById('recentActivity').innerHTML = `
+            <div class="error-item">
+                <div class="error-type">Activity Error</div>
+                <div class="error-message">Failed to load recent activity</div>
+                <div class="error-suggestion">Please try refreshing the page</div>
+            </div>
+        `;
+    }
+}
+
+function getActivityIcon(activityType) {
+    const icons = {
+        'Comprehensive Verification': '🔍',
+        'Quick Verification': '⚡',
+        'PDF Export': '📄',
+        'Excel Export': '📊',
+        'ZIP Export': '🗜️',
+        'Invoice Generation': '📝',
+        'Product Import': '📦',
+        'Settings Update': '⚙️',
+        'Login': '🔐',
+        'Logout': '🚪',
+        'Verification Report': '📋',
+        'default': '📋'
+    };
+    return icons[activityType] || icons.default;
+}
+
+function getTimeAgo(timestamp) {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - timestamp) / 1000);
+    
+    if (diffInSeconds < 60) {
+        return 'Just now';
+    } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        return `${minutes}m ago`;
+    } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        return `${hours}h ago`;
+    } else if (diffInSeconds < 2592000) {
+        const days = Math.floor(diffInSeconds / 86400);
+        return `${days}d ago`;
+    } else {
+        return timestamp.toLocaleDateString('en-IN');
+    }
+}
+
+function setButtonLoading(buttonId, isLoading) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+        if (isLoading) {
+            button.classList.add('loading');
+            button.style.pointerEvents = 'none';
+        } else {
+            button.classList.remove('loading');
+            button.style.pointerEvents = 'auto';
+        }
+    }
+}
+
+async function runComprehensiveVerification() {
+    setButtonLoading('comprehensiveVerifyBtn', true);
+    setButtonLoading('verifyNowBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/verify', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                verification_type: 'comprehensive',
+                include_details: true
+            })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            // Update verification state
+            verificationState.isVerified = data.all_passed;
+            verificationState.complianceScore = data.compliance_score;
+            verificationState.riskLevel = data.risk_level;
+            verificationState.lastVerification = new Date().toISOString();
+            
+            showComprehensiveVerificationResults(data);
+            updateVerificationBanner();
+            
+            // Refresh activity after verification
+            loadRecentActivity();
+        } else {
+            throw new Error(data.error || 'Verification failed');
+        }
+    } catch (error) {
+        console.error('Comprehensive verification error:', error);
+        showVerificationError('Comprehensive verification failed: ' + error.message);
+        
+        // Update verification state to failed
+        verificationState.isVerified = false;
+        verificationState.complianceScore = 0;
+        verificationState.riskLevel = 'critical';
+        updateVerificationBanner();
+    } finally {
+        setButtonLoading('comprehensiveVerifyBtn', false);
+        setButtonLoading('verifyNowBtn', false);
+    }
+}
+
+async function runQuickVerification() {
+    setButtonLoading('quickVerifyBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/verify', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                verification_type: 'quick',
+                include_details: false
+            })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            // Update verification state
+            verificationState.isVerified = data.all_passed;
+            verificationState.complianceScore = data.compliance_score;
+            verificationState.riskLevel = data.all_passed ? 'low' : 'medium';
+            verificationState.lastVerification = new Date().toISOString();
+            
+            showQuickVerificationResults(data);
+            updateVerificationBanner();
+            
+            // Refresh activity after verification
+            loadRecentActivity();
+        } else {
+            throw new Error(data.error || 'Verification failed');
+        }
+    } catch (error) {
+        console.error('Quick verification error:', error);
+        showVerificationError('Quick verification failed: ' + error.message);
+        
+        // Update verification state to failed
+        verificationState.isVerified = false;
+        verificationState.complianceScore = 0;
+        verificationState.riskLevel = 'critical';
+        updateVerificationBanner();
+    } finally {
+        setButtonLoading('quickVerifyBtn', false);
+    }
+}
+
+async function exportPDFs() {
+    if (!verificationState.isVerified) {
+        alert('Please run verification first before exporting.');
+        return;
+    }
+    
+    setButtonLoading('pdfExportBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/export/pdf');
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `invoices_${new Date().toISOString().split('T')[0]}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showExportResults('PDF', 'success', `PDF export completed successfully at ${new Date().toLocaleString()}`);
+            loadRecentActivity();
+        } else {
+            throw new Error(`Export failed with status ${response.status}`);
+        }
+    } catch (error) {
+        console.error('PDF export error:', error);
+        showExportResults('PDF', 'error', `PDF export failed: ${error.message}`);
+    } finally {
+        setButtonLoading('pdfExportBtn', false);
+    }
+}
+
+async function exportExcel() {
+    if (!verificationState.isVerified) {
+        alert('Please run verification first before exporting.');
+        return;
+    }
+    
+    setButtonLoading('excelExportBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/export/excel');
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `invoices_${new Date().toISOString().split('T')[0]}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showExportResults('Excel', 'success', `Excel export completed successfully at ${new Date().toLocaleString()}`);
+            loadRecentActivity();
+        } else {
+            throw new Error(`Export failed with status ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Excel export error:', error);
+        showExportResults('Excel', 'error', `Excel export failed: ${error.message}`);
+    } finally {
+        setButtonLoading('excelExportBtn', false);
+    }
+}
+
+async function exportZIP() {
+    if (!verificationState.isVerified) {
+        alert('Please run verification first before exporting.');
+        return;
+    }
+    
+    setButtonLoading('zipExportBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/export/zip');
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `invoices_${new Date().toISOString().split('T')[0]}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showExportResults('ZIP', 'success', `ZIP export completed successfully at ${new Date().toLocaleString()}`);
+            loadRecentActivity();
+        } else {
+            throw new Error(`Export failed with status ${response.status}`);
+        }
+    } catch (error) {
+        console.error('ZIP export error:', error);
+        showExportResults('ZIP', 'error', `ZIP export failed: ${error.message}`);
+    } finally {
+        setButtonLoading('zipExportBtn', false);
+    }
+}
+
+async function exportVerificationReport() {
+    setButtonLoading('reportExportBtn', true);
+    
+    try {
+        const response = await fetch('/api/invoices/verify', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                export_report: true,
+                include_details: true
+            })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            // Create and download verification report
+            const report = {
+                timestamp: new Date().toISOString(),
+                verification_results: data,
+                summary: {
+                    total_invoices: data.total,
+                    passed: data.passed,
+                    failed: data.failed,
+                    compliance_score: data.compliance_score || 0
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `verification_report_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showExportResults('Verification Report', 'success', `Verification report exported successfully at ${new Date().toLocaleString()}`);
+            loadRecentActivity();
+        } else {
+            throw new Error(data.error || 'Report generation failed');
+        }
+    } catch (error) {
+        console.error('Verification report export error:', error);
+        showExportResults('Verification Report', 'error', `Report export failed: ${error.message}`);
+    } finally {
+        setButtonLoading('reportExportBtn', false);
+    }
+}
+
+function showComprehensiveVerificationResults(data) {
+    const resultsCard = document.getElementById('verificationResultsCard');
+    const resultsDiv = document.getElementById('verificationResults');
+    const timestampDiv = document.getElementById('verificationTimestamp');
+    
+    if (resultsCard && resultsDiv && timestampDiv) {
+        const timestamp = new Date().toLocaleString('en-IN');
+        timestampDiv.textContent = `Verified at: ${timestamp}`;
+        
+        const complianceScore = data.compliance_score || 0;
+        const riskLevel = data.risk_level || 'medium';
+        const totalInvoices = data.total || 0;
+        const passedInvoices = data.passed || 0;
+        const failedInvoices = data.failed || 0;
+        
+        let riskColor = '#ff9500'; // medium
+        if (riskLevel === 'low') riskColor = '#34c759';
+        else if (riskLevel === 'high') riskColor = '#ff3b30';
+        else if (riskLevel === 'critical') riskColor = '#ff0000';
+        
+        resultsDiv.innerHTML = `
+            <div class="verification-summary">
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: ${complianceScore >= 80 ? '#34c759' : complianceScore >= 60 ? '#ff9500' : '#ff3b30'};">${complianceScore}%</div>
+                    <div class="verification-stat-label">Compliance Score</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: #34c759;">${formatIndianNumber(passedInvoices)}</div>
+                    <div class="verification-stat-label">Passed Invoices</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: #ff3b30;">${formatIndianNumber(failedInvoices)}</div>
+                    <div class="verification-stat-label">Failed Invoices</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: ${riskColor};">${formatIndianNumber(totalInvoices)}</div>
+                    <div class="verification-stat-label">Total Checked</div>
+                </div>
+            </div>
+            
+            <div class="verification-details">
+                ${data.errors && data.errors.length > 0 ? `
+                    <div class="verification-section">
+                        <h4>🔴 Critical Issues (${data.errors.length})</h4>
+                        ${data.errors.slice(0, 5).map(error => `
+                            <div class="error-item">
+                                <div class="error-type">${error.error_type || 'Validation Error'}</div>
+                                <div class="error-message">${error.message}</div>
+                                ${error.suggestion ? `<div class="error-suggestion">💡 ${error.suggestion}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${data.warnings && data.warnings.length > 0 ? `
+                    <div class="verification-section">
+                        <h4>🟡 Warnings (${data.warnings.length})</h4>
+                        ${data.warnings.slice(0, 3).map(warning => `
+                            <div class="warning-item">
+                                <div class="warning-type">${warning.error_type || 'Warning'}</div>
+                                <div class="warning-message">${warning.message}</div>
+                                ${warning.suggestion ? `<div class="warning-suggestion">💡 ${warning.suggestion}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${data.info && data.info.length > 0 ? `
+                    <div class="verification-section">
+                        <h4>ℹ️ Information (${data.info.length})</h4>
+                        ${data.info.slice(0, 3).map(info => `
+                            <div class="info-item">
+                                <div class="info-type">${info.error_type || 'Info'}</div>
+                                <div class="info-message">${info.message}</div>
+                                ${info.suggestion ? `<div class="info-suggestion">💡 ${info.suggestion}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+        
+        resultsCard.style.display = 'block';
+        resultsCard.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function showQuickVerificationResults(data) {
+    const resultsCard = document.getElementById('verificationResultsCard');
+    const resultsDiv = document.getElementById('verificationResults');
+    const timestampDiv = document.getElementById('verificationTimestamp');
+    
+    if (resultsCard && resultsDiv && timestampDiv) {
+        const timestamp = new Date().toLocaleString('en-IN');
+        timestampDiv.textContent = `Quick verification at: ${timestamp}`;
+        
+        const totalInvoices = data.total || 0;
+        const passedInvoices = data.passed || 0;
+        const failedInvoices = data.failed || 0;
+        
+        resultsDiv.innerHTML = `
+            <div class="verification-summary">
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: #34c759;">${formatIndianNumber(passedInvoices)}</div>
+                    <div class="verification-stat-label">Passed</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: #ff3b30;">${formatIndianNumber(failedInvoices)}</div>
+                    <div class="verification-stat-label">Failed</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-stat-value" style="color: #007aff;">${formatIndianNumber(totalInvoices)}</div>
+                    <div class="verification-stat-label">Total</div>
+                </div>
+            </div>
+            
+            <div class="verification-details">
+                <div class="verification-section">
+                    <h4>⚡ Quick Verification Results</h4>
+                    <p>Basic structure and totals verification completed successfully.</p>
+                    ${failedInvoices > 0 ? `
+                        <div class="warning-item">
+                            <div class="warning-type">Quick Check</div>
+                            <div class="warning-message">${formatIndianNumber(failedInvoices)} invoices failed basic verification. Run comprehensive verification for detailed analysis.</div>
+                        </div>
+                    ` : `
+                        <div class="info-item">
+                            <div class="info-type">Quick Check</div>
+                            <div class="info-message">All invoices passed basic verification checks.</div>
+                        </div>
+                    `}
+                </div>
+            </div>
+        `;
+        
+        resultsCard.style.display = 'block';
+        resultsCard.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function showVerificationError(message) {
+    const resultsCard = document.getElementById('verificationResultsCard');
+    const resultsDiv = document.getElementById('verificationResults');
+    const timestampDiv = document.getElementById('verificationTimestamp');
+    
+    if (resultsCard && resultsDiv && timestampDiv) {
+        const timestamp = new Date().toLocaleString('en-IN');
+        timestampDiv.textContent = `Error at: ${timestamp}`;
+        
+        resultsDiv.innerHTML = `
+            <div class="error-item">
+                <div class="error-type">Verification Error</div>
+                <div class="error-message">${message}</div>
+                <div class="error-suggestion">Please try again or contact support if the issue persists.</div>
+            </div>
+        `;
+        
+        resultsCard.style.display = 'block';
+        resultsCard.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function showExportResults(type, status, message) {
+    const resultsCard = document.getElementById('exportResultsCard');
+    const resultsDiv = document.getElementById('exportResults');
+    
+    if (resultsCard && resultsDiv) {
+        const statusClass = status === 'success' ? 'info-item' : 'error-item';
+        const statusIcon = status === 'success' ? '✅' : '❌';
+        
+        resultsDiv.innerHTML = `
+            <div class="${statusClass}">
+                <div class="${status === 'success' ? 'info-type' : 'error-type'}">${statusIcon} ${type} Export</div>
+                <div class="${status === 'success' ? 'info-message' : 'error-message'}">${message}</div>
+            </div>
+        `;
+        
+        resultsCard.style.display = 'block';
+        resultsCard.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function clearExportStats() {
+    if (confirm('Are you sure you want to reset export statistics? This will clear all counters and recalculate from scratch.')) {
+        // Immediately clear the UI
+        const statsDiv = document.getElementById('exportStats');
+        statsDiv.innerHTML = `
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Clearing statistics...</p>
+            </div>
+        `;
+        
+        fetch('/api/invoices/stats/clear', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show cleared state first
+                    statsDiv.innerHTML = `
+                        <div class="info-item">
+                            <div class="info-type">✅ Statistics Cleared</div>
+                            <div class="info-message">Export statistics have been reset successfully</div>
+                            <div class="info-suggestion">Loading fresh statistics...</div>
+                        </div>
+                    `;
+                    
+                                // Wait a moment then reload fresh stats
+            setTimeout(() => {
+                loadExportStats();
+            }, 1500);
+                    
+                    showExportResults('Statistics Reset', 'success', data.message || 'Export statistics cleared successfully!');
+                } else {
+                    throw new Error(data.error || 'Failed to clear export statistics');
+                }
+            })
+            .catch(error => {
+                console.error('Error clearing export stats:', error);
+                
+                // Show error state
+                statsDiv.innerHTML = `
+                    <div class="error-item">
+                        <div class="error-type">Clear Error</div>
+                        <div class="error-message">Failed to clear export statistics</div>
+                        <div class="error-suggestion">Please try again or contact support</div>
+                    </div>
+                `;
+                
+                showExportResults('Statistics Reset', 'error', 'Failed to clear export statistics: ' + error.message);
+            });
+    }
+}
+
+function clearRecentActivity() {
+    if (confirm('Are you sure you want to clear all recent activity? This will remove activity logs older than 1 day.')) {
+        // Immediately clear the UI
+        const activityDiv = document.getElementById('recentActivity');
+        activityDiv.innerHTML = `
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Clearing activity...</p>
+            </div>
+        `;
+        
+        fetch('/api/activity/clear', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show cleared state first
+                    activityDiv.innerHTML = `
+                        <div class="info-item">
+                            <div class="info-type">✅ Activity Cleared</div>
+                            <div class="info-message">Recent activity has been cleared successfully</div>
+                            <div class="info-suggestion">Loading fresh activity...</div>
+                        </div>
+                    `;
+                    
+                    // Wait a moment then reload fresh activity
+                    setTimeout(() => {
+                        loadRecentActivity();
+                    }, 1500);
+                    
+                    // Show success message with count
+                    const message = data.deleted_count > 0 
+                        ? `Cleared ${formatIndianNumber(data.deleted_count)} activity logs`
+                        : 'No old activity logs found to clear';
+                    
+                    showExportResults('Activity Clear', 'success', message);
+                } else {
+                    throw new Error(data.error || 'Failed to clear recent activity');
+                }
+            })
+            .catch(error => {
+                console.error('Error clearing recent activity:', error);
+                
+                // Show error state
+                activityDiv.innerHTML = `
+                    <div class="error-item">
+                        <div class="error-type">Clear Error</div>
+                        <div class="error-message">Failed to clear recent activity</div>
+                        <div class="error-suggestion">Please try again or contact support</div>
+                    </div>
+                `;
+                
+                showExportResults('Activity Clear', 'error', 'Failed to clear recent activity: ' + error.message);
+            });
+    }
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,63 @@
+# LedgerFlow Simulation Configuration
+# This file contains all simulation parameters and settings
+
+# Realism Profile - replaces legacy boolean toggles
+# Options: basic, realistic, advanced
+realism_profile: realistic
+
+# Basic simulation parameters
+simulation:
+  default_invoice_count: 100
+  default_invoice_type: gst  # gst, vat, cash
+  default_template_type: gst_einvoice  # gst_einvoice, bahrain_vat, plain_cash
+  default_business_style: retail_shop
+  default_country: India
+  default_business_state: Maharashtra
+
+# TimeFlow Engine settings
+timeflow:
+  mode: realistic  # realistic, compressed, extended
+  invoice_spacing: natural  # natural, uniform, clustered
+  reality_buffer: 75  # 0-100%
+  believability_stress: 50  # 0-100%
+
+# Entropy and randomization settings
+entropy:
+  mode: smart  # smart, random, structured
+  customer_repeat_rate: 0.3  # 0-1
+  seasonal_variation: 0.2  # 0-1
+  customer_return_rate: 0.3  # 0-1
+
+# Regional and customer settings
+customer:
+  default_region: generic_indian  # generic_indian, south_muslim, bahrain_arabic
+  type_mix: mixed  # individual, business, mixed
+
+# Business constraints
+business_constraints:
+  min_items_per_invoice: 1
+  max_items_per_invoice: 50
+  min_invoice_amount: 10.0
+  max_invoice_amount: 100000.0
+
+# Revenue targeting
+revenue:
+  distribution: realistic  # realistic, uniform, skewed
+
+# Quality controls
+quality:
+  enable_verification: true
+  min_compliance_score: 85.0
+  default_audit_risk: medium  # low, medium, high
+
+# Advanced features (based on realism_profile)
+advanced_features:
+  docuflex_formatter: true
+  verichain_integration: true
+  enhanced_validation: true
+
+# Performance settings
+performance:
+  batch_size: 50
+  max_concurrent_generations: 5
+  timeout_seconds: 300

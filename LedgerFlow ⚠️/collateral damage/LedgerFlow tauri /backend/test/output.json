@@ -1,0 +1,74 @@
+{
+  "invoices": [
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY23-24/03572",
+      "date": "2023-01-01",
+      "customer": {
+        "name": "Prateek Marketing Corporation",
+        "gstin": "27XXXXX0000X1Z2"
+      },
+      "items": [
+        {
+          "item": "Microsoft 365 Business Premium",
+          "qty": 1,
+          "rate": 4824.83,
+          "amount": 4824.83,
+          "gst_percent": 18
+        },
+        {
+          "item": "Herman Miller Aeron Chair",
+          "qty": 1,
+          "rate": 82152.09,
+          "amount": 82152.09,
+          "gst_percent": 18
+        },
+        {
+          "item": "Steelcase Series 7 Desk",
+          "qty": 1,
+          "rate": 145959.64,
+          "amount": 145959.64,
+          "gst_percent": 18
+        },
+        {
+          "item": "Dell Latitude 5520 Laptop",
+          "qty": 1,
+          "rate": 43482.4,
+          "amount": 43482.4,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 276418.96,
+      "tax_breakup": {
+        "CGST": 24877.71,
+        "SGST": 24877.71,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 326174.37,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z8"
+    },
+    {
+      "invoice_type": "Plain",
+      "invoice_number": "ADJ/2023/03573",
+      "date": "2023-01-31",
+      "customer": {
+        "name": "Adjustment Entry"
+      },
+      "items": [
+        {
+          "item": "Adjustment",
+          "qty": 1,
+          "rate": 10000,
+          "amount": 10000
+        }
+      ],
+      "subtotal": 10000,
+      "total": 10000,
+      "template_applied": "plain_template"
+    }
+  ],
+  "status": "success",
+  "error": null
+}

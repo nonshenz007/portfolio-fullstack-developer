@@ -1,0 +1,42 @@
+[
+  {
+    "sku": "ITEM001",
+    "name": "Dell Latitude 5520 Laptop",
+    "price": 45000,
+    "gst_percent": 18,
+    "vat_percent": 10,
+    "category": "Electronics"
+  },
+  {
+    "sku": "ITEM002",
+    "name": "Herman Miller Aeron Chair",
+    "price": 85000,
+    "gst_percent": 18,
+    "vat_percent": 10,
+    "category": "Furniture"
+  },
+  {
+    "sku": "ITEM003",
+    "name": "HP LaserJet Pro M404n",
+    "price": 12000,
+    "gst_percent": 12,
+    "vat_percent": 10,
+    "category": "Electronics"
+  },
+  {
+    "sku": "ITEM004",
+    "name": "Steelcase Series 7 Desk",
+    "price": 150000,
+    "gst_percent": 18,
+    "vat_percent": 10,
+    "category": "Furniture"
+  },
+  {
+    "sku": "ITEM005",
+    "name": "Microsoft 365 Business Premium",
+    "price": 5000,
+    "gst_percent": 18,
+    "vat_percent": 0,
+    "category": "Software"
+  }
+] 

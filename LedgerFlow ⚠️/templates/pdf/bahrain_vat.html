@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahrain VAT Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        @font-face {
+            font-family: 'Amiri';
+            src: url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .arabic {
+            font-family: 'Amiri', Arial, sans-serif;
+            direction: rtl;
+        }
+        .header {
+            background-color: #2d5016;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .invoice-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .seller-details, .buyer-details {
+            width: 45%;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .tax-summary {
+            margin-top: 20px;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">VAT INVOICE / فاتورة ضريبة القيمة المضافة</div>
+    </div>
+    
+    <div class="invoice-details">
+        <div class="seller-details">
+            <div class="section-title">SELLER DETAILS:</div>
+            <div>{{ invoice.business_name }}</div>
+            <div>{{ invoice.business_address }}</div>
+            <div>VAT Reg. No: {{ invoice.business_tax_number }}</div>
+        </div>
+        
+        <div class="buyer-details">
+            <div class="section-title">CUSTOMER:</div>
+            <div>{{ invoice.customer_name }}</div>
+            <div>{{ invoice.customer_address }}</div>
+        </div>
+    </div>
+    
+    <div style="text-align: right;">
+        <div>Invoice No: {{ invoice.invoice_number }}</div>
+        <div>Date: {{ invoice.invoice_date.strftime('%d-%m-%Y') }}</div>
+        <div>Page No: 1</div>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Rate (BHD)</th>
+                <th>Amount</th>
+                <th>VAT%</th>
+                <th>VAT Amt</th>
+                <th>Amt Incl. VAT</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in invoice.items %}
+            {% set conversion_rate = 0.005 %}
+            {% set unit_price_bhd = item.unit_price * conversion_rate %}
+            {% set amount_bhd = item.quantity * unit_price_bhd %}
+            {% set vat_rate = item.vat_rate or 5 %}
+            {% set vat_amount_bhd = amount_bhd * vat_rate / 100 %}
+            {% set total_incl_vat = amount_bhd + vat_amount_bhd %}
+            <tr>
+                <td>{{ item.item_code or loop.index }}</td>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.unit or 'Nos' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ unit_price_bhd|round(3) }}</td>
+                <td>{{ amount_bhd|round(3) }}</td>
+                <td>{{ vat_rate|round(1) }}%</td>
+                <td>{{ vat_amount_bhd|round(3) }}</td>
+                <td>{{ total_incl_vat|round(3) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="tax-summary">
+        <div class="section-title">VAT SUMMARY:</div>
+        {% set conversion_rate = 0.005 %}
+        {% set subtotal_bhd = invoice.subtotal * conversion_rate %}
+        {% set vat_total_bhd = invoice.tax_amount * conversion_rate %}
+        {% set total_bhd = invoice.total_amount * conversion_rate %}
+        <div>Subtotal: BHD {{ subtotal_bhd|round(3) }}</div>
+        <div>VAT (5%): BHD {{ vat_total_bhd|round(3) }}</div>
+        <div>Grand Total: BHD {{ total_bhd|round(3) }}</div>
+    </div>
+    
+    <div class="total">
+        GRAND TOTAL: BHD {{ (invoice.total_amount * 0.005)|round(3) }}
+    </div>
+    
+    <div class="footer">
+        <div>Received by: ________________</div>
+        <div>Prepared by: ________________</div>
+    </div>
+</body>
+</html>

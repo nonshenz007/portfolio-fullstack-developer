@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to LedgerFlow{% endblock %}
+
+{% block extra_css %}
+<style>
+    .welcome-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .welcome-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+    }
+    
+    .welcome-buttons {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-large {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        min-width: 160px;
+    }
+    
+    .btn-large:hover {
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        .welcome-title {
+            font-size: 2.5rem;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .welcome-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn-large {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-container">
+    <h1 class="welcome-title">Welcome to LedgerFlow</h1>
+    <p class="welcome-subtitle">
+        Your professional invoice generator is ready to streamline your business workflow. 
+        Start creating beautiful invoices in minutes.
+    </p>
+    <div class="welcome-buttons">
+        <button class="btn btn-primary btn-large" onclick="navigateToPage('import')">
+            <i class="fas fa-rocket me-2"></i>
+            Get Started
+        </button>
+        <button class="btn btn-secondary btn-large" onclick="navigateToPage('settings')">
+            <i class="fas fa-info-circle me-2"></i>
+            Learn More
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Home page loaded');
+});
+</script>
+{% endblock %} 

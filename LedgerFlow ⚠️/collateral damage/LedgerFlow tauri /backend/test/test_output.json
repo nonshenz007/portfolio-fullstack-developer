@@ -1,0 +1,559 @@
+{
+  "invoices": [
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03572",
+      "date": "2024-07-11",
+      "customer": {
+        "name": "Prateek Marketing Corporation",
+        "gstin": "27XXXXX0000X1Z2"
+      },
+      "items": [
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 9994.89,
+          "amount": 9994.89,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 1946.13,
+          "amount": 1946.13,
+          "gst_percent": 12
+        },
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 24156.89,
+          "amount": 24156.89,
+          "gst_percent": 18
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 5018.56,
+          "amount": 5018.56,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 2,
+          "rate": 7646.79,
+          "amount": 15293.58,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 56410.05,
+      "tax_breakup": {
+        "CGST": 5076.9,
+        "SGST": 5076.9,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 66563.86,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z0"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03573",
+      "date": "2024-07-12",
+      "customer": {
+        "name": "Surya Ventures India Pvt Ltd",
+        "gstin": "27XXXXX0000X1Z6"
+      },
+      "items": [
+        {
+          "item": "Business Consulting Services",
+          "qty": 3,
+          "rate": 4783.06,
+          "amount": 14349.18,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 2,
+          "rate": 7503.88,
+          "amount": 15007.76,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 29356.94,
+      "tax_breakup": {
+        "CGST": 2642.12,
+        "SGST": 2642.12,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 34641.19,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z2"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03574",
+      "date": "2024-07-14",
+      "customer": {
+        "name": "Shakti India Pvt Ltd",
+        "gstin": "27XXXXX0000X1Z8"
+      },
+      "items": [
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 1935.6,
+          "amount": 1935.6,
+          "gst_percent": 12
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 2,
+          "rate": 4837.98,
+          "amount": 9675.96,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 11611.56,
+      "tax_breakup": {
+        "CGST": 1045.04,
+        "SGST": 1045.04,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 13701.64,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z3"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03575",
+      "date": "2024-07-15",
+      "customer": {
+        "name": "Saraswati Limited",
+        "gstin": "27XXXXX0000X1Z8"
+      },
+      "items": [
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 24237.66,
+          "amount": 24237.66,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 2014.25,
+          "amount": 2014.25,
+          "gst_percent": 12
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 4817.51,
+          "amount": 4817.51,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7372.72,
+          "amount": 7372.72,
+          "gst_percent": 18
+        },
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 9625.36,
+          "amount": 9625.36,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 48067.5,
+      "tax_breakup": {
+        "CGST": 4326.08,
+        "SGST": 4326.08,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 56719.65,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z0"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03576",
+      "date": "2024-07-17",
+      "customer": {
+        "name": "Vetrivel Commercial Pvt Ltd",
+        "gstin": "27XXXXX0000X1Z5"
+      },
+      "items": [
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 5129.41,
+          "amount": 5129.41,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 1974.24,
+          "amount": 1974.24,
+          "gst_percent": 12
+        },
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 25337.02,
+          "amount": 25337.02,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7684.68,
+          "amount": 7684.68,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 40125.35,
+      "tax_breakup": {
+        "CGST": 3611.28,
+        "SGST": 3611.28,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 47347.91,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z6"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03577",
+      "date": "2024-07-18",
+      "customer": {
+        "name": "Indra Business Associates",
+        "gstin": "27XXXXX0000X1Z9"
+      },
+      "items": [
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 1953.03,
+          "amount": 1953.03,
+          "gst_percent": 12
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7289.73,
+          "amount": 7289.73,
+          "gst_percent": 18
+        },
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 26052.48,
+          "amount": 26052.48,
+          "gst_percent": 18
+        },
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 10469.59,
+          "amount": 10469.59,
+          "gst_percent": 18
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 4765.3,
+          "amount": 4765.3,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 50530.13,
+      "tax_breakup": {
+        "CGST": 4547.71,
+        "SGST": 4547.71,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 59625.55,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z3"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03578",
+      "date": "2024-07-20",
+      "customer": {
+        "name": "Vetrivel Distributors Pvt Ltd",
+        "gstin": "27XXXXX0000X1Z2"
+      },
+      "items": [
+        {
+          "item": "Software Development",
+          "qty": 2,
+          "rate": 10225.39,
+          "amount": 20450.78,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 2,
+          "rate": 1915.1,
+          "amount": 3830.2,
+          "gst_percent": 12
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 2,
+          "rate": 7401.3,
+          "amount": 14802.6,
+          "gst_percent": 18
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 4959.63,
+          "amount": 4959.63,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 44043.21,
+      "tax_breakup": {
+        "CGST": 3963.89,
+        "SGST": 3963.89,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 51970.99,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z1"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03579",
+      "date": "2024-07-22",
+      "customer": {
+        "name": "Krishna Corporation",
+        "gstin": "27XXXXX0000X1Z5"
+      },
+      "items": [
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 9513.86,
+          "amount": 9513.86,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 2090.34,
+          "amount": 2090.34,
+          "gst_percent": 12
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7718.48,
+          "amount": 7718.48,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 19322.68,
+      "tax_breakup": {
+        "CGST": 1739.04,
+        "SGST": 1739.04,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 22800.76,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z6"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03580",
+      "date": "2024-07-23",
+      "customer": {
+        "name": "Krishna Private Limited",
+        "gstin": "27XXXXX0000X1Z9"
+      },
+      "items": [
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 9984.64,
+          "amount": 9984.64,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 9984.64,
+      "tax_breakup": {
+        "CGST": 898.62,
+        "SGST": 898.62,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 11781.88,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z3"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03581",
+      "date": "2024-07-25",
+      "customer": {
+        "name": "Indra Business Private Limited",
+        "gstin": "27XXXXX0000X1Z8"
+      },
+      "items": [
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 1,
+          "rate": 1918.8,
+          "amount": 1918.8,
+          "gst_percent": 12
+        },
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 10049.47,
+          "amount": 10049.47,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7846.0,
+          "amount": 7846.0,
+          "gst_percent": 18
+        },
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 23788.03,
+          "amount": 23788.03,
+          "gst_percent": 18
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 4825.8,
+          "amount": 4825.8,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 48428.1,
+      "tax_breakup": {
+        "CGST": 4358.53,
+        "SGST": 4358.53,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 57145.16,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z5"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03582",
+      "date": "2024-07-26",
+      "customer": {
+        "name": "Saraswati Limited",
+        "gstin": "27XXXXX0000X1Z6"
+      },
+      "items": [
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 23811.42,
+          "amount": 23811.42,
+          "gst_percent": 18
+        },
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7145.51,
+          "amount": 7145.51,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 30956.93,
+      "tax_breakup": {
+        "CGST": 2786.12,
+        "SGST": 2786.12,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 36529.18,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z5"
+    },
+    {
+      "invoice_type": "GST",
+      "invoice_number": "GST/FY24-25/03583",
+      "date": "2024-07-28",
+      "customer": {
+        "name": "Vetrivel Marketing Pvt Ltd",
+        "gstin": "27XXXXX0000X1Z1"
+      },
+      "items": [
+        {
+          "item": "Training Workshop",
+          "qty": 1,
+          "rate": 7364.26,
+          "amount": 7364.26,
+          "gst_percent": 18
+        },
+        {
+          "item": "Business Consulting Services",
+          "qty": 1,
+          "rate": 5150.32,
+          "amount": 5150.32,
+          "gst_percent": 18
+        },
+        {
+          "item": "Software Development",
+          "qty": 1,
+          "rate": 9879.72,
+          "amount": 9879.72,
+          "gst_percent": 18
+        },
+        {
+          "item": "Office Supplies Bundle",
+          "qty": 2,
+          "rate": 1911.34,
+          "amount": 3822.68,
+          "gst_percent": 12
+        },
+        {
+          "item": "IT Infrastructure Setup",
+          "qty": 1,
+          "rate": 24965.43,
+          "amount": 24965.43,
+          "gst_percent": 18
+        }
+      ],
+      "subtotal": 34891.72,
+      "tax_breakup": {
+        "CGST": 3140.25,
+        "SGST": 3140.25,
+        "CGST_rate": 9,
+        "SGST_rate": 9
+      },
+      "total": 41172.22,
+      "template_applied": "gst_template",
+      "gstin": "27XXXXX0000X1Z1"
+    }
+  ],
+  "status": "success",
+  "error": null
+}

@@ -1,0 +1,986 @@
+{% extends "base.html" %}
+
+{% block title %}LedgerFlow - Settings{% endblock %}
+
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+<!-- Settings Cards Container -->
+<div class="settings-container">
+    <!-- Passcode Management Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-key mr-2"></i>
+                Passcode Management
+            </h2>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Change Passcode</h4>
+                <p>Update your application access passcode</p>
+            </div>
+            <button class="btn btn-secondary" onclick="showPasscodeModal()">
+                <i class="fas fa-edit mr-1"></i>
+                Change
+            </button>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Admin Password</h4>
+                <p>Update the administrator password for advanced features</p>
+            </div>
+            <button class="btn btn-secondary" onclick="showAdminPasswordModal()">
+                <i class="fas fa-shield-alt mr-1"></i>
+                Update
+            </button>
+        </div>
+    </div>
+
+    <!-- System Maintenance Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-tools mr-2"></i>
+                System Maintenance
+            </h2>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Clear Generated PDFs</h4>
+                <p class="text-warning">⚠️ This will permanently delete all exported PDF files</p>
+            </div>
+            <button class="btn btn-warning" onclick="confirmClearPDFs()">
+                <i class="fas fa-trash mr-1"></i>
+                Clear PDFs
+            </button>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Regenerate VeriChain Hash-Chain</h4>
+                <p class="text-warning">⚠️ This will rebuild the verification hash chain</p>
+            </div>
+            <button class="btn btn-warning" onclick="confirmRegenerateHash()">
+                <i class="fas fa-link mr-1"></i>
+                Regenerate
+            </button>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Reset Application Data</h4>
+                <p class="text-error">🚨 This will delete all invoices, products, and settings</p>
+            </div>
+            <button class="btn btn-error" onclick="confirmResetData()">
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Reset All
+            </button>
+        </div>
+    </div>
+
+    <!-- Application Preferences Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-cog mr-2"></i>
+                Application Preferences
+            </h2>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Default Currency</h4>
+                <p>Primary currency for invoice generation</p>
+            </div>
+            <div class="select-container">
+                <select class="form-control" id="defaultCurrency" style="width: 120px;">
+                    <option value="INR">₹ INR</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                    <option value="BHD">BD BHD</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Date Format</h4>
+                <p>How dates appear on invoices and exports</p>
+            </div>
+            <div class="select-container">
+                <select class="form-control" id="dateFormat" style="width: 140px;">
+                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Default Tax Rate</h4>
+                <p>Standard tax percentage for new invoices</p>
+            </div>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control" id="defaultTaxRate" value="18" min="0" max="100" step="0.01" style="width: 80px;">
+                <span class="ml-2 text-muted">%</span>
+            </div>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Auto Invoice Numbering</h4>
+                <p>Automatically generate sequential invoice numbers</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="autoNumbering" checked>
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Debug Mode</h4>
+                <p>Enable detailed logging for troubleshooting</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="debugMode">
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- PDF & Export Settings Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-file-pdf mr-2"></i>
+                PDF & Export Settings
+            </h2>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>PDF Password Protection</h4>
+                <p>Require password to open exported PDF files</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="pdfPasswordProtection">
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Digital Signature</h4>
+                <p>Digitally sign PDF exports with certificate</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="digitalSignature">
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Upload Certificate</h4>
+                <p>Upload .p12 certificate file for PDF signing</p>
+            </div>
+            <button class="btn btn-secondary" onclick="document.getElementById('certificateInput').click()">
+                <i class="fas fa-certificate mr-1"></i>
+                Upload
+            </button>
+            <input type="file" id="certificateInput" accept=".p12,.pfx" style="display: none;">
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Export Format Preference</h4>
+                <p>Default format for bulk exports</p>
+            </div>
+            <div class="segmented-control">
+                <div class="segment active" onclick="selectExportFormat(this, 'pdf')">PDF</div>
+                <div class="segment" onclick="selectExportFormat(this, 'excel')">Excel</div>
+                <div class="segment" onclick="selectExportFormat(this, 'zip')">ZIP</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Preferences Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-bell mr-2"></i>
+                Notification Preferences
+            </h2>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Export Completion Alerts</h4>
+                <p>Show notifications when exports are ready</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="exportAlerts" checked>
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Error Notifications</h4>
+                <p>Display alerts for system errors and warnings</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="errorNotifications" checked>
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-row">
+            <div class="setting-info">
+                <h4>Success Confirmations</h4>
+                <p>Show confirmation messages for completed actions</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="successConfirmations" checked>
+                <span class="switch-slider"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Passcode Change Modal -->
+<div id="passcodeModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Change Passcode</h3>
+            <button class="modal-close" onclick="hidePasscodeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Current Passcode</label>
+                <input type="password" class="form-control" id="currentPasscode" placeholder="Enter current passcode">
+            </div>
+            <div class="form-group">
+                <label class="form-label">New Passcode</label>
+                <input type="password" class="form-control" id="newPasscode" placeholder="Enter new passcode">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm New Passcode</label>
+                <input type="password" class="form-control" id="confirmPasscode" placeholder="Confirm new passcode">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="hidePasscodeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="changePasscode()">Update Passcode</button>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Password Modal -->
+<div id="adminPasswordModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Change Admin Password</h3>
+            <button class="modal-close" onclick="hideAdminPasswordModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Current Admin Password</label>
+                <input type="password" class="form-control" id="currentAdminPassword" placeholder="Enter current admin password">
+            </div>
+            <div class="form-group">
+                <label class="form-label">New Admin Password</label>
+                <input type="password" class="form-control" id="newAdminPassword" placeholder="Enter new admin password">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm New Admin Password</label>
+                <input type="password" class="form-control" id="confirmAdminPassword" placeholder="Confirm new admin password">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="hideAdminPasswordModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="changeAdminPassword()">Update Password</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Settings-specific styles */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+body.dark .setting-row {
+    border-bottom-color: var(--gray-800);
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-light);
+}
+
+body.dark .setting-info h4 {
+    color: var(--text-dark);
+}
+
+.setting-info p {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+body.dark .setting-info p {
+    color: var(--gray-500);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: var(--card-bg-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+body.dark .modal-content {
+    background: var(--card-bg-dark);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+body.dark .modal-header {
+    border-bottom-color: var(--gray-800);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-600);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color var(--transition);
+}
+
+.modal-close:hover {
+    background-color: var(--gray-100);
+}
+
+body.dark .modal-close:hover {
+    background-color: var(--gray-800);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+body.dark .modal-footer {
+    border-top-color: var(--gray-800);
+}
+
+/* Warning text colors */
+.text-warning {
+    color: var(--warning);
+}
+
+.text-error {
+    color: var(--error);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .settings-container {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+    }
+    
+    .setting-info {
+        width: 100%;
+    }
+    
+    .setting-info h4 {
+        font-size: 0.95rem;
+    }
+    
+    .setting-info p {
+        font-size: 0.8rem;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        max-height: calc(100vh - 2rem);
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    /* Mobile form controls */
+    .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .btn {
+        min-height: 44px; /* Better touch targets */
+    }
+    
+    .switch {
+        width: 52px;
+        height: 30px;
+    }
+    
+    .switch-slider:before {
+        height: 26px;
+        width: 26px;
+    }
+    
+    input:checked + .switch-slider:before {
+        transform: translateX(22px);
+    }
+    
+    .segmented-control {
+        min-height: 44px;
+    }
+    
+    .segment {
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .card-header {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .setting-row {
+        padding: 0.5rem 0;
+    }
+    
+    .setting-info h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .setting-info p {
+        font-size: 0.75rem;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+    
+    .select-container select {
+        font-size: 14px;
+    }
+    
+    .modal-content {
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+        border-radius: 12px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .modal-close {
+        width: 28px;
+        height: 28px;
+        font-size: 1.3rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadSettings();
+    initializeCertificateUpload();
+    initializeAutoSave();
+});
+
+// Load settings from server
+function loadSettings() {
+    fetch('/api/settings')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.settings) {
+                // Populate form fields
+                const settings = data.settings;
+                
+                if (settings.defaultCurrency) {
+                    document.getElementById('defaultCurrency').value = settings.defaultCurrency;
+                }
+                if (settings.dateFormat) {
+                    document.getElementById('dateFormat').value = settings.dateFormat;
+                }
+                if (settings.defaultTaxRate !== undefined) {
+                    document.getElementById('defaultTaxRate').value = settings.defaultTaxRate;
+                }
+                if (settings.autoNumbering !== undefined) {
+                    document.getElementById('autoNumbering').checked = settings.autoNumbering;
+                }
+                if (settings.debugMode !== undefined) {
+                    document.getElementById('debugMode').checked = settings.debugMode;
+                }
+                if (settings.pdfPasswordProtection !== undefined) {
+                    document.getElementById('pdfPasswordProtection').checked = settings.pdfPasswordProtection;
+                }
+                if (settings.digitalSignature !== undefined) {
+                    document.getElementById('digitalSignature').checked = settings.digitalSignature;
+                }
+                if (settings.exportAlerts !== undefined) {
+                    document.getElementById('exportAlerts').checked = settings.exportAlerts;
+                }
+                if (settings.errorNotifications !== undefined) {
+                    document.getElementById('errorNotifications').checked = settings.errorNotifications;
+                }
+                if (settings.successConfirmations !== undefined) {
+                    document.getElementById('successConfirmations').checked = settings.successConfirmations;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Failed to load settings:', error);
+            window.toastManager.error('Failed to load settings');
+        });
+}
+
+// Initialize certificate upload
+function initializeCertificateUpload() {
+    const certificateInput = document.getElementById('certificateInput');
+    certificateInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            if (!file.name.match(/\.(p12|pfx)$/i)) {
+                window.toastManager.error('Please select a valid certificate file (.p12 or .pfx)');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                window.toastManager.error('Certificate file size must be less than 10MB');
+                return;
+            }
+            
+            uploadCertificate(file);
+        }
+    });
+}
+
+// Initialize auto-save for settings changes
+function initializeAutoSave() {
+    const settingsInputs = document.querySelectorAll('#defaultCurrency, #dateFormat, #defaultTaxRate, #autoNumbering, #debugMode, #pdfPasswordProtection, #digitalSignature, #exportAlerts, #errorNotifications, #successConfirmations');
+    
+    settingsInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            saveSettings();
+        });
+    });
+}
+
+// Save settings to server
+function saveSettings() {
+    const settings = {
+        defaultCurrency: document.getElementById('defaultCurrency').value,
+        dateFormat: document.getElementById('dateFormat').value,
+        defaultTaxRate: parseFloat(document.getElementById('defaultTaxRate').value),
+        autoNumbering: document.getElementById('autoNumbering').checked,
+        debugMode: document.getElementById('debugMode').checked,
+        pdfPasswordProtection: document.getElementById('pdfPasswordProtection').checked,
+        digitalSignature: document.getElementById('digitalSignature').checked,
+        exportAlerts: document.getElementById('exportAlerts').checked,
+        errorNotifications: document.getElementById('errorNotifications').checked,
+        successConfirmations: document.getElementById('successConfirmations').checked
+    };
+    
+    fetch('/api/settings', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(settings)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('Settings saved successfully');
+        } else {
+            throw new Error(data.error || 'Failed to save settings');
+        }
+    })
+    .catch(error => {
+        console.error('Settings save error:', error);
+        window.toastManager.error('Failed to save settings', error.message);
+    });
+}
+
+// Modal functions
+function showPasscodeModal() {
+    document.getElementById('passcodeModal').style.display = 'flex';
+    document.getElementById('currentPasscode').focus();
+}
+
+function hidePasscodeModal() {
+    document.getElementById('passcodeModal').style.display = 'none';
+    // Clear form
+    document.getElementById('currentPasscode').value = '';
+    document.getElementById('newPasscode').value = '';
+    document.getElementById('confirmPasscode').value = '';
+}
+
+function showAdminPasswordModal() {
+    document.getElementById('adminPasswordModal').style.display = 'flex';
+    document.getElementById('currentAdminPassword').focus();
+}
+
+function hideAdminPasswordModal() {
+    document.getElementById('adminPasswordModal').style.display = 'none';
+    // Clear form
+    document.getElementById('currentAdminPassword').value = '';
+    document.getElementById('newAdminPassword').value = '';
+    document.getElementById('confirmAdminPassword').value = '';
+}
+
+// Passcode change function
+function changePasscode() {
+    const currentPasscode = document.getElementById('currentPasscode').value;
+    const newPasscode = document.getElementById('newPasscode').value;
+    const confirmPasscode = document.getElementById('confirmPasscode').value;
+    
+    if (!currentPasscode || !newPasscode || !confirmPasscode) {
+        window.toastManager.error('Please fill in all fields');
+        return;
+    }
+    
+    if (newPasscode !== confirmPasscode) {
+        window.toastManager.error('New passcodes do not match');
+        return;
+    }
+    
+    if (newPasscode.length < 4) {
+        window.toastManager.error('Passcode must be at least 4 characters long');
+        return;
+    }
+    
+    fetch('/api/auth/change-passcode', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            currentPasscode: currentPasscode,
+            newPasscode: newPasscode
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('Passcode updated successfully');
+            hidePasscodeModal();
+        } else {
+            throw new Error(data.error || 'Failed to update passcode');
+        }
+    })
+    .catch(error => {
+        console.error('Passcode change error:', error);
+        window.toastManager.error('Failed to update passcode', error.message);
+    });
+}
+
+// Admin password change function
+function changeAdminPassword() {
+    const currentPassword = document.getElementById('currentAdminPassword').value;
+    const newPassword = document.getElementById('newAdminPassword').value;
+    const confirmPassword = document.getElementById('confirmAdminPassword').value;
+    
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        window.toastManager.error('Please fill in all fields');
+        return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+        window.toastManager.error('New passwords do not match');
+        return;
+    }
+    
+    if (newPassword.length < 8) {
+        window.toastManager.error('Password must be at least 8 characters long');
+        return;
+    }
+    
+    fetch('/api/auth/change-admin-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            currentPassword: currentPassword,
+            newPassword: newPassword
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('Admin password updated successfully');
+            hideAdminPasswordModal();
+        } else {
+            throw new Error(data.error || 'Failed to update admin password');
+        }
+    })
+    .catch(error => {
+        console.error('Admin password change error:', error);
+        window.toastManager.error('Failed to update admin password', error.message);
+    });
+}
+
+// System maintenance functions
+function confirmClearPDFs() {
+    if (confirm('⚠️ This will permanently delete all exported PDF files. This action cannot be undone. Are you sure?')) {
+        clearPDFs();
+    }
+}
+
+function clearPDFs() {
+    fetch('/api/maintenance/clear-pdfs', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('PDF files cleared successfully');
+        } else {
+            throw new Error(data.error || 'Failed to clear PDF files');
+        }
+    })
+    .catch(error => {
+        console.error('Clear PDFs error:', error);
+        window.toastManager.error('Failed to clear PDF files', error.message);
+    });
+}
+
+function confirmRegenerateHash() {
+    if (confirm('⚠️ This will rebuild the verification hash chain. This may take a few minutes. Continue?')) {
+        regenerateHash();
+    }
+}
+
+function regenerateHash() {
+    window.toastManager.info('Regenerating hash chain... This may take a few minutes.');
+    
+    fetch('/api/maintenance/regenerate-hash', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('Hash chain regenerated successfully');
+        } else {
+            throw new Error(data.error || 'Failed to regenerate hash chain');
+        }
+    })
+    .catch(error => {
+        console.error('Regenerate hash error:', error);
+        window.toastManager.error('Failed to regenerate hash chain', error.message);
+    });
+}
+
+function confirmResetData() {
+    const confirmation = prompt('🚨 DANGER: This will delete ALL data including invoices, products, and settings. Type "RESET ALL DATA" to confirm:');
+    
+    if (confirmation === 'RESET ALL DATA') {
+        resetAllData();
+    } else if (confirmation !== null) {
+        window.toastManager.error('Confirmation text did not match. Reset cancelled.');
+    }
+}
+
+function resetAllData() {
+    fetch('/api/maintenance/reset-all', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('All data has been reset. Redirecting to login...');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+        } else {
+            throw new Error(data.error || 'Failed to reset data');
+        }
+    })
+    .catch(error => {
+        console.error('Reset data error:', error);
+        window.toastManager.error('Failed to reset data', error.message);
+    });
+}
+
+// Certificate upload function
+function uploadCertificate(file) {
+    const formData = new FormData();
+    formData.append('certificate', file);
+    
+    window.toastManager.info('Uploading certificate...');
+    
+    fetch('/api/settings/upload-certificate', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success('Certificate uploaded successfully');
+        } else {
+            throw new Error(data.error || 'Failed to upload certificate');
+        }
+    })
+    .catch(error => {
+        console.error('Certificate upload error:', error);
+        window.toastManager.error('Failed to upload certificate', error.message);
+    });
+}
+
+// Export format selection
+function selectExportFormat(element, format) {
+    document.querySelectorAll('.segment').forEach(segment => {
+        segment.classList.remove('active');
+    });
+    element.classList.add('active');
+    
+    // Save preference
+    fetch('/api/settings/export-format', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ format: format })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.toastManager.success(`Export format set to ${format.toUpperCase()}`);
+        }
+    })
+    .catch(error => {
+        console.error('Export format save error:', error);
+    });
+}
+
+// Close modals when clicking outside
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        if (e.target.id === 'passcodeModal') {
+            hidePasscodeModal();
+        } else if (e.target.id === 'adminPasswordModal') {
+            hideAdminPasswordModal();
+        }
+    }
+});
+
+// Handle escape key for modals
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        hidePasscodeModal();
+        hideAdminPasswordModal();
+    }
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+*.log.*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Exports (keep only recent)
+app/exports/*/
+!app/exports/*/2025-07-*/
+
+# Uploads
+app/data/uploads/*
+!app/data/uploads/.gitkeep
+
+# Verichain logs (keep only recent)
+LedgerFlow/verichain_logs/*.json
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+cookies.txt
+test_*.py
+debug_*.py
+*_test.py
+*_verification.py
+*_fix.py
+*_analysis.py
+*_report.md
+*_summary.md
+*_documentation.md
+*.diff
+test_*.pdf
+test_*.zip
+test_*.html
+sample_*.xlsx

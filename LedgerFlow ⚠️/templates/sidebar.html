@@ -1,0 +1,51 @@
+<!-- Sidebar Navigation -->
+<aside id="sidebar" class="crystal-sidebar" style="width: 15rem;">
+    <div class="sidebar-header">
+        <div class="brand-logo">
+            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo" onerror="this.style.display='none'">
+            <span class="creator-tag">by CrystalCore</span>
+        </div>
+    </div>
+    
+    <nav class="nav-section">
+        <div class="nav-title">Main Navigation</div>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#home" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#import" class="nav-link" data-page="import">
+                    <i class="fas fa-file-import"></i>
+                    <span>Import Products</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#generate" class="nav-link" data-page="generate">
+                    <i class="fas fa-magic"></i>
+                    <span>Generate Invoices</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#manual" class="nav-link" data-page="manual">
+                    <i class="fas fa-edit"></i>
+                    <span>Manual Entry</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#export" class="nav-link" data-page="export">
+                    <i class="fas fa-download"></i>
+                    <span>Export Data</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings" class="nav-link" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside> 

@@ -1,0 +1,18 @@
+# Core dependencies for LedgerFlow backend
+# Date: 2024
+# Version: 0.1.0
+
+# No external dependencies needed for basic simulation yet
+# Future dependencies will be added here for:
+# - pandas (data processing)
+# - numpy (numerical operations)
+# - openpyxl (Excel handling)
+# - reportlab (PDF generation)
+
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0  # For Excel file support
+reportlab>=4.0.0
+PyPDF2>=3.0.0
+python-dateutil>=2.8.2 
+Flask>=2.0.0 

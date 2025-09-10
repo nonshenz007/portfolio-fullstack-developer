@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Receipt</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .business-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .business-address {
+            margin-top: 5px;
+        }
+        .invoice-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .description-column {
+            width: 60%;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: right;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="business-name">{{ invoice.business_name }}</div>
+        <div class="business-address">{{ invoice.business_address }}</div>
+    </div>
+    
+    <div class="invoice-details">
+        <div>
+            <div class="section-title">Receipt No: {{ invoice.invoice_number }}</div>
+        </div>
+        <div>
+            <div class="section-title">Date: {{ invoice.invoice_date.strftime('%d-%m-%Y') }}</div>
+        </div>
+    </div>
+    
+    <div>
+        <div class="section-title">Customer: {{ invoice.customer_name }}</div>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th class="description-column">Particulars</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in invoice.items %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.unit_price|round(2) }}</td>
+                <td>₹{{ (item.quantity * item.unit_price)|round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="total">
+        Total: ₹{{ invoice.total_amount|round(2) }}
+    </div>
+    
+    <div class="footer">
+        <div>Thank You for Your Business!</div>
+        <div style="margin-top: 10px;">Goods once sold will not be taken back</div>
+    </div>
+</body>
+</html>

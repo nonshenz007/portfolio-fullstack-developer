@@ -1,0 +1,35 @@
+{
+  "invoices": [
+    {
+      "invoice_type": "Plain",
+      "invoice_number": "INV-293274",
+      "date": "2023-01-01",
+      "customer_name": "Global Enterprises",
+      "items": [
+        {
+          "item": "Herman Miller Aeron Chair",
+          "qty": 1,
+          "rate": 85608.97,
+          "amount": 85608.97
+        },
+        {
+          "item": "Steelcase Series 7 Desk",
+          "qty": 1,
+          "rate": 155899.95,
+          "amount": 155899.95
+        },
+        {
+          "item": "Dell Latitude 5520 Laptop",
+          "qty": 1,
+          "rate": 45059.43,
+          "amount": 45059.43
+        }
+      ],
+      "subtotal": 286568.35,
+      "total": 286568.35,
+      "template_applied": "Plain"
+    }
+  ],
+  "status": "success",
+  "error": null
+}

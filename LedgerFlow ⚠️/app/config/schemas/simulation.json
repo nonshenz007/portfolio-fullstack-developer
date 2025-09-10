@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LedgerFlow Simulation Configuration Schema",
+  "type": "object",
+  "properties": {
+    "realism_profile": {
+      "type": "string",
+      "enum": ["basic", "realistic", "advanced"],
+      "description": "Realism profile replacing legacy boolean toggles"
+    },
+    "simulation": {
+      "type": "object",
+      "properties": {
+        "default_invoice_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "default_invoice_type": {
+          "type": "string",
+          "enum": ["gst", "vat", "cash"]
+        },
+        "default_template_type": {
+          "type": "string",
+          "enum": ["gst_einvoice", "bahrain_vat", "plain_cash"]
+        },
+        "default_business_style": {
+          "type": "string",
+          "enum": ["retail_shop", "distributor", "exporter", "pharmacy", "it_service"]
+        },
+        "default_country": {
+          "type": "string"
+        },
+        "default_business_state": {
+          "type": "string"
+        }
+      },
+      "required": ["default_invoice_count", "default_invoice_type", "default_template_type"]
+    },
+    "timeflow": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["realistic", "compressed", "extended"]
+        },
+        "invoice_spacing": {
+          "type": "string",
+          "enum": ["natural", "uniform", "clustered"]
+        },
+        "reality_buffer": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "believability_stress": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "entropy": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["smart", "random", "structured"]
+        },
+        "customer_repeat_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "seasonal_variation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "customer_return_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "default_region": {
+          "type": "string",
+          "enum": ["generic_indian", "south_muslim", "bahrain_arabic"]
+        },
+        "type_mix": {
+          "type": "string",
+          "enum": ["individual", "business", "mixed"]
+        }
+      }
+    },
+    "business_constraints": {
+      "type": "object",
+      "properties": {
+        "min_items_per_invoice": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_items_per_invoice": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "min_invoice_amount": {
+          "type": "number",
+          "minimum": 0.01
+        },
+        "max_invoice_amount": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "revenue": {
+      "type": "object",
+      "properties": {
+        "distribution": {
+          "type": "string",
+          "enum": ["realistic", "uniform", "skewed"]
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "enable_verification": {
+          "type": "boolean"
+        },
+        "min_compliance_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "default_audit_risk": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      }
+    },
+    "advanced_features": {
+      "type": "object",
+      "properties": {
+        "docuflex_formatter": {
+          "type": "boolean"
+        },
+        "verichain_integration": {
+          "type": "boolean"
+        },
+        "enhanced_validation": {
+          "type": "boolean"
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "batch_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "max_concurrent_generations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 3600
+        }
+      }
+    }
+  },
+  "required": ["realism_profile", "simulation"],
+  "additionalProperties": true
+}

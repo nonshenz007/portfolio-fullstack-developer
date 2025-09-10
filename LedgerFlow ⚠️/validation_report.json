@@ -1,0 +1,39 @@
+{
+  "report_timestamp": "2025-07-25T22:59:19.474957",
+  "total_invoices": 2,
+  "validation_summary": {
+    "valid_invoices": 2,
+    "invalid_invoices": 0,
+    "average_compliance_score": 100.0,
+    "risk_distribution": {
+      "low": 2,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "detailed_results": [
+    {
+      "invoice_number": "GST-2025-000001",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "info": [],
+      "compliance_score": 100,
+      "risk_level": "RiskLevel.LOW",
+      "validation_timestamp": "2025-07-25 22:59:19.474781",
+      "hash_signature": "5fbf3a1f4e6c8811a7a4d4dc74ab65deb5b624428bcc0884cc37039558e916dd"
+    },
+    {
+      "invoice_number": "GST-2025-000002",
+      "is_valid": true,
+      "errors": [],
+      "warnings": [],
+      "info": [],
+      "compliance_score": 100,
+      "risk_level": "RiskLevel.LOW",
+      "validation_timestamp": "2025-07-25 22:59:19.474898",
+      "hash_signature": "d00e2a2f9bf3ae6ca106092b662b82b849a72c502e7330bc5523e46a8a78af75"
+    }
+  ]
+}

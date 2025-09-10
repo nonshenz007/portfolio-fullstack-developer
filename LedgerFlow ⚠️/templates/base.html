@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LedgerFlow{% endblock %}</title>
+    <!-- Apple-style CSS Framework -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/apple.css') }}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-container">
+        <!-- Fixed Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <h2>LedgerFlow</h2>
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/import" class="nav-link" data-page="import">
+                            <i class="fas fa-upload nav-icon"></i>
+                            <span class="nav-text">Import</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/generate" class="nav-link" data-page="generate">
+                            <i class="fas fa-magic nav-icon"></i>
+                            <span class="nav-text">Generate</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/export" class="nav-link" data-page="export">
+                            <i class="fas fa-download nav-icon"></i>
+                            <span class="nav-text">Export</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/manual" class="nav-link" data-page="manual">
+                            <i class="fas fa-edit nav-icon"></i>
+                            <span class="nav-text">Manual Invoice</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/settings" class="nav-link" data-page="settings">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="sidebar-footer">
+                    <div class="nav-item">
+                        <a href="/logout" class="nav-link logout-link">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
+                            <span class="nav-text">Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-content">
+                    <button id="mobileMenuToggle" class="mobile-menu-toggle" title="Open menu" style="display: none;">
+                        ☰
+                    </button>
+                    <div class="top-bar-actions">
+                        <button id="modeToggle" class="mode-toggle" title="Toggle dark mode">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Apple-style UI JavaScript -->
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <!-- Main application JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

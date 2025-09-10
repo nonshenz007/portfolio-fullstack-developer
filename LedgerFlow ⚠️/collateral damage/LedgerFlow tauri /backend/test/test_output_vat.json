@@ -1,0 +1,53 @@
+{
+  "invoices": [
+    {
+      "invoice_type": "VAT",
+      "invoice_number": "VAT-513951",
+      "date": "2023-01-02",
+      "customer_name": "Middle East Technology Group",
+      "items": [
+        {
+          "item": "Microsoft 365 Business Premium",
+          "qty": 1,
+          "rate": 4783.85,
+          "amount": 4783.85,
+          "vat_percent": 0
+        },
+        {
+          "item": "Herman Miller Aeron Chair",
+          "qty": 1,
+          "rate": 87070.3,
+          "amount": 87070.3,
+          "vat_percent": 10
+        },
+        {
+          "item": "Steelcase Series 7 Desk",
+          "qty": 1,
+          "rate": 151819.69,
+          "amount": 151819.69,
+          "vat_percent": 10
+        },
+        {
+          "item": "HP LaserJet Pro M404n",
+          "qty": 1,
+          "rate": 12298.98,
+          "amount": 12298.98,
+          "vat_percent": 10
+        },
+        {
+          "item": "Dell Latitude 5520 Laptop",
+          "qty": 1,
+          "rate": 46772.83,
+          "amount": 46772.83,
+          "vat_percent": 10
+        }
+      ],
+      "subtotal": 302745.65,
+      "VAT": 29796.18,
+      "total": 332541.83,
+      "template_applied": "VAT"
+    }
+  ],
+  "status": "success",
+  "error": null
+}

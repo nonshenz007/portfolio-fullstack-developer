@@ -1,0 +1,613 @@
+{
+  "methods": [
+    {
+      "file": "pdf_template_engine.py",
+      "name": "__init__",
+      "params": [],
+      "description": "Initialize PDF template engine with colors, fonts, and page dimensions",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "render",
+      "params": ["invoice", "template_type"],
+      "description": "Renders invoice using specified template type (legacy HTML method)",
+      "reportlab_calls": [],
+      "html_template_used": "template_type.value + '.html'"
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_prepare_template_data",
+      "params": ["invoice", "template_type"],
+      "description": "Prepares template-specific data dictionary",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_qr_code",
+      "params": ["invoice"],
+      "description": "Generates QR code for GST e-invoices",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_render_template",
+      "params": ["template_name", "data"],
+      "description": "Renders Jinja2 HTML template",
+      "reportlab_calls": [],
+      "html_template_used": "template_name + '.html'"
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "generate_invoice_pdf",
+      "params": ["invoice", "output_path"],
+      "description": "Main entry point for PDF generation with format-specific routing",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_gst_invoice",
+      "params": ["invoice", "output_path"],
+      "description": "Generate GST (India) invoice with government-compliant layout",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFillColor(header_color)",
+        "c.rect(0, height - 80, width, 80, fill=1)",
+        "c.setFillColor(colors.white)",
+        "c.setFont(self.fonts['title'], 20)",
+        "c.drawString(30, height - 35, 'TAX INVOICE')",
+        "c.setFillColor(colors.black)",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawRightString(width - 30, height - 25, f'Invoice No: {invoice.invoice_number}')",
+        "c.rect(qr_x, qr_y, 80, 80, stroke=1, fill=0)",
+        "c.setFont(self.fonts['small'], 8)",
+        "c.drawCentredString(qr_x + 40, qr_y + 35, 'QR CODE')",
+        "c.drawString(qr_x, qr_y - 15, 'IRN: 1234567890123456789012345678901234567890123456789012345678901234')",
+        "c.drawString(qr_x, qr_y - 25, 'Ack No: 112010054321234')",
+        "c.drawString(qr_x, qr_y - 35, 'Ack Date: 01-01-2024')",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawString(30, y_pos, 'SELLER DETAILS:')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, invoice.business_name or 'Your Business Name')",
+        "c.drawString(30, y_pos, invoice.business_address or 'Business Address')",
+        "c.drawString(30, y_pos, f'GSTIN: {invoice.business_tax_number or '22AAAAA0000A1Z5'}')",
+        "c.drawString(30, y_pos, 'State: Maharashtra, Code: 27')",
+        "c.drawString(30, y_pos, 'BUYER DETAILS:')",
+        "c.drawString(30, y_pos, invoice.customer_name or 'Customer Name')",
+        "c.drawString(30, y_pos, invoice.customer_address or 'Customer Address')",
+        "c.setFillColor(colors.lightgrey)",
+        "c.rect(30, y_pos - 20, sum(col_widths), 20, fill=1, stroke=1)",
+        "c.setFillColor(colors.black)",
+        "c.setFont(self.fonts['header'], 9)",
+        "c.drawString(x_pos + 2, y_pos - 15, header)",
+        "c.rect(30, y_pos, sum(col_widths), table_start_y - y_pos, stroke=1, fill=0)",
+        "c.setFont(self.fonts['header'], 11)",
+        "c.drawString(30, y_pos, 'TAX SUMMARY:')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, line)",
+        "c.setFont(self.fonts['header'], 14)",
+        "c.drawString(30, y_pos, f'GRAND TOTAL: ₹{total_amount:.2f}')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, f'Amount in Words: {amount_words}')",
+        "c.setFont(self.fonts['small'], 8)",
+        "c.drawString(30, y_pos, declaration)",
+        "c.drawString(30, y_pos, compliance_text)",
+        "c.drawString(30, y_pos, gst_text)",
+        "c.drawString(30, y_pos, payment_terms)",
+        "c.drawString(30, y_pos, bank_details)",
+        "c.drawRightString(width - 30, y_pos - 30, 'For ' + (invoice.business_name or 'Your Business Name'))",
+        "c.drawRightString(width - 30, y_pos - 50, 'Authorized Signatory')",
+        "c.setFont(self.fonts['small'], 7)",
+        "c.drawCentredString(width/2, y_pos, line)",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_vat_invoice",
+      "params": ["invoice", "output_path"],
+      "description": "Generate VAT (Bahrain) invoice with bilingual layout",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFillColor(header_color)",
+        "c.rect(0, height - 100, width, 100, fill=1)",
+        "c.setFillColor(colors.white)",
+        "c.setFont(self.fonts['title'], 18)",
+        "c.drawString(30, height - 35, 'VAT INVOICE / فاتورة ضريبة القيمة المضافة')",
+        "c.setFillColor(colors.black)",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawRightString(width - 30, height - 25, f'Invoice No: {invoice.invoice_number}')",
+        "c.drawRightString(width - 30, height - 45, f'Date: {date_str}')",
+        "c.drawRightString(width - 30, height - 65, 'Page No: 1')",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawString(30, y_pos, 'SELLER DETAILS:')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, invoice.business_name or 'Your Business Name')",
+        "c.drawString(30, y_pos, invoice.business_address or 'Business Address, Bahrain')",
+        "c.drawString(30, y_pos, f'VAT Reg. No: {invoice.business_tax_number or '200000898300002'}')",
+        "c.drawString(30, y_pos, 'CUSTOMER:')",
+        "c.drawString(30, y_pos, invoice.customer_name or 'Customer Name')",
+        "c.setFillColor(colors.lightgrey)",
+        "c.rect(30, y_pos - 20, sum(col_widths), 20, fill=1, stroke=1)",
+        "c.setFillColor(colors.black)",
+        "c.setFont(self.fonts['header'], 9)",
+        "c.drawString(x_pos + 2, y_pos - 15, header)",
+        "c.rect(30, y_pos, sum(col_widths), table_start_y - y_pos, stroke=1, fill=0)",
+        "c.setFont(self.fonts['header'], 11)",
+        "c.drawString(30, y_pos, 'VAT SUMMARY:')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, line)",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, f'Amount in Words: {amount_words}')",
+        "c.setFont(self.fonts['small'], 8)",
+        "c.drawString(30, y_pos, 'Received by: ________________')",
+        "c.drawRightString(width - 30, y_pos, 'Prepared by: ________________')",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_cash_invoice",
+      "params": ["invoice", "output_path"],
+      "description": "Generate Plain/Cash invoice with minimal format",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFont(self.fonts['title'], 16)",
+        "c.drawCentredString(width/2, height - 50, invoice.business_name or 'Your Business Name')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawCentredString(width/2, height - 70, invoice.business_address or 'Business Address')",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawString(30, height - 110, f'Receipt No: {invoice.invoice_number}')",
+        "c.drawRightString(width - 30, height - 110, f'Date: {date_str}')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, f'Customer: {invoice.customer_name or 'Cash Customer'}')",
+        "c.setFillColor(colors.lightgrey)",
+        "c.rect(30, y_pos - 20, sum(col_widths), 20, fill=1, stroke=1)",
+        "c.setFillColor(colors.black)",
+        "c.setFont(self.fonts['header'], 10)",
+        "c.drawString(x_pos + 5, y_pos - 15, header)",
+        "c.rect(30, y_pos, sum(col_widths), table_start_y - y_pos, stroke=1, fill=0)",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(x_pos + 5, y_pos - 15, str(data))",
+        "c.setFont(self.fonts['header'], 12)",
+        "c.drawRightString(width - 30, y_pos, f'Total: ₹{total_amount:.2f}')",
+        "c.setFont(self.fonts['body'], 10)",
+        "c.drawString(30, y_pos, f'Amount in Words: {amount_words}')",
+        "c.setFont(self.fonts['small'], 9)",
+        "c.drawCentredString(width/2, y_pos, 'Thank You for Your Business!')",
+        "c.drawCentredString(width/2, y_pos, 'Goods once sold will not be taken back')",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_number_to_words",
+      "params": ["amount"],
+      "description": "Convert number to words (simplified version)",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_number_to_words_bhd",
+      "params": ["amount"],
+      "description": "Convert BHD amount to words",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_create_custom_styles",
+      "params": [],
+      "description": "Create custom paragraph styles for professional invoices",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_clean_text",
+      "params": ["text"],
+      "description": "Remove all HTML tags and clean text for PDF output",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_safe_draw_string",
+      "params": ["canvas_obj", "x", "y", "text", "font_name", "font_size"],
+      "description": "Safely draw string with error handling",
+      "reportlab_calls": ["canvas_obj.drawString(x, y, clean_text)"],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_gst_invoice_canvas",
+      "params": ["invoice", "filepath"],
+      "description": "Generate GST Invoice with CGST/SGST breakdown using ReportLab Canvas",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFont(self.fonts['title'], 28)",
+        "c.setFillColor(header_color)",
+        "c.drawString((width - title_width) / 2, y, title_text)",
+        "c.setFont(header_font, 16)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y, business_name)",
+        "c.setFont(body_font, 11)",
+        "c.drawString(x, y, business_address)",
+        "c.drawString(x, y, gst_text)",
+        "c.drawString(width - margin - 120, y_invoice, f'Invoice No: {invoice_number}')",
+        "c.drawString(width - margin - 120, y_invoice, f'Date: {invoice_date}')",
+        "c.drawString(x, y, 'Bill To:')",
+        "c.drawString(x, y, customer_name)",
+        "c.drawString(x, y, customer_address)",
+        "c.drawString(x, y, f'Phone: {customer_phone}')",
+        "c.drawString(x, y, f'GSTIN: {customer_tax}')",
+        "c.setFont(header_font, 9)",
+        "c.setFillColor(header_color)",
+        "c.drawString(col_x + 5, table_y, header)",
+        "c.setStrokeColor(border_color)",
+        "c.line(x, table_y - 5, x + sum(col_widths), table_y - 5)",
+        "c.setFont(body_font, 9)",
+        "c.setFillColor(text_color)",
+        "c.drawString(col_x + 5, table_y, data)",
+        "c.setFont(header_font, 12)",
+        "c.setFillColor(text_color)",
+        "c.drawString(totals_x, y_totals, 'Subtotal:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{subtotal:.2f}')",
+        "c.drawString(totals_x, y_totals, 'CGST:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{cgst_total:.2f}')",
+        "c.drawString(totals_x, y_totals, 'SGST:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{sgst_total:.2f}')",
+        "c.setFont(self.fonts['title'], 14)",
+        "c.drawString(totals_x, y_totals, 'Grand Total:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{total_amount:.2f}')",
+        "c.setFont(body_font, 11)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y_footer, 'Thank you for your business!')",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_vat_invoice_canvas",
+      "params": ["invoice", "filepath"],
+      "description": "Generate VAT Invoice with single VAT line using ReportLab Canvas",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFont(self.fonts['title'], 28)",
+        "c.setFillColor(header_color)",
+        "c.drawString((width - title_width) / 2, y)",
+        "c.setFont(header_font, 16)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y, business_name)",
+        "c.setFont(body_font, 11)",
+        "c.drawString(x, y, business_address)",
+        "c.drawString(x, y, vat_text)",
+        "c.drawString(width - margin - 120, y_invoice, f'Invoice No: {invoice_number}')",
+        "c.drawString(width - margin - 120, y_invoice, f'Date: {invoice_date}')",
+        "c.drawString(x, y, 'Bill To:')",
+        "c.drawString(x, y, customer_name)",
+        "c.drawString(x, y, customer_address)",
+        "c.drawString(x, y, f'Phone: {customer_phone}')",
+        "c.drawString(x, y, f'VAT No: {customer_tax}')",
+        "c.setFont(header_font, 9)",
+        "c.setFillColor(header_color)",
+        "c.drawString(col_x + 5, table_y, header)",
+        "c.setStrokeColor(border_color)",
+        "c.line(x, table_y - 5, x + sum(col_widths), table_y - 5)",
+        "c.setFont(body_font, 9)",
+        "c.setFillColor(text_color)",
+        "c.drawString(col_x + 5, table_y, data)",
+        "c.setFont(header_font, 12)",
+        "c.setFillColor(text_color)",
+        "c.drawString(totals_x, y_totals, 'Subtotal:')",
+        "c.drawString(width - margin - 50, y_totals, f'BHD {subtotal:.3f}')",
+        "c.drawString(totals_x, y_totals, 'VAT:')",
+        "c.drawString(width - margin - 50, y_totals, f'BHD {vat_total:.3f}')",
+        "c.setFont(self.fonts['title'], 14)",
+        "c.drawString(totals_x, y_totals, 'Grand Total:')",
+        "c.drawString(width - margin - 50, y_totals, f'BHD {total_amount:.3f}')",
+        "c.setFont(body_font, 11)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y_footer, 'Thank you for your business!')",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "_generate_plain_invoice_canvas",
+      "params": ["invoice", "filepath"],
+      "description": "Generate Plain/Cash Invoice using ReportLab Canvas",
+      "reportlab_calls": [
+        "canvas.Canvas(buffer, pagesize=A4)",
+        "c.setFont(self.fonts['title'], 28)",
+        "c.setFillColor(self.header_color)",
+        "c.drawString((width - title_width) / 2, y)",
+        "c.setFont(header_font, 16)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y, business_name)",
+        "c.setFont(body_font, 11)",
+        "c.drawString(x, y, business_address)",
+        "c.drawString(width - margin - 120, y_invoice, f'Invoice No: {invoice_number}')",
+        "c.drawString(width - margin - 120, y_invoice, f'Date: {invoice_date}')",
+        "c.drawString(x, y, 'Bill To:')",
+        "c.drawString(x, y, customer_name)",
+        "c.drawString(x, y, customer_address)",
+        "c.drawString(x, y, f'Phone: {customer_phone}')",
+        "c.setFont(header_font, 9)",
+        "c.setFillColor(header_color)",
+        "c.drawString(col_x + 5, table_y, header)",
+        "c.setStrokeColor(border_color)",
+        "c.line(x, table_y - 5, x + sum(col_widths), table_y - 5)",
+        "c.setFont(body_font, 9)",
+        "c.setFillColor(text_color)",
+        "c.drawString(col_x + 5, table_y, data)",
+        "c.setFont(header_font, 12)",
+        "c.setFillColor(text_color)",
+        "c.drawString(totals_x, y_totals, 'Subtotal:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{subtotal:.2f}')",
+        "c.drawString(totals_x, y_totals, 'Discount:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{discount:.2f}')",
+        "c.setFont(self.fonts['title'], 14)",
+        "c.drawString(totals_x, y_totals, 'Grand Total:')",
+        "c.drawString(width - margin - 50, y_totals, f'₹{total_amount:.2f}')",
+        "c.setFont(body_font, 11)",
+        "c.setFillColor(text_color)",
+        "c.drawString(x, y_footer, 'Thank you for your business!')",
+        "c.save()"
+      ],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "generate_gst_invoice",
+      "params": ["invoice_data", "filepath"],
+      "description": "Wrapper method for GST invoice generation",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "generate_vat_invoice",
+      "params": ["invoice_data", "filepath"],
+      "description": "Wrapper method for VAT invoice generation",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_template_engine.py",
+      "name": "generate_plain_invoice",
+      "params": ["invoice_data", "filepath"],
+      "description": "Wrapper method for plain invoice generation",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_exporter.py",
+      "name": "__init__",
+      "params": [],
+      "description": "Initialize PDF exporter with template engine",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_exporter.py",
+      "name": "export_invoice",
+      "params": ["invoice", "filename"],
+      "description": "Export invoice to PDF using distinct templates",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_exporter.py",
+      "name": "export_multiple",
+      "params": ["invoices", "combined_filename"],
+      "description": "Export multiple invoices and combine them into a single PDF",
+      "reportlab_calls": [],
+      "html_template_used": null
+    },
+    {
+      "file": "pdf_exporter.py",
+      "name": "export_batch_organized",
+      "params": ["invoices", "company_name", "export_date"],
+      "description": "Export invoices with organized folder structure",
+      "reportlab_calls": [],
+      "html_template_used": null
+    }
+  ],
+  "formats": {
+    "GST": {
+      "entry_point": "generate_gst_invoice",
+      "template": "gst_einvoice.html",
+      "required_fields": [
+        "business_name",
+        "business_address", 
+        "business_tax_number",
+        "customer_name",
+        "customer_address",
+        "invoice_number",
+        "invoice_date",
+        "items",
+        "subtotal",
+        "tax_amount",
+        "total_amount",
+        "cgst_amount",
+        "sgst_amount",
+        "igst_amount"
+      ],
+      "optional_fields": [
+        "customer_tax_number",
+        "customer_phone",
+        "irn",
+        "ack_no",
+        "qr_code",
+        "discount_amount"
+      ],
+      "currency": "INR",
+      "tax_structure": "CGST + SGST or IGST",
+      "special_features": [
+        "QR code generation",
+        "IRN number display",
+        "Government compliance layout",
+        "Tax breakdown by item"
+      ]
+    },
+    "VAT": {
+      "entry_point": "generate_vat_invoice", 
+      "template": "bahrain_vat.html",
+      "required_fields": [
+        "business_name",
+        "business_address",
+        "business_tax_number", 
+        "customer_name",
+        "invoice_number",
+        "invoice_date",
+        "items",
+        "subtotal",
+        "tax_amount",
+        "total_amount",
+        "vat_amount"
+      ],
+      "optional_fields": [
+        "customer_address",
+        "customer_phone",
+        "customer_tax_number",
+        "vat_percentage",
+        "amount_incl_vat"
+      ],
+      "currency": "BHD",
+      "tax_structure": "Single VAT rate",
+      "special_features": [
+        "Bilingual layout (English/Arabic)",
+        "VAT per item display",
+        "Bahrain-specific formatting",
+        "Simplified customer details"
+      ]
+    },
+    "Plain": {
+      "entry_point": "generate_plain_invoice",
+      "template": "plain_cash.html", 
+      "required_fields": [
+        "business_name",
+        "business_address",
+        "customer_name",
+        "invoice_number",
+        "invoice_date",
+        "items",
+        "total_amount"
+      ],
+      "optional_fields": [
+        "customer_address",
+        "customer_phone",
+        "subtotal",
+        "discount_amount"
+      ],
+      "currency": "INR",
+      "tax_structure": "No tax",
+      "special_features": [
+        "Minimal format",
+        "Simple receipt style",
+        "No tax calculations",
+        "Cash transaction focus"
+      ]
+    }
+  },
+  "data_flow": {
+    "validation": [
+      "_clean_text",
+      "VerificationEngine.verify_invoice",
+      "VerificationEngine.verify_invoice_batch"
+    ],
+    "export_service": "pdf_exporter.py → ExportController.generate()",
+    "template_engine": "PDFTemplateEngine.generate_invoice_pdf()",
+    "format_routing": "TemplateType enum → specific _generate_*_invoice() method",
+    "final_save": "canvas.save() → buffer.getvalue() → file.write()",
+    "data_validation_layers": [
+      "StructureValidator",
+      "InvoiceNumberValidator", 
+      "DatesValidator",
+      "CustomerValidator",
+      "ItemsValidator",
+      "TaxValidator",
+      "TotalsValidator",
+      "TemplateValidator",
+      "ComplianceValidator",
+      "BusinessLogicValidator"
+    ]
+  },
+  "template_files": {
+    "gst_einvoice.html": {
+      "location": "templates/pdf/gst_einvoice.html",
+      "size": "5.5KB",
+      "lines": 183,
+      "features": [
+        "GST e-Invoice layout",
+        "QR code placeholder",
+        "IRN details section",
+        "Tax breakdown table",
+        "Government compliance styling"
+      ]
+    },
+    "bahrain_vat.html": {
+      "location": "templates/pdf/bahrain_vat.html", 
+      "size": "4.9KB",
+      "lines": 160,
+      "features": [
+        "Bilingual header",
+        "VAT-specific layout",
+        "BHD currency formatting",
+        "Simplified customer section"
+      ]
+    },
+    "plain_cash.html": {
+      "location": "templates/pdf/plain_cash.html",
+      "size": "3.0KB", 
+      "lines": 118,
+      "features": [
+        "Minimal layout",
+        "Simple receipt style",
+        "No tax sections",
+        "Basic table structure"
+      ]
+    }
+  },
+  "entry_points": {
+    "api_export": "/api/export/pdf (POST)",
+    "export_controller": "ExportController._generate_invoice_pdf()",
+    "pdf_exporter": "PDFExporter.export_invoice()",
+    "template_engine": "PDFTemplateEngine.generate_invoice_pdf()"
+  },
+  "canvas_operations": {
+    "page_setup": [
+      "canvas.Canvas(buffer, pagesize=A4)",
+      "width, height = A4",
+      "margin = 20*mm"
+    ],
+    "text_operations": [
+      "c.setFont(font_name, font_size)",
+      "c.setFillColor(color)",
+      "c.drawString(x, y, text)",
+      "c.drawRightString(x, y, text)",
+      "c.drawCentredString(x, y, text)"
+    ],
+    "graphics_operations": [
+      "c.rect(x, y, width, height, stroke=1, fill=0)",
+      "c.line(x1, y1, x2, y2)",
+      "c.setStrokeColor(color)"
+    ],
+    "finalization": [
+      "c.save()",
+      "buffer.seek(0)",
+      "pdf_content = buffer.getvalue()"
+    ]
+  }
+} 

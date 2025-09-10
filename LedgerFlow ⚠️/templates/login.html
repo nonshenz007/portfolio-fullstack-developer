@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedgerFlow - Login</title>
+    
+    <!-- Apple-style CSS Framework -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/apple.css') }}">
+    
+    <style>
+        /* Login-specific styles */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--bg-light);
+            transition: background-color var(--transition);
+        }
+        
+        body.dark .login-page {
+            background: var(--bg-dark);
+        }
+        
+        .login-card {
+            background: var(--card-bg-light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 3rem;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            transition: background-color var(--transition);
+        }
+        
+        body.dark .login-card {
+            background: var(--card-bg-dark);
+        }
+        
+        .login-header {
+            margin-bottom: 2.5rem;
+        }
+        
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        body.dark .login-title {
+            color: var(--text-dark);
+        }
+        
+        .login-subtitle {
+            color: var(--gray-600);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        
+        body.dark .login-subtitle {
+            color: var(--gray-500);
+        }
+        
+        .login-form {
+            text-align: left;
+        }
+        
+        .passcode-input {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.5rem;
+            height: 60px;
+            border: 2px solid var(--gray-300);
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        
+        body.dark .passcode-input {
+            border-color: var(--gray-700);
+        }
+        
+        .passcode-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.2);
+        }
+        
+        .passcode-input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.2);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .login-btn {
+            height: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color var(--transition), transform var(--transition);
+        }
+        
+        .login-btn:hover {
+            background: var(--accent-dark);
+        }
+        
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .admin-toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        body.dark .admin-toggle-container {
+            border-top-color: var(--gray-800);
+        }
+        
+        .admin-toggle-label {
+            margin-left: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        
+        body.dark .admin-toggle-label {
+            color: var(--gray-400);
+        }
+        
+        .error-alert {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .error-alert.show {
+            display: block;
+            animation: slideIn var(--transition) ease-out;
+        }
+        
+        .login-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+        
+        body.dark .login-footer {
+            border-top-color: var(--gray-800);
+            color: var(--gray-500);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg-light);
+            border: 1px solid var(--gray-300);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: background-color var(--transition), border-color var(--transition);
+        }
+        
+        body.dark .theme-toggle {
+            background: var(--card-bg-dark);
+            border-color: var(--gray-700);
+        }
+        
+        .theme-toggle:hover {
+            background: var(--gray-100);
+        }
+        
+        body.dark .theme-toggle:hover {
+            background: var(--gray-800);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .login-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .login-title {
+                font-size: 1.75rem;
+            }
+            
+            .passcode-input {
+                font-size: 1.25rem;
+                letter-spacing: 0.25rem;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="modeToggle" title="Toggle Dark Mode">
+            🌙
+        </button>
+        
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    LF
+                </div>
+                <h1 class="login-title">Welcome to LedgerFlow</h1>
+                <p class="login-subtitle">Professional Invoice Generator</p>
+            </div>
+            
+            <div class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="passcode" class="form-label">Enter Passcode</label>
+                    <input 
+                        type="password" 
+                        class="form-control passcode-input" 
+                        id="passcode" 
+                        name="passcode"
+                        placeholder="••••••" 
+                        maxlength="6" 
+                        autocomplete="off" 
+                        required
+                        autofocus>
+                </div>
+                
+                <div class="error-alert" id="errorAlert">
+                    <span id="errorText">Invalid passcode. Please try again.</span>
+                </div>
+                
+                <button type="button" class="login-btn" id="loginBtn">
+                    Sign In
+                </button>
+                
+                <div class="admin-toggle-container">
+                    <div class="switch">
+                        <input type="checkbox" id="adminMode" name="is_admin">
+                        <span class="switch-slider"></span>
+                    </div>
+                    <label for="adminMode" class="admin-toggle-label">Admin Mode</label>
+                </div>
+            </div>
+            
+            <div class="login-footer">
+                🔒 Secure Access Required<br>
+                <small>Version 1.0.0</small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Apple UI JavaScript -->
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    
+    <script>
+        // Login-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const passcodeInput = document.getElementById('passcode');
+            const loginBtn = document.getElementById('loginBtn');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorText = document.getElementById('errorText');
+            let loginSuccessful = false; // Flag to track successful login
+            
+            // Auto-format passcode input (numeric only)
+            passcodeInput.addEventListener('input', function() {
+                let value = this.value.replace(/[^0-9]/g, '');
+                this.value = value;
+            });
+            
+            // Handle login button click
+            loginBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent any other event handlers
+                
+                const passcode = passcodeInput.value;
+                const isAdmin = document.getElementById('adminMode').checked;
+                
+                // Validate input
+                if (!passcode || passcode.length < 4) {
+                    showError('Please enter a valid passcode');
+                    return;
+                }
+                
+                // Show loading state
+                setLoadingState(true);
+                hideError();
+                
+                try {
+                    console.log('Sending login request...');
+                    const response = await fetch('/api/verify-passcode', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            passcode: passcode,
+                            is_admin: isAdmin
+                        })
+                    });
+                    
+                    console.log('Response status:', response.status);
+                    console.log('Response ok:', response.ok);
+                    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.log('Error response:', errorText);
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('Response data:', data);
+                    
+                    if (data.success) {
+                        // Success - redirect to dashboard
+                        console.log('Login successful, redirecting...');
+                        loginSuccessful = true; // Set flag
+                        loginBtn.innerHTML = '✓ Success';
+                        
+                        // Aggressively clear error message
+                        hideError();
+                        if (errorAlert) {
+                            errorAlert.style.display = 'none';
+                            errorAlert.classList.remove('show');
+                            errorAlert.innerHTML = '';
+                        }
+                        
+                        // Force hide error message multiple times
+                        setTimeout(() => {
+                            if (errorAlert) {
+                                errorAlert.style.display = 'none';
+                                errorAlert.classList.remove('show');
+                                errorAlert.innerHTML = '';
+                            }
+                        }, 50);
+                        
+                        setTimeout(() => {
+                            if (errorAlert) {
+                                errorAlert.style.display = 'none';
+                                errorAlert.classList.remove('show');
+                                errorAlert.innerHTML = '';
+                            }
+                        }, 100);
+                        
+                        setTimeout(() => {
+                            window.location.href = data.redirect || '/';
+                        }, 300);
+                    } else {
+                        // Show error
+                        console.log('Login failed:', data.error || data.message);
+                        showError(data.error || data.message || 'Invalid passcode. Please try again.');
+                        setLoadingState(false);
+                        
+                        // Clear and focus passcode input
+                        passcodeInput.value = '';
+                        passcodeInput.focus();
+                        
+                        // Add error animation to input
+                        passcodeInput.classList.add('error');
+                        setTimeout(() => {
+                            passcodeInput.classList.remove('error');
+                        }, 500);
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    // Only show network error if login wasn't successful and we're still on login page
+                    if (!loginSuccessful && document.getElementById('loginForm') && window.location.href.includes('/login')) {
+                        showError('Network error. Please check your connection and try again.');
+                        setLoadingState(false);
+                    }
+                }
+                
+                return false; // Prevent form submission
+            });
+            
+            function setLoadingState(loading) {
+                loginBtn.disabled = loading;
+                if (loading) {
+                    loginBtn.innerHTML = 'Signing In...';
+                } else {
+                    loginBtn.innerHTML = 'Sign In';
+                }
+            }
+            
+            function showError(message) {
+                // Don't show error if login was successful or we're not on login page
+                if (loginSuccessful || !window.location.href.includes('/login') || !document.getElementById('loginForm')) {
+                    return;
+                }
+                
+                errorText.textContent = message;
+                errorAlert.classList.add('show');
+                errorAlert.style.display = 'block';
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    hideError();
+                }, 5000);
+            }
+            
+            function hideError() {
+                if (errorAlert && errorAlert.classList) {
+                    errorAlert.classList.remove('show');
+                    errorAlert.style.display = 'none';
+                }
+            }
+            
+            // Focus passcode input on page load
+            passcodeInput.focus();
+            
+            // Clear any existing error messages on page load
+            setTimeout(() => {
+                hideError();
+                if (errorAlert) {
+                    errorAlert.style.display = 'none';
+                    errorAlert.classList.remove('show');
+                    errorAlert.innerHTML = '';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html> 

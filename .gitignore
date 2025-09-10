@@ -396,3 +396,20 @@ Desktop.ini
 
 # Project specific
 # Add any project-specific ignore patterns here
+
+# Backup directories with nested git repos
+*/backups/
+*/LedgerFlow backup*/
+*.db
+*.sqlite
+*.sqlite3
+
+# Large files
+*.pdf
+*.zip
+*.xlsx
+*.jpg
+*.jpeg
+*.png
+*.ttf
+*.log

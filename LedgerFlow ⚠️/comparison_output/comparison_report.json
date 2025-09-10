@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-07-25T23:56:37.174065",
+  "canvas_pdfs": [
+    "diagnostic_output/out_canvas_gst.pdf",
+    "diagnostic_output/out_canvas_vat.pdf",
+    "diagnostic_output/out_canvas_plain.pdf"
+  ],
+  "weasyprint_pdfs": [
+    "app/exports/comparison_output/out_html_gst.pdf",
+    "app/exports/comparison_output/out_html_vat.pdf",
+    "app/exports/comparison_output/out_html_plain.pdf"
+  ],
+  "canvas_metrics": [
+    "diagnostic_output/out_canvas_gst_metrics.txt",
+    "diagnostic_output/out_canvas_vat_metrics.txt",
+    "diagnostic_output/out_canvas_plain_metrics.txt"
+  ],
+  "weasyprint_metrics": [],
+  "size_comparison": {
+    "out_canvas_gst.pdf": {
+      "canvas_size_bytes": 3441,
+      "weasyprint_size_bytes": 51541,
+      "size_difference_bytes": 48100,
+      "size_difference_percent": 1397.8494623655913
+    },
+    "out_canvas_vat.pdf": {
+      "canvas_size_bytes": 2553,
+      "weasyprint_size_bytes": 15226,
+      "size_difference_bytes": 12673,
+      "size_difference_percent": 496.3963963963964
+    },
+    "out_canvas_plain.pdf": {
+      "canvas_size_bytes": 2240,
+      "weasyprint_size_bytes": 48172,
+      "size_difference_bytes": 45932,
+      "size_difference_percent": 2050.535714285714
+    }
+  },
+  "summary": {
+    "total_canvas_pdfs": 3,
+    "total_weasyprint_pdfs": 3,
+    "total_canvas_metrics": 3,
+    "total_weasyprint_metrics": 0,
+    "total_size_comparisons": 3
+  }
+}

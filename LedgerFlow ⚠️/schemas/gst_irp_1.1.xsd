@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!-- GST IRP 1.1 Schema - Placeholder for testing -->
+    <xs:element name="gst_invoice">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="version" type="xs:string" fixed="1.1"/>
+                <xs:element name="transactions">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="version" type="xs:string"/>
+                            <xs:element name="tranDtls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="taxSch" type="xs:string"/>
+                                        <xs:element name="supTyp" type="xs:string"/>
+                                        <xs:element name="regRev" type="xs:string"/>
+                                        <xs:element name="igstOnIntra" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="docDtls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="typ" type="xs:string"/>
+                                        <xs:element name="no" type="xs:string"/>
+                                        <xs:element name="dt" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="sellerDtls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="gstin" type="xs:string"/>
+                                        <xs:element name="lglNm" type="xs:string"/>
+                                        <xs:element name="addr1" type="xs:string"/>
+                                        <xs:element name="loc" type="xs:string"/>
+                                        <xs:element name="pin" type="xs:string"/>
+                                        <xs:element name="stcd" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="buyerDtls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="gstin" type="xs:string"/>
+                                        <xs:element name="lglNm" type="xs:string"/>
+                                        <xs:element name="addr1" type="xs:string"/>
+                                        <xs:element name="loc" type="xs:string"/>
+                                        <xs:element name="pin" type="xs:string"/>
+                                        <xs:element name="stcd" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="itemList">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="item" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="slNo" type="xs:integer"/>
+                                                    <xs:element name="prdDesc" type="xs:string"/>
+                                                    <xs:element name="hsnCd" type="xs:string"/>
+                                                    <xs:element name="qty" type="xs:decimal"/>
+                                                    <xs:element name="unit" type="xs:string"/>
+                                                    <xs:element name="unitPrice" type="xs:decimal"/>
+                                                    <xs:element name="totAmt" type="xs:decimal"/>
+                                                    <xs:element name="discount" type="xs:decimal"/>
+                                                    <xs:element name="preTaxVal" type="xs:decimal"/>
+                                                    <xs:element name="assAmt" type="xs:decimal"/>
+                                                    <xs:element name="gstRt" type="xs:decimal"/>
+                                                    <xs:element name="igstAmt" type="xs:decimal"/>
+                                                    <xs:element name="cgstAmt" type="xs:decimal"/>
+                                                    <xs:element name="sgstAmt" type="xs:decimal"/>
+                                                    <xs:element name="totItemVal" type="xs:decimal"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="valDtls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="assVal" type="xs:decimal"/>
+                                        <xs:element name="cgstVal" type="xs:decimal"/>
+                                        <xs:element name="sgstVal" type="xs:decimal"/>
+                                        <xs:element name="igstVal" type="xs:decimal"/>
+                                        <xs:element name="totInvVal" type="xs:decimal"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema> 

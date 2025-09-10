@@ -1,0 +1,199 @@
+/* Tailwind CSS for LedgerFlow - Standalone Version */
+
+/* Custom button classes */
+.btn-primary {
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2563EB, #4F46E5);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+    border: 1px solid #64748B;
+    color: #E2E8F0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background: rgba(51, 65, 85, 0.4);
+    border-color: #94A3B8;
+}
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3);
+}
+
+/* Dark theme (default) */
+body {
+    background-color: #0F172A;
+    color: #F1F5F9;
+}
+
+/* Light theme overrides */
+body.light {
+    background-color: white;
+    color: #0F172A;
+}
+
+body.light .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #CBD5E1;
+}
+
+body.light .form-control {
+    background: white;
+    border-color: #CBD5E1;
+    color: #0F172A;
+}
+
+body.light .nav-link {
+    color: #475569;
+}
+
+body.light .nav-link:hover {
+    color: #0F172A;
+}
+
+body.light .nav-link.active {
+    background: #3B82F6;
+    color: white;
+}
+
+/* Sidebar improvements */
+.nav-item {
+    position: relative;
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 32px;
+    background: #3B82F6;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Sticky save button */
+.save-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 2rem;
+    z-index: 50;
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: white;
+    z-index: 50;
+}
+
+.toast.success {
+    background: #059669;
+}
+
+.toast.error {
+    background: #DC2626;
+}
+
+/* Responsive sidebar */
+#sidebar {
+    transition: all 0.3s ease-in-out;
+}
+
+#sidebar.collapsed {
+    width: 4rem;
+}
+
+#sidebar.collapsed .nav-link span,
+#sidebar.collapsed .nav-title,
+#sidebar.collapsed .creator-tag {
+    display: none;
+}
+
+#sidebar.collapsed .brand-logo img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Theme toggle button */
+#themeToggle {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+body:not(.light) #themeToggle {
+    background: #1E293B;
+    color: #FACC15;
+}
+
+body:not(.light) #themeToggle:hover {
+    background: #334155;
+}
+
+body.light #themeToggle {
+    background: #E2E8F0;
+    color: #475569;
+}
+
+body.light #themeToggle:hover {
+    background: #CBD5E1;
+}
+
+/* Utility classes */
+.w-60 { width: 15rem; }
+.w-16 { width: 4rem; }
+.mt-4 { margin-top: 1rem; }
+.ms-2 { margin-left: 0.5rem; }
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.gap-2 { gap: 0.5rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.text-sm { font-size: 0.875rem; }
+.font-medium { font-weight: 500; }
+.transition-all { transition: all 0.2s; }
+.duration-200 { transition-duration: 0.2s; }
+.hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+.focus\:outline-none:focus { outline: none; }
+.focus\:ring-2:focus { box-shadow: 0 0 0 2px currentColor; }
+.focus\:ring-blue-500:focus { box-shadow: 0 0 0 2px #3B82F6; }
+.focus\:ring-slate-500:focus { box-shadow: 0 0 0 2px #64748B; }
+.focus\:ring-offset-2:focus { box-shadow: 0 0 0 2px currentColor, 0 0 0 4px #0F172A; }
+.z-50 { z-index: 50; } 
