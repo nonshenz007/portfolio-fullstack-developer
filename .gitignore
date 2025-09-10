@@ -413,3 +413,16 @@ Desktop.ini
 *.png
 *.ttf
 *.log
+*.exe
+*.onnx
+
+# Specific large files
+quicktags ✅/source code/output/
+quicktags ✅/datas/versions/
+VeriDoc/models/
+
+# Virtual environments (already included but explicit)
+*/.venv/
+*/venv/
+*/env/
+*/ENV/
