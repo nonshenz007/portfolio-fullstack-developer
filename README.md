@@ -11,6 +11,7 @@ Welcome to my comprehensive software development portfolio! This repository show
 
 ## 📋 Table of Contents
 
+- [🌐 Live Portfolio](#-live-portfolio)
 - [🚀 Featured Projects](#-featured-projects)
 - [🛠️ Technology Stack](#️-technology-stack)
 - [🏗️ Project Architecture](#️-project-architecture)
@@ -18,6 +19,31 @@ Welcome to my comprehensive software development portfolio! This repository show
 - [📊 Project Status](#-project-status)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
+
+## 🌐 Live Portfolio
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live_Site-2563eb?style=for-the-badge&logo=github&logoColor=white)](https://nonshenz007.github.io/portfolio-fullstack-developer/)
+
+**🎉 Your amazing portfolio website is now live!**
+
+Visit your portfolio at: **[https://nonshenz007.github.io/portfolio-fullstack-developer/](https://nonshenz007.github.io/portfolio-fullstack-developer/)**
+
+**Features:**
+- ✨ Modern, responsive design with smooth animations
+- 🚀 Interactive hero section with code typing effect
+- 📱 Mobile-first approach with beautiful UI
+- 🎨 Gradient backgrounds and particle effects
+- 📊 Skills showcase with animated progress bars
+- 🔗 Direct links to all your GitHub projects
+- 📧 Contact form with validation
+- 🌙 Professional color scheme and typography
+
+**To enable GitHub Pages:**
+1. Go to your repository settings
+2. Scroll down to "Pages" section
+3. Select "Deploy from a branch"
+4. Choose "main" branch and "/docs" folder
+5. Click "Save"
 
 ## 🌟 Featured Projects
 
@@ -286,10 +312,11 @@ This portfolio contains multiple projects with different licenses:
 
 ## 📞 Contact & Support
 
-- **Portfolio**: [GitHub Pages Site](#)
-- **LinkedIn**: [Your LinkedIn](#)
-- **Email**: [your.email@example.com](#)
-- **Resume**: [View Resume](#)
+- **🌐 Portfolio**: [https://nonshenz007.github.io/portfolio-fullstack-developer/](https://nonshenz007.github.io/portfolio-fullstack-developer/)
+- **🐙 GitHub**: [https://github.com/nonshenz007](https://github.com/nonshenz007)
+- **💼 LinkedIn**: [Your LinkedIn](#)
+- **📧 Email**: [your.email@example.com](#)
+- **📄 Resume**: [View Resume](#)
 
 ---
 
